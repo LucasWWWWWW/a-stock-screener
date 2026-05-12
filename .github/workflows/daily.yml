@@ -24,6 +24,23 @@ jobs:
       - name: Install deps
         run: pip install -r screener/requirements.txt
 
+      - name: Snapshot previous stocks.json
+        run: |
+          if [ -f web/data/stocks.json ]; then
+            python -c "
+            import json, pathlib
+            src = json.loads(pathlib.Path('web/data/stocks.json').read_text(encoding='utf-8'))
+            prev = {
+                'generated_at': src.get('generated_at'),
+                'trade_date': src.get('trade_date'),
+                'codes': [s['code'] for s in src.get('stocks', [])],
+                'codes_meta': {s['code']: {'name': s['name'], 'industry': s.get('industry','')} for s in src.get('stocks', [])},
+            }
+            pathlib.Path('web/data/stocks.prev.json').write_text(json.dumps(prev, ensure_ascii=False), encoding='utf-8')
+            print('snapshot saved:', len(prev['codes']))
+            "
+          fi
+
       - name: Run screener
         env:
           TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
@@ -34,7 +51,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add web/data/stocks.json
+          git add web/data/stocks.json web/data/stocks.prev.json || git add web/data/stocks.json
           if git diff --staged --quiet; then
             echo "No changes."
           else

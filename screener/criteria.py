@@ -193,6 +193,7 @@ CRITERIA_META = [
         "value_key": "market_cap",
         "default": 200,
         "presets": [50, 100, 150, 200, 300, 500],
+        "why": "小市值股估值起点低、价格弹性大;遇上行情可能爆发。但流动性弱、波动大,适合愿意承担风险换收益的投资者。",
     },
     {
         "key": "turnover_3d",
@@ -204,6 +205,7 @@ CRITERIA_META = [
         "value_key": "turnover_3d_min",
         "default": 5,
         "presets": [3, 5, 7, 10],
+        "why": "换手率高说明交投活跃、资金在持续进出。常预示着即将出现新的趋势或方向变化;过低则说明无人关注。",
     },
     {
         "key": "pb_lt_10",
@@ -215,6 +217,7 @@ CRITERIA_META = [
         "value_key": "pb",
         "default": 10,
         "presets": [1, 2, 3, 5, 10],
+        "why": "PB 即市净率,是股价相对公司账面净资产的倍数。PB 越高溢价越大,越低越接近\"清算价格\"。过低有时是\"便宜\",有时是\"陷阱\"。",
     },
     {
         "key": "roe_3y",
@@ -226,11 +229,13 @@ CRITERIA_META = [
         "value_key": "roe_3y_min",
         "default": 12,
         "presets": [8, 10, 12, 15, 20],
+        "why": "ROE 是每年用股东的钱赚回多少%。连续 3 年 >12% 说明公司持续高效赚钱,是优质企业的核心标志。巴菲特最看重的指标之一。",
     },
     {
         "key": "cfo_vs_ni",
         "label": "经营现金流>净利润(近 2 年)",
         "tunable": False,
+        "why": "经营现金流大于净利润,说明账面利润是真金白银,而不是赊账或挂账。能过滤掉\"账面赚钱实际不赚\"的水分公司。",
     },
     {
         "key": "debt_vs_industry",
@@ -242,6 +247,7 @@ CRITERIA_META = [
         "value_key": "debt_vs_industry_gap",
         "default": 20,
         "presets": [10, 20, 30, 40],
+        "why": "负债率低于同行越多,说明公司财务越保守、越抗风险。在经济下行或行业危机时,这种公司的存活率明显更高。",
     },
     {
         "key": "pe_percentile",
@@ -253,6 +259,7 @@ CRITERIA_META = [
         "value_key": "pe_percentile",
         "default": 50,
         "presets": [20, 30, 50, 70],
+        "why": "把这只股近 5 年所有交易日的 PE 排序,看现在处于什么位置。低于 50% 即\"比过去一半时候都便宜\",有估值修复空间。",
     },
     {
         "key": "dividend_yield",
@@ -264,26 +271,31 @@ CRITERIA_META = [
         "value_key": "dv_ttm",
         "default": 2,
         "presets": [1, 2, 3, 5],
+        "why": "股息率高意味着即使不涨,光是分红也能持续收益,在熊市起到底部支撑作用。但要警惕一次性高分红的\"假高息\"。",
     },
     {
         "key": "pb_vs_industry",
         "label": "PB 低于行业均值",
         "tunable": False,
+        "why": "在同一行业里,PB 低于平均水平的公司更可能被低估。比单纯看 PB 数字更精准,因为不同行业的合理 PB 差异很大。",
     },
     {
         "key": "limit_up_1m",
         "label": "近 1 月有过涨停",
         "tunable": False,
+        "why": "近期出现过涨停,说明有过强势资金推动,通常意味着主力关注或者有事件催化剂。是\"被发现\"的标志。",
     },
     {
         "key": "ma_alignment",
         "label": "5/10/20 日均线多头排列",
         "tunable": False,
+        "why": "短期均线在长期均线之上(5>10>20),表示价格走势正处于健康上升通道,趋势已经被技术面确认。",
     },
     {
         "key": "main_fund_inflow",
         "label": "近 3 日主力连续净流入",
         "tunable": False,
+        "why": "主力(大单、特大单)连续 3 日净买入,说明大资金在持续吸筹。\"散户跟着主力走\"的逻辑,趋势资金面强。",
     },
     {
         "key": "volume_expansion",
@@ -295,6 +307,7 @@ CRITERIA_META = [
         "value_key": "volume_expansion_pct",
         "default": 50,
         "presets": [20, 50, 100, 200],
+        "why": "成交量突然放大,往往预示着拐点或者新趋势的启动。\"量在价先\",资金动作早于价格突破。",
     },
 ]
 

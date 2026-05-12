@@ -4,6 +4,9 @@ const LS_USAGE = "screener.usage.v3";
 const LS_FAVORITES = "screener.fav.v3";
 const LS_PORTFOLIO = "screener.portfolio.v3";
 const LS_LAST_SEEN = "screener.lastseen.v3";
+const LS_THEME = "screener.theme.v3";
+const THEMES = ["dark", "light", "sepia"];
+const THEME_ICONS = { dark: "🌙", light: "☀️", sepia: "📜" };
 const MIN_USAGE_TO_PROMOTE = 3;
 
 const state = {
@@ -18,6 +21,8 @@ const state = {
   sort: "n_pass",
   tab: "all", // "all" | "fav" | "portfolio"
   currentList: [], // for detail page next/prev nav
+  prev: null, // previous day snapshot
+  theme: localStorage.getItem(LS_THEME) || "dark",
 };
 
 const persist = () => {
@@ -197,6 +202,148 @@ function toggleBroadcast() {
   window.speechSynthesis.speak(u);
 }
 
+// ============== Theme toggle ==============
+function applyTheme(name) {
+  document.documentElement.dataset.theme = name;
+  const btn = document.getElementById("theme-btn");
+  if (btn) btn.textContent = THEME_ICONS[name] || "🌙";
+}
+function cycleTheme() {
+  const idx = THEMES.indexOf(state.theme);
+  state.theme = THEMES[(idx + 1) % THEMES.length];
+  localStorage.setItem(LS_THEME, state.theme);
+  applyTheme(state.theme);
+}
+
+// ============== Shadow portfolio (30d return) ==============
+function computeShadowReturn(stocks) {
+  const rets = [];
+  for (const s of stocks) {
+    const k = s.kline_close;
+    if (!k || k.length < 2) continue;
+    const first = k[0], last = k[k.length - 1];
+    if (!first || first <= 0) continue;
+    rets.push((last - first) / first * 100);
+  }
+  if (!rets.length) return null;
+  rets.sort((a, b) => a - b);
+  const avg = rets.reduce((a, b) => a + b, 0) / rets.length;
+  const median = rets[Math.floor(rets.length / 2)];
+  const winners = rets.filter(r => r > 0).length;
+  return { avg, median, count: rets.length, winRate: winners / rets.length * 100, period: stocks[0]?.kline_close?.length || 30 };
+}
+
+function shadowBanner(filteredStocks) {
+  const r = computeShadowReturn(filteredStocks);
+  if (!r) return "";
+  const sign = r.avg >= 0 ? "+" : "";
+  const cls = r.avg >= 0 ? "up" : "down";
+  return `<div class="shadow-banner ${cls}" title="假设你在 ${r.period} 天前按当前筛选条件持有这批股">
+    <span class="shadow-icon">📈</span>
+    <span class="shadow-text">
+      若 ${r.period} 天前持有这批股 · 平均 <b>${sign}${r.avg.toFixed(1)}%</b> · 中位数 ${sign}${r.median.toFixed(1)}% · 胜率 ${r.winRate.toFixed(0)}%
+    </span>
+  </div>`;
+}
+
+// ============== Near-miss section ==============
+function nearMissList(stocks, q) {
+  const total = activeCount();
+  if (total === 0) return [];
+  const enabled = state.data.criteria_meta.filter(m => !state.disabled.has(m.key));
+  return stocks
+    .filter(s => !stockPasses(s))
+    .map(s => {
+      let nFail = 0;
+      const failKeys = [];
+      for (const meta of enabled) {
+        if (!stockPassesCriterion(s, meta)) {
+          nFail++;
+          failKeys.push(meta.label);
+          if (nFail > 1) return null;
+        }
+      }
+      return nFail === 1 ? { stock: s, missing: failKeys[0] } : null;
+    })
+    .filter(Boolean)
+    .filter(item => {
+      if (!q) return true;
+      const s = item.stock;
+      return s.code.toLowerCase().includes(q) ||
+        (s.name || "").toLowerCase().includes(q) ||
+        (s.industry || "").toLowerCase().includes(q);
+    })
+    .slice(0, 15);
+}
+
+function nearMissHTML(stocks, q) {
+  const items = nearMissList(stocks, q);
+  if (!items.length) return "";
+  return `<div class="near-miss-section">
+    <div class="near-miss-head">
+      <h3>💎 差一项就符合(${items.length} 只)</h3>
+      <span class="near-miss-hint">放宽一个条件就能纳入,值得关注</span>
+    </div>
+    <div class="near-miss-list">${
+      items.map(it => `
+        <a class="near-miss-row" href="#/stock/${encodeURIComponent(it.stock.code)}">
+          <span class="stock-code">${it.stock.code}</span>
+          <span class="stock-name">${escapeHtml(it.stock.name)}</span>
+          <span class="stock-industry">${escapeHtml(it.stock.industry || "")}</span>
+          <span class="missing-tag">差:${escapeHtml(it.missing)}</span>
+        </a>
+      `).join("")
+    }</div>
+  </div>`;
+}
+
+// ============== Daily diff banner ==============
+function diffBanner() {
+  const prev = state.prev;
+  if (!prev || !prev.codes) return "";
+  const todayCodes = new Set(state.data.stocks.map(s => s.code));
+  const prevCodes = new Set(prev.codes);
+  const newCodes = [...todayCodes].filter(c => !prevCodes.has(c));
+  const outCodes = [...prevCodes].filter(c => !todayCodes.has(c));
+  if (!newCodes.length && !outCodes.length) return "";
+  const newSample = newCodes.slice(0, 3).map(c => {
+    const s = state.byCode.get(c);
+    return s ? `${s.name}(${c})` : c;
+  }).join("、");
+  const outSample = outCodes.slice(0, 3).map(c => {
+    const m = prev.codes_meta?.[c];
+    return m ? `${m.name}(${c})` : c;
+  }).join("、");
+  return `<div class="diff-banner">
+    <span class="diff-up">🟢 新进 ${newCodes.length}</span>${newSample ? ` <span class="diff-sample">${escapeHtml(newSample)}${newCodes.length > 3 ? '…' : ''}</span>` : ""}
+    <span class="diff-sep">·</span>
+    <span class="diff-down">🔴 退出 ${outCodes.length}</span>${outSample ? ` <span class="diff-sample">${escapeHtml(outSample)}${outCodes.length > 3 ? '…' : ''}</span>` : ""}
+  </div>`;
+}
+
+// ============== Why explanation modal ==============
+function showWhy(metaKey) {
+  const meta = state.data.criteria_meta.find(m => m.key === metaKey);
+  if (!meta || !meta.why) return;
+  const overlay = document.createElement("div");
+  overlay.className = "modal-overlay";
+  overlay.innerHTML = `
+    <div class="modal">
+      <div class="modal-head">
+        <h3>${escapeHtml(meta.label)}${meta.tunable ? ` ${meta.operator} ${thresholdOf(meta)}${meta.unit}` : ""}</h3>
+        <button class="modal-close" aria-label="关闭">×</button>
+      </div>
+      <div class="modal-body">${escapeHtml(meta.why)}</div>
+    </div>`;
+  document.body.appendChild(overlay);
+  const close = () => overlay.remove();
+  overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
+  overlay.querySelector(".modal-close").addEventListener("click", close);
+  document.addEventListener("keydown", function esc(e) {
+    if (e.key === "Escape") { close(); document.removeEventListener("keydown", esc); }
+  });
+}
+
 // ============== Filter sidebar ==============
 function renderCriteria() {
   const list = document.getElementById("criteria-list");
@@ -211,7 +358,8 @@ function renderCriteria() {
         <label class="crit-toggle">
           <input type="checkbox" data-toggle="${meta.key}" ${enabled ? "checked" : ""}>
           <span class="crit-label">${escapeHtml(meta.label)}${meta.tunable ? ` <span class="crit-op">${meta.operator}</span>` : ""}</span>
-        </label>`;
+        </label>
+        ${meta.why ? `<button class="why-btn" data-why="${meta.key}" title="为什么这条件重要?">?</button>` : ""}`;
     if (meta.tunable) {
       const current = thresholdOf(meta);
       const presets = presetsFor(meta);
@@ -241,6 +389,12 @@ function renderCriteria() {
       persist();
       renderCriteria();
       renderListMain();
+    });
+  });
+  list.querySelectorAll("button[data-why]").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      showWhy(e.currentTarget.dataset.why);
     });
   });
   list.querySelectorAll("button[data-set]").forEach((btn) => {
@@ -407,15 +561,27 @@ function renderListMain() {
     resultCount.textContent = `匹配 ${filtered.length} / ${base} 只`;
   }
 
+  const total = activeCount();
+  const diffBar = state.tab === "all" && !q ? diffBanner() : "";
+  const shadowBar = filtered.length > 0 ? shadowBanner(filtered) : "";
+
   if (filtered.length === 0) {
-    main.innerHTML = `<div class="empty">${state.tab === "fav" ? "你还没有收藏任何股票。点击列表中的 ⭐ 加入收藏。" : "没有满足当前条件的股票。尝试放宽阈值或取消勾选。"}</div>`;
+    // Even when empty, show near-miss to give discovery value
+    const nearStocks = state.tab === "fav"
+      ? state.data.stocks.filter(s => state.favorites.has(s.code))
+      : state.data.stocks;
+    const nearMissBlock = nearMissHTML(nearStocks, q);
+    main.innerHTML = `${diffBar}<div class="empty">${state.tab === "fav" ? "你还没有收藏任何股票。点击列表中的 ⭐ 加入收藏。" : "没有满足当前条件的股票。"}</div>${nearMissBlock}`;
     return;
   }
-  const total = activeCount();
   const heatmap = state.tab === "all" && !q ? heatmapHTML() : "";
-  main.innerHTML = `${heatmap}<div id="stocks-list">${
+  const nearStocks2 = state.tab === "fav"
+    ? state.data.stocks.filter(s => state.favorites.has(s.code))
+    : state.data.stocks;
+  const nearMissBlock = nearMissHTML(nearStocks2, q);
+  main.innerHTML = `${diffBar}${shadowBar}${heatmap}<div id="stocks-list">${
     filtered.map((s) => stockRow(s, total)).join("")
-  }</div>`;
+  }</div>${nearMissBlock}`;
   main.querySelectorAll("[data-fav]").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -785,6 +951,9 @@ function flashHeader(text) {
 }
 
 async function init() {
+  // Apply theme before any DOM render
+  applyTheme(state.theme);
+
   try {
     const res = await fetch("data/stocks.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -795,6 +964,12 @@ async function init() {
       `<div class="empty">尚未生成数据文件。本地开发请运行 <code>python screener/fetch.py</code></div>`;
     return;
   }
+  // Try to load previous snapshot (silent fallback if missing)
+  try {
+    const pr = await fetch("data/stocks.prev.json", { cache: "no-store" });
+    if (pr.ok) state.prev = await pr.json();
+  } catch (e) { /* ignore */ }
+
   state.byCode = new Map((state.data.stocks || []).map(s => [s.code, s]));
 
   document.getElementById("generated-at").textContent = `更新: ${state.data.generated_at}`;
@@ -839,6 +1014,8 @@ async function init() {
   // header buttons
   document.getElementById("broadcast-btn").addEventListener("click", toggleBroadcast);
   document.getElementById("share-btn").addEventListener("click", copyShare);
+  const themeBtn = document.getElementById("theme-btn");
+  if (themeBtn) themeBtn.addEventListener("click", cycleTheme);
 
   // toolbar
   const searchInput = document.getElementById("search-input");
