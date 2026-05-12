@@ -64,16 +64,16 @@ def _safe_call(label: str, fn, *args, **kwargs):
 
 
 def latest_trade_date(pro) -> str:
-    """获取最近一个交易日。trade_cal 无权限时,本地估算(回退到最近周一-周五)。"""
-    today = datetime.now(CST).strftime("%Y%m%d")
-    start = (datetime.now(CST) - timedelta(days=15)).strftime("%Y%m%d")
+    """获取最近一个**已收盘**的交易日。北京时间 16:00 前不取今天(数据未出)。"""
+    now = datetime.now(CST)
+    end_dt = now if now.hour >= 16 else (now - timedelta(days=1))
+    end = end_dt.strftime("%Y%m%d")
+    start = (end_dt - timedelta(days=15)).strftime("%Y%m%d")
     cal = _safe_call("trade_cal", pro.trade_cal,
-                     exchange="SSE", start_date=start, end_date=today, is_open="1")
+                     exchange="SSE", start_date=start, end_date=end, is_open="1")
     if cal is not None and not cal.empty:
         return str(cal["cal_date"].max())
-    d = datetime.now(CST)
-    if d.hour < 15:
-        d -= timedelta(days=1)
+    d = end_dt
     while d.weekday() >= 5:
         d -= timedelta(days=1)
     return d.strftime("%Y%m%d")
@@ -281,6 +281,14 @@ def main():
     universe = get_universe(pro)
     spot = get_spot(pro, trade_date) if universe is not None else None
     if universe is None or spot is None:
+        out_path = Path(args.out)
+        try:
+            existing = json.loads(out_path.read_text(encoding="utf-8")) if out_path.exists() else None
+        except Exception:
+            existing = None
+        if existing and existing.get("stocks"):
+            log.warning("当日数据不可用(可能未收盘/无权限),保留昨日 stocks.json,不覆盖。")
+            return
         log.error("daily_basic 接口无权限或返回空。请前往 tushare.pro 完善资料获取积分。")
         out = {
             "generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M CST"),
@@ -291,7 +299,6 @@ def main():
             "stocks": [],
             "error": "Tushare 接口权限不足(daily_basic 需要 ≥2000 积分)。前往 tushare.pro 个人主页完善资料即可获得。",
         }
-        out_path = Path(args.out)
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
         return
