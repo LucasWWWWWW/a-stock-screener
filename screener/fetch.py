@@ -434,6 +434,8 @@ def main():
     industries = []
     for ind, st in industry_stats.items():
         c = st["count"]
+        if c < 3:
+            continue  # 样本太小不进热力图,避免被冷门小行业刷榜
         industries.append({
             "name": st["name"],
             "count": c,
