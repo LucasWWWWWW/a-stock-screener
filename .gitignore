@@ -7,3 +7,6 @@ venv/
 .vscode/
 .DS_Store
 Thumbs.db
+.claude/
+.netlify/
+node_modules/
