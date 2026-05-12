@@ -3,11 +3,14 @@
 from __future__ import annotations
 import os
 import logging
+import threading
+import time
 from anthropic import Anthropic
 
 log = logging.getLogger(__name__)
 
 MODEL = "claude-haiku-4-5-20251001"
+RPM = 45  # 留出对 50 RPM 限制的 headroom
 
 SYSTEM_PROMPT = """你是一位中国 A 股市场分析师,根据用户提供的量化指标给出简洁的投资建议。
 
@@ -23,12 +26,33 @@ SYSTEM_PROMPT = """你是一位中国 A 股市场分析师,根据用户提供的
 - 这是辅助参考,不构成投资建议"""
 
 
+class _RateLimiter:
+    """跨线程的全局节流器:保证两次 acquire() 之间的间隔 ≥ 60/RPM 秒。"""
+
+    def __init__(self, rpm: int):
+        self.interval = 60.0 / rpm
+        self.next_allowed = 0.0
+        self.lock = threading.Lock()
+
+    def acquire(self):
+        with self.lock:
+            now = time.monotonic()
+            wait = self.next_allowed - now
+            if wait > 0:
+                time.sleep(wait)
+                now = time.monotonic()
+            self.next_allowed = now + self.interval
+
+
+_limiter = _RateLimiter(RPM)
+
+
 def make_client() -> Anthropic | None:
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         log.warning("ANTHROPIC_API_KEY 未设置,投资建议将留空")
         return None
-    return Anthropic(api_key=key)
+    return Anthropic(api_key=key, max_retries=5)
 
 
 def generate_advice(client: Anthropic | None, stock: dict) -> str:
@@ -50,10 +74,11 @@ def generate_advice(client: Anthropic | None, stock: dict) -> str:
 - 股息率: {metrics.get('dv_ttm')}%
 - 资产负债率: {metrics.get('debt_ratio')}
 
-通过的条件 ({len(passed_conditions)}/14): {', '.join(passed_conditions)}
+通过的条件 ({len(passed_conditions)}/13): {', '.join(passed_conditions)}
 
 请按系统提示格式输出建议。"""
 
+    _limiter.acquire()
     try:
         resp = client.messages.create(
             model=MODEL,
@@ -69,5 +94,5 @@ def generate_advice(client: Anthropic | None, stock: dict) -> str:
         )
         return resp.content[0].text.strip()
     except Exception as e:
-        log.error(f"生成建议失败 {stock['code']}: {e}")
-        return f"(建议生成失败: {e!s})"
+        log.error(f"生成建议失败 {stock['code']}: {str(e)[:120]}")
+        return ""
