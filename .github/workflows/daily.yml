@@ -1,0 +1,44 @@
+name: Daily A-share screener
+
+on:
+  schedule:
+    # 10:00 UTC = 18:00 北京时间(收盘后),周一到周五
+    - cron: "0 10 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install deps
+        run: pip install -r screener/requirements.txt
+
+      - name: Run screener
+        env:
+          TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python screener/fetch.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/data/stocks.json
+          if git diff --staged --quiet; then
+            echo "No changes."
+          else
+            DATE=$(date -u -d "+8 hours" "+%Y-%m-%d")
+            git commit -m "data: refresh stocks.json ($DATE)"
+            git push
+          fi

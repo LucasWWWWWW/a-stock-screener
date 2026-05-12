@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股选股 · 多条件筛选</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <h1>A股选股</h1>
+    <div class="meta">
+      <span id="generated-at">加载中...</span>
+      <span id="result-count"></span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <aside id="sidebar">
+    <div class="sidebar-header">
+      <h2>筛选条件</h2>
+      <div class="sidebar-actions">
+        <button id="check-all">全选</button>
+        <button id="uncheck-all">全不选</button>
+      </div>
+    </div>
+    <ul id="criteria-list"></ul>
+    <p class="disclaimer">
+      数据每日北京时间 18:00 自动更新。本站仅提供量化信号汇总,投资有风险,决策需自负。
+    </p>
+  </aside>
+
+  <section id="results">
+    <div id="stocks-list">
+      <div class="empty">加载中...</div>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
