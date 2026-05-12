@@ -55,16 +55,22 @@ def make_pro_api():
 def _safe_call(label: str, fn, *args, **kwargs):
     if label in UNAVAILABLE:
         return None
-    try:
-        return fn(*args, **kwargs)
-    except Exception as e:
-        msg = str(e)
-        if "权限" in msg or "积分" in msg or "permission" in msg.lower():
-            log.warning(f"  {label} 权限不足,跳过")
-            UNAVAILABLE.add(label)
-        else:
-            log.debug(f"  {label} 失败: {msg[:120]}")
-        return None
+    last_err = None
+    for attempt in range(3):
+        try:
+            r = fn(*args, **kwargs)
+            return r
+        except Exception as e:
+            last_err = e
+            msg = str(e)
+            if "权限" in msg or "积分" in msg or "permission" in msg.lower():
+                log.warning(f"  {label} 权限不足,跳过")
+                UNAVAILABLE.add(label)
+                return None
+            log.warning(f"  {label} 第{attempt+1}次失败: {msg[:100]} — 重试")
+            time.sleep(2 ** attempt)
+    log.error(f"  {label} 3 次重试均失败: {str(last_err)[:120]}")
+    return None
 
 
 def get_trade_calendar(pro, days_back: int) -> list[str]:
