@@ -134,6 +134,12 @@ async function init() {
     `更新: ${state.data.generated_at}`;
 
   renderCriteria();
+  if (state.data.error) {
+    document.getElementById("stocks-list").innerHTML =
+      `<div class="empty"><strong>暂无数据</strong><br><br>${escapeHtml(state.data.error)}</div>`;
+    document.getElementById("result-count").textContent = "0 只";
+    return;
+  }
   renderStocks();
 
   document.getElementById("check-all").addEventListener("click", () => {

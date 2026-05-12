@@ -64,28 +64,41 @@ def _safe_call(label: str, fn, *args, **kwargs):
 
 
 def latest_trade_date(pro) -> str:
+    """获取最近一个交易日。trade_cal 无权限时,本地估算(回退到最近周一-周五)。"""
     today = datetime.now(CST).strftime("%Y%m%d")
     start = (datetime.now(CST) - timedelta(days=15)).strftime("%Y%m%d")
-    cal = pro.trade_cal(exchange="SSE", start_date=start, end_date=today, is_open="1")
-    return cal["cal_date"].iloc[-1]
+    cal = _safe_call("trade_cal", pro.trade_cal,
+                     exchange="SSE", start_date=start, end_date=today, is_open="1")
+    if cal is not None and not cal.empty:
+        return cal["cal_date"].iloc[-1]
+    d = datetime.now(CST)
+    if d.hour < 15:
+        d -= timedelta(days=1)
+    while d.weekday() >= 5:
+        d -= timedelta(days=1)
+    return d.strftime("%Y%m%d")
 
 
-def get_universe(pro) -> pd.DataFrame:
+def get_universe(pro) -> pd.DataFrame | None:
     log.info("拉取股票基础信息...")
-    df = pro.stock_basic(list_status="L",
-                         fields="ts_code,symbol,name,industry,market,list_date")
+    df = _safe_call("stock_basic", pro.stock_basic,
+                    list_status="L",
+                    fields="ts_code,symbol,name,industry,market,list_date")
+    if df is None or df.empty:
+        return None
     df = df[~df["name"].str.contains("ST", na=False)]
     df = df[df["market"].isin(["主板", "创业板", "科创板"])]
     log.info(f"  全 A 股 {len(df)} 只")
     return df
 
 
-def get_spot(pro, trade_date: str) -> pd.DataFrame:
+def get_spot(pro, trade_date: str) -> pd.DataFrame | None:
     log.info(f"拉取 {trade_date} 当日指标...")
-    df = pro.daily_basic(
-        trade_date=trade_date,
-        fields="ts_code,close,turnover_rate,pe_ttm,pb,dv_ttm,total_mv,circ_mv",
-    )
+    df = _safe_call("daily_basic", pro.daily_basic,
+                    trade_date=trade_date,
+                    fields="ts_code,close,turnover_rate,pe_ttm,pb,dv_ttm,total_mv,circ_mv")
+    if df is None or df.empty:
+        return None
     log.info(f"  当日 {len(df)} 只")
     return df
 
@@ -266,7 +279,22 @@ def main():
     log.info(f"最新交易日: {trade_date}")
 
     universe = get_universe(pro)
-    spot = get_spot(pro, trade_date)
+    spot = get_spot(pro, trade_date) if universe is not None else None
+    if universe is None or spot is None:
+        log.error("daily_basic 接口无权限或返回空。请前往 tushare.pro 完善资料获取积分。")
+        out = {
+            "generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M CST"),
+            "trade_date": trade_date,
+            "elapsed_sec": round(time.time() - started, 1),
+            "unavailable_endpoints": sorted(UNAVAILABLE | {"daily_basic"}),
+            "criteria_meta": [{"key": k, "label": label} for k, label, _ in CRITERIA],
+            "stocks": [],
+            "error": "Tushare 接口权限不足(daily_basic 需要 ≥2000 积分)。前往 tushare.pro 个人主页完善资料即可获得。",
+        }
+        out_path = Path(args.out)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+        return
 
     df = universe.merge(spot, on="ts_code", how="inner")
     df = df[df["total_mv"].notna() & (df["total_mv"] * 1e4 < 2e10)]
