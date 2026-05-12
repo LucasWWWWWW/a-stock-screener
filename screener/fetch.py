@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "screener"))
 
-from criteria import StockData, CRITERIA, CONCEPT_KEYWORDS, evaluate_all  # noqa
+from criteria import StockData, CRITERIA, CRITERIA_META, CONCEPT_KEYWORDS, evaluate_all, extract_tunable_values  # noqa
 from advice import make_client, generate_advice  # noqa
 
 
@@ -295,7 +295,7 @@ def main():
             "trade_date": trade_date,
             "elapsed_sec": round(time.time() - started, 1),
             "unavailable_endpoints": sorted(UNAVAILABLE | {"daily_basic"}),
-            "criteria_meta": [{"key": k, "label": label} for k, label, _ in CRITERIA],
+            "criteria_meta": CRITERIA_META,
             "stocks": [],
             "error": "Tushare 接口权限不足(daily_basic 需要 ≥2000 积分)。前往 tushare.pro 个人主页完善资料即可获得。",
         }
@@ -369,6 +369,7 @@ def main():
                 "industry_pb_avg": s.industry_pb_avg,
                 "industry_debt_avg": s.industry_debt_avg,
             },
+            "tunable_values": extract_tunable_values(s, result),
             "criteria": result["passed"],
             "n_pass": n_pass,
             "advice": "",
@@ -388,7 +389,7 @@ def main():
         "trade_date": trade_date,
         "elapsed_sec": round(time.time() - started, 1),
         "unavailable_endpoints": sorted(UNAVAILABLE),
-        "criteria_meta": [{"key": k, "label": label} for k, label, _ in CRITERIA],
+        "criteria_meta": CRITERIA_META,
         "stocks": output_stocks,
     }
 

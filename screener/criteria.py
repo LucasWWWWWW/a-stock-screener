@@ -1,4 +1,4 @@
-"""每条筛选条件一个函数。每个函数接收一个 StockData,返回 (passed: bool, value: Any)。"""
+"""每条筛选条件一个函数,返回 (passed, raw_value)。CRITERIA_META 定义可调阈值的元数据。"""
 
 from __future__ import annotations
 from dataclasses import dataclass, field
@@ -64,9 +64,10 @@ def c5_cfo_vs_ni_2y(s: StockData):
 
 
 def c6_debt_vs_industry(s: StockData):
-    if s.debt_ratio is None or s.industry_debt_avg is None:
+    if s.debt_ratio is None or s.industry_debt_avg is None or s.industry_debt_avg <= 0:
         return False, None
-    return s.debt_ratio < s.industry_debt_avg * 0.8, s.debt_ratio
+    gap_pct = (1 - s.debt_ratio / s.industry_debt_avg) * 100
+    return gap_pct >= 20, float(gap_pct)
 
 
 CONCEPT_KEYWORDS = {
@@ -175,6 +176,135 @@ CRITERIA = [
 ]
 
 
+# 用于前端可调阈值 UI 的元数据。
+# - tunable: 前端可改阈值;否则只能勾选/取消。
+# - operator: 比较方向(影响 UI 显示和过滤逻辑)。
+# - scale: 后端值除以 scale 得到展示值(例如市值原始单位元,scale=1e8 显示为亿)。
+# - value_key: stock.tunable_values 的字段名。
+# - default: 用户最初要求的阈值(必含在 presets 内)。
+# - presets: 内置候选值,展示用单位(亿、%、倍等)。
+CRITERIA_META = [
+    {
+        "key": "market_cap",
+        "label": "市值",
+        "tunable": True,
+        "operator": "<",
+        "unit": "亿",
+        "scale": 1e8,
+        "value_key": "market_cap",
+        "default": 200,
+        "presets": [50, 100, 150, 200, 300, 500],
+    },
+    {
+        "key": "turnover_3d",
+        "label": "近 3 日换手率每天",
+        "tunable": True,
+        "operator": ">=",
+        "unit": "%",
+        "scale": 1,
+        "value_key": "turnover_3d_min",
+        "default": 5,
+        "presets": [3, 5, 7, 10],
+    },
+    {
+        "key": "pb_lt_10",
+        "label": "PB",
+        "tunable": True,
+        "operator": "<",
+        "unit": "",
+        "scale": 1,
+        "value_key": "pb",
+        "default": 10,
+        "presets": [1, 2, 3, 5, 10],
+    },
+    {
+        "key": "roe_3y",
+        "label": "近 3 年 ROE 最低",
+        "tunable": True,
+        "operator": ">",
+        "unit": "%",
+        "scale": 1,
+        "value_key": "roe_3y_min",
+        "default": 12,
+        "presets": [8, 10, 12, 15, 20],
+    },
+    {
+        "key": "cfo_vs_ni",
+        "label": "经营现金流>净利润(近 2 年)",
+        "tunable": False,
+    },
+    {
+        "key": "debt_vs_industry",
+        "label": "资产负债率低于行业均值",
+        "tunable": True,
+        "operator": ">=",
+        "unit": "%",
+        "scale": 1,
+        "value_key": "debt_vs_industry_gap",
+        "default": 20,
+        "presets": [10, 20, 30, 40],
+    },
+    {
+        "key": "concept_match",
+        "label": "命中目标行业/概念",
+        "tunable": False,
+    },
+    {
+        "key": "pe_percentile",
+        "label": "PE 近 5 年百分位",
+        "tunable": True,
+        "operator": "<",
+        "unit": "%",
+        "scale": 1,
+        "value_key": "pe_percentile",
+        "default": 50,
+        "presets": [20, 30, 50, 70],
+    },
+    {
+        "key": "dividend_yield",
+        "label": "股息率",
+        "tunable": True,
+        "operator": ">",
+        "unit": "%",
+        "scale": 1,
+        "value_key": "dv_ttm",
+        "default": 2,
+        "presets": [1, 2, 3, 5],
+    },
+    {
+        "key": "pb_vs_industry",
+        "label": "PB 低于行业均值",
+        "tunable": False,
+    },
+    {
+        "key": "limit_up_1m",
+        "label": "近 1 月有过涨停",
+        "tunable": False,
+    },
+    {
+        "key": "ma_alignment",
+        "label": "5/10/20 日均线多头排列",
+        "tunable": False,
+    },
+    {
+        "key": "main_fund_inflow",
+        "label": "近 3 日主力连续净流入",
+        "tunable": False,
+    },
+    {
+        "key": "volume_expansion",
+        "label": "近 3 日成交量较前 3 日放大",
+        "tunable": True,
+        "operator": ">",
+        "unit": "%",
+        "scale": 1,
+        "value_key": "volume_expansion_pct",
+        "default": 50,
+        "presets": [20, 50, 100, 200],
+    },
+]
+
+
 def evaluate_all(s: StockData) -> dict:
     result = {"passed": {}, "values": {}}
     for key, _label, fn in CRITERIA:
@@ -185,3 +315,25 @@ def evaluate_all(s: StockData) -> dict:
         result["passed"][key] = bool(passed)
         result["values"][key] = val
     return result
+
+
+def extract_tunable_values(s: StockData, eval_result: dict) -> dict:
+    """从已评估的 stock + values 中提取前端用的可调字段。"""
+    vals = eval_result["values"]
+    gap = None
+    if s.debt_ratio is not None and s.industry_debt_avg and s.industry_debt_avg > 0:
+        gap = (1 - s.debt_ratio / s.industry_debt_avg) * 100
+    vol_pct = None
+    v_ratio = vals.get("volume_expansion")
+    if isinstance(v_ratio, (int, float)):
+        vol_pct = (v_ratio - 1) * 100
+    return {
+        "market_cap": s.market_cap if s.market_cap > 0 else None,
+        "turnover_3d_min": vals.get("turnover_3d"),
+        "pb": s.pb,
+        "roe_3y_min": vals.get("roe_3y"),
+        "debt_vs_industry_gap": gap,
+        "pe_percentile": vals.get("pe_percentile"),
+        "dv_ttm": s.dv_ttm,
+        "volume_expansion_pct": vol_pct,
+    }
