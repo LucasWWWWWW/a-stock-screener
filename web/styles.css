@@ -185,7 +185,7 @@ aside {
   line-height: 1.6;
 }
 
-#stocks-list { display: grid; gap: 12px; }
+#stocks-list { display: grid; gap: 8px; }
 .empty {
   background: var(--panel);
   border: 1px dashed var(--border);
@@ -193,6 +193,193 @@ aside {
   padding: 40px;
   text-align: center;
   color: var(--muted);
+}
+
+/* === 列表页:精简行 === */
+.stock-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.5fr) minmax(280px, 2fr) auto;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color .12s, transform .08s;
+}
+.stock-row:hover {
+  border-color: var(--accent);
+  background: var(--panel-2);
+}
+.stock-row:active { transform: scale(0.998); }
+.row-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.row-title .stock-code {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 15px;
+  color: var(--accent);
+  font-weight: 600;
+}
+.row-title .stock-name { font-size: 15px; }
+.row-sub {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+.row-concepts {
+  color: var(--muted);
+  opacity: 0.85;
+}
+.row-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  font-size: 12px;
+}
+.row-metrics div { display: flex; flex-direction: column; gap: 2px; }
+.row-metrics label { color: var(--muted); font-size: 11px; }
+.row-metrics b {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-weight: 500;
+  font-size: 13px;
+}
+.row-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.row-arrow {
+  color: var(--muted);
+  font-size: 22px;
+  font-weight: 300;
+}
+
+/* === 详情页 === */
+body.detail-mode aside { display: none; }
+body.detail-mode main { grid-template-columns: 1fr; }
+
+.detail-page { display: flex; flex-direction: column; gap: 16px; }
+.back-link {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  align-self: flex-start;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--panel);
+}
+.back-link:hover { color: var(--accent); border-color: var(--accent); }
+
+.detail-head {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+.detail-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.detail-title .stock-code {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 22px;
+  color: var(--accent);
+  font-weight: 600;
+}
+.detail-title .stock-name { font-size: 22px; font-weight: 500; }
+.detail-title .stock-industry { font-size: 14px; color: var(--muted); }
+
+.detail-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+}
+.detail-metrics .metric {
+  background: var(--panel-2);
+  border-radius: 6px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.detail-metrics .metric label { color: var(--muted); font-size: 12px; }
+.detail-metrics .metric b {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.advice-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+.advice-card h3 {
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.advice-body {
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+.empty-advice { color: var(--muted); border-left-color: var(--border); }
+
+.detail-criteria {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 18px;
+}
+.detail-criteria h3 {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: var(--muted);
+}
+.crit-chip-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 4px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.crit-chip-row:last-child { border-bottom: none; }
+.crit-chip-row .crit-mark {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-weight: 700;
+  width: 16px;
+  text-align: center;
+}
+.crit-chip-row.pass .crit-mark { color: var(--green); }
+.crit-chip-row.fail .crit-mark { color: var(--red); opacity: 0.7; }
+.crit-chip-row.fail .crit-name { opacity: 0.6; }
+.crit-chip-row .crit-name { flex: 1; }
+.chip-detail {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--muted);
+  background: var(--panel-2);
+  padding: 2px 8px;
+  border-radius: 4px;
 }
 
 .stock-card {

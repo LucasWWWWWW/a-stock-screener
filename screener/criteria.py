@@ -165,7 +165,6 @@ CRITERIA = [
     ("roe_3y", "ROE连续3年>12%", c4_roe_3y),
     ("cfo_vs_ni", "经营现金流连续2年>净利润", c5_cfo_vs_ni_2y),
     ("debt_vs_industry", "资产负债率低于行业均值20%+", c6_debt_vs_industry),
-    ("concept_match", "命中目标行业/概念", c7_concept_match),
     ("pe_percentile", "PE 5年百分位<50%", c8_pe_percentile),
     ("dividend_yield", "股息率>2%", c9_dividend_yield),
     ("pb_vs_industry", "PB<行业均值", c10_pb_vs_industry),
@@ -243,11 +242,6 @@ CRITERIA_META = [
         "value_key": "debt_vs_industry_gap",
         "default": 20,
         "presets": [10, 20, 30, 40],
-    },
-    {
-        "key": "concept_match",
-        "label": "命中目标行业/概念",
-        "tunable": False,
     },
     {
         "key": "pe_percentile",
