@@ -6,6 +6,9 @@ on:
     paths:
       - "web/**"
       - ".github/workflows/pages.yml"
+  workflow_run:
+    workflows: ["Daily A-share screener"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
