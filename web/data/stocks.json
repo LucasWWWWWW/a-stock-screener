@@ -1,21 +1,69 @@
 {
-  "generated_at": "尚未生成",
-  "elapsed_sec": 0,
-  "criteria_meta": [
-    { "key": "market_cap", "label": "市值<200亿" },
-    { "key": "turnover_3d", "label": "近3日换手率每天≥5%" },
-    { "key": "pb_lt_10", "label": "PB<10" },
-    { "key": "roe_3y", "label": "ROE连续3年>12%" },
-    { "key": "cfo_vs_ni", "label": "经营现金流连续2年>净利润" },
-    { "key": "debt_vs_industry", "label": "资产负债率低于行业均值20%+" },
-    { "key": "concept_match", "label": "命中目标行业/概念" },
-    { "key": "pe_percentile", "label": "PE 5年百分位<50%" },
-    { "key": "dividend_yield", "label": "股息率>2%" },
-    { "key": "pb_vs_industry", "label": "PB<行业均值" },
-    { "key": "limit_up_1m", "label": "近1月有过涨停" },
-    { "key": "ma_alignment", "label": "5/10/20日多头排列" },
-    { "key": "main_fund_inflow", "label": "近3日主力连续净流入" },
-    { "key": "volume_expansion", "label": "近3日成交量较前3日放大50%+" }
+  "generated_at": "2026-05-12 13:02 CST",
+  "trade_date": "20260511",
+  "elapsed_sec": 1.7,
+  "unavailable_endpoints": [
+    "daily_basic",
+    "trade_cal"
   ],
-  "stocks": []
+  "criteria_meta": [
+    {
+      "key": "market_cap",
+      "label": "市值<200亿"
+    },
+    {
+      "key": "turnover_3d",
+      "label": "近3日换手率每天≥5%"
+    },
+    {
+      "key": "pb_lt_10",
+      "label": "PB<10"
+    },
+    {
+      "key": "roe_3y",
+      "label": "ROE连续3年>12%"
+    },
+    {
+      "key": "cfo_vs_ni",
+      "label": "经营现金流连续2年>净利润"
+    },
+    {
+      "key": "debt_vs_industry",
+      "label": "资产负债率低于行业均值20%+"
+    },
+    {
+      "key": "concept_match",
+      "label": "命中目标行业/概念"
+    },
+    {
+      "key": "pe_percentile",
+      "label": "PE 5年百分位<50%"
+    },
+    {
+      "key": "dividend_yield",
+      "label": "股息率>2%"
+    },
+    {
+      "key": "pb_vs_industry",
+      "label": "PB<行业均值"
+    },
+    {
+      "key": "limit_up_1m",
+      "label": "近1月有过涨停"
+    },
+    {
+      "key": "ma_alignment",
+      "label": "5/10/20日多头排列"
+    },
+    {
+      "key": "main_fund_inflow",
+      "label": "近3日主力连续净流入"
+    },
+    {
+      "key": "volume_expansion",
+      "label": "近3日成交量较前3日放大50%+"
+    }
+  ],
+  "stocks": [],
+  "error": "Tushare 接口权限不足(daily_basic 需要 ≥2000 积分)。前往 tushare.pro 个人主页完善资料即可获得。"
 }
