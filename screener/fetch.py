@@ -70,7 +70,7 @@ def latest_trade_date(pro) -> str:
     cal = _safe_call("trade_cal", pro.trade_cal,
                      exchange="SSE", start_date=start, end_date=today, is_open="1")
     if cal is not None and not cal.empty:
-        return cal["cal_date"].iloc[-1]
+        return str(cal["cal_date"].max())
     d = datetime.now(CST)
     if d.hour < 15:
         d -= timedelta(days=1)
