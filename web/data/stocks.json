@@ -1,10 +1,8 @@
 {
-  "generated_at": "2026-05-12 13:30 CST",
-  "trade_date": "20260512",
-  "elapsed_sec": 3.2,
-  "unavailable_endpoints": [
-    "daily_basic"
-  ],
+  "generated_at": "2026-05-12 13:45 CST",
+  "trade_date": "20260511",
+  "elapsed_sec": 755.0,
+  "unavailable_endpoints": [],
   "criteria_meta": [
     {
       "key": "market_cap",
@@ -63,6 +61,4330 @@
       "label": "近3日成交量较前3日放大50%+"
     }
   ],
-  "stocks": [],
-  "error": "Tushare 接口权限不足(daily_basic 需要 ≥2000 积分)。前往 tushare.pro 个人主页完善资料即可获得。"
+  "stocks": [
+    {
+      "code": "000026",
+      "name": "飞亚达",
+      "industry": "服饰",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 8172087101.0,
+        "pe_ttm": 76.3112,
+        "pb": 2.405,
+        "dv_ttm": 1.9861,
+        "debt_ratio": 10.63,
+        "industry_pb_avg": 3.480419642857143,
+        "industry_debt_avg": 30.442800000000002
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 10,
+      "advice": "**亮点:** 低负债率、概念匹配军工、技术面向上、成交活跃\n\n**风险:** PE高达76倍,明显高估,短期获利回吐压力大\n\n**仓位:** 轻仓 · 估值高企,需等待调整后介入"
+    },
+    {
+      "code": "000690",
+      "name": "宝新能源",
+      "industry": "火力发电",
+      "concepts": [
+        "风电",
+        "电力改革",
+        "海上风电",
+        "新能源"
+      ],
+      "metrics": {
+        "market_cap": 12424319692.0,
+        "pe_ttm": 12.0068,
+        "pb": 0.9492,
+        "dv_ttm": 3.5026,
+        "debt_ratio": 41.5638,
+        "industry_pb_avg": 2.8378096774193557,
+        "industry_debt_avg": 62.529587500000005
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 10,
+      "advice": "**亮点:** PB破净、股息率3.5%、估值低于行业均值,现金流健康。\n\n**风险:** 火力发电主业面临能源转型压力,需关注政策变化。\n\n**仓位:** 标准 · 估值吸引但行业转型风险制约,观察执行力。"
+    },
+    {
+      "code": "603936",
+      "name": "博敏电子",
+      "industry": "元器件",
+      "concepts": [
+        "集成电路概念",
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 12746647641.0,
+        "pe_ttm": null,
+        "pb": 2.9643,
+        "dv_ttm": null,
+        "debt_ratio": 57.3471,
+        "industry_pb_avg": 7.345781654676259,
+        "industry_debt_avg": 42.307003571428574
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 10,
+      "advice": "亮点: 主力资金净流入,技术面向上,PB低于行业均值。\n\n风险: 资产负债率偏高,PE数据缺失难以判断估值。\n\n仓位: 标准 · 条件触发率高但缺乏盈利确认,建议观察。"
+    },
+    {
+      "code": "603131",
+      "name": "上海沪工",
+      "industry": "专用机械",
+      "concepts": [
+        "航天军工",
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 8351929984.0,
+        "pe_ttm": null,
+        "pb": 5.0582,
+        "dv_ttm": 0.0457,
+        "debt_ratio": 31.1995,
+        "industry_pb_avg": 6.312604780876494,
+        "industry_debt_avg": 45.875022916666666
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 10,
+      "advice": "**亮点:** 军工概念股,融资能力强,技术积累优势明显。\n\n**风险:** PB高位5.06,缺乏盈利数据支撑,估值透支风险。\n\n**仓位:** 标准 · 概念热度高但估值偏贵,需等回调。"
+    },
+    {
+      "code": "688584",
+      "name": "上海合晶",
+      "industry": "半导体",
+      "concepts": [
+        "芯片"
+      ],
+      "metrics": {
+        "market_cap": 18630398600.0,
+        "pe_ttm": 156.9634,
+        "pb": 4.4772,
+        "dv_ttm": 0.7144,
+        "debt_ratio": 15.9507,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 10,
+      "advice": "**亮点:** 资产负债率低,现金流健康,技术面向好\n\n**风险:** PE过高(157倍),估值显著溢价\n\n**仓位:** 轻仓 · 高估值压制,等待调整机会"
+    },
+    {
+      "code": "000601",
+      "name": "韶能股份",
+      "industry": "水力发电",
+      "concepts": [
+        "新能源",
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 7822923431.000001,
+        "pe_ttm": 78.5781,
+        "pb": 1.8925,
+        "dv_ttm": null,
+        "debt_ratio": 65.9402,
+        "industry_pb_avg": 2.432022727272727,
+        "industry_debt_avg": 51.56619090909091
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 9,
+      "advice": "亮点: 概念契合度高,技术面向好,现金流质量较优\n风险: PE估值偏高,负债率偏高,股息回报缺失\n仓位: 轻仓 · 估值压力大,虽基本面有亮点但缺乏安全边际"
+    },
+    {
+      "code": "000697",
+      "name": "炼石航空",
+      "industry": "航空",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 17199807856.0,
+        "pe_ttm": null,
+        "pb": 5.1038,
+        "dv_ttm": null,
+        "debt_ratio": 27.2972,
+        "industry_pb_avg": 6.337291836734694,
+        "industry_debt_avg": 39.23318
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": "**炼石航空 (000697) 投资建议**\n\n亮点: 9/14条件通过,PB低于行业均值,军工概念匹配,资产负债率健康。\n\n风险: PE数据缺失,PB仍处高位(5.1倍),无股息保障,估值仍需关注。\n\n仓位: 标准 · 条件触发充分但估值偏高,等待进一步回调确认。"
+    },
+    {
+      "code": "600480",
+      "name": "凌云股份",
+      "industry": "汽车配件",
+      "concepts": [
+        "航天军工"
+      ],
+      "metrics": {
+        "market_cap": 13896724753.0,
+        "pe_ttm": 17.9703,
+        "pb": 1.6844,
+        "dv_ttm": 2.9095,
+        "debt_ratio": 50.5818,
+        "industry_pb_avg": 4.11404329004329,
+        "industry_debt_avg": 42.43399512195122
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": "**凌云股份(600480)**\n\n亮点: PE估值合理,股息率近3%,资产负债率控制良好,航天军工概念契合。\n\n风险: 市场热度可能高估,需关注后续成长能否支撑估值。\n\n仓位: **标准** · 9/14条件达成,估值适中但无明显低估优势。"
+    },
+    {
+      "code": "600558",
+      "name": "大西洋",
+      "industry": "钢加工",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 5197131971.0,
+        "pe_ttm": 26.3871,
+        "pb": 2.095,
+        "dv_ttm": 2.5907,
+        "debt_ratio": 18.613,
+        "industry_pb_avg": 2.279540909090909,
+        "industry_debt_avg": 45.395266666666664
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 9,
+      "advice": "**亮点：** 军工概念匹配,资产负债率低,现金流质量好\n\n**风险：** PE估值偏高,PB相对溢价明显\n\n**仓位：** 标准 · 条件触发率高但估值偏贵,待回调"
+    },
+    {
+      "code": "600847",
+      "name": "万里股份",
+      "industry": "电气设备",
+      "concepts": [
+        "新能源"
+      ],
+      "metrics": {
+        "market_cap": 2277850764.0,
+        "pe_ttm": null,
+        "pb": 4.7535,
+        "dv_ttm": null,
+        "debt_ratio": 12.8964,
+        "industry_pb_avg": 5.007864590163934,
+        "industry_debt_avg": 48.07524556962025
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": false
+      },
+      "n_pass": 9,
+      "advice": "**亮点:** 新能源概念匹配,主力资金净流入,技术面均线向上。\n\n**风险:** PE缺失难判盈利质量,PB高于行业均值存高估风险。\n\n**仓位:** 标准 · 概念契合但缺乏盈利数据支撑,谨慎参与。"
+    },
+    {
+      "code": "600969",
+      "name": "郴电国际",
+      "industry": "水力发电",
+      "concepts": [
+        "电力改革"
+      ],
+      "metrics": {
+        "market_cap": 4163067945.0,
+        "pe_ttm": 54.2012,
+        "pb": 1.1436,
+        "dv_ttm": null,
+        "debt_ratio": 72.5137,
+        "industry_pb_avg": 2.432022727272727,
+        "industry_debt_avg": 51.56619090909091
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": "**郴电国际(600969)**\n\n亮点: 市值适中,概念匹配电力改革,技术面均线对齐向上。\n\n风险: PE估值偏高(54倍),资产负债率超70%,股息率缺失。\n\n仓位: **轻仓** · PE高企叠加高杠杆,上升空间受限。"
+    },
+    {
+      "code": "002030",
+      "name": "达安基因",
+      "industry": "医疗保健",
+      "concepts": [
+        "基因芯片"
+      ],
+      "metrics": {
+        "market_cap": 10245156034.0,
+        "pe_ttm": null,
+        "pb": 1.4553,
+        "dv_ttm": null,
+        "debt_ratio": 13.4625,
+        "industry_pb_avg": 3.801625153374233,
+        "industry_debt_avg": 27.475975
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": "亮点：低负债率、PB低于行业均值，现金流质量好，技术面强势\n\n风险：PE缺失无法评估盈利能力，近期涨幅可能存在高估\n\n仓位：标准 · 9/14条件触发，但缺乏估值全景，观察后续表现"
+    },
+    {
+      "code": "600982",
+      "name": "宁波能源",
+      "industry": "供气供热",
+      "concepts": [
+        "电力改革"
+      ],
+      "metrics": {
+        "market_cap": 7264578652.999999,
+        "pe_ttm": 19.2105,
+        "pb": 1.5921,
+        "dv_ttm": 2.3077,
+        "debt_ratio": 61.6299,
+        "industry_pb_avg": 3.3501395348837204,
+        "industry_debt_avg": 45.945433333333334
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 9,
+      "advice": "亮点: 9项条件达成,股息率2.3%,PB低于行业均值,现金流健康\n\n风险: 负债率61.6%偏高,PE处中等水平,流动性需关注\n\n仓位: 标准 · 基本面可,但高负债削弱安全边际"
+    },
+    {
+      "code": "002079",
+      "name": "苏州固锝",
+      "industry": "电气设备",
+      "concepts": [
+        "集成电路概念",
+        "航天军工",
+        "第三代半导体",
+        "新能源",
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 11760235883.0,
+        "pe_ttm": 96.7201,
+        "pb": 2.889,
+        "dv_ttm": 0.1309,
+        "debt_ratio": 17.6023,
+        "industry_pb_avg": 5.007864590163934,
+        "industry_debt_avg": 48.07524556962025
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 9,
+      "advice": "**亮点:** 概念丰富,财务健康,近期涨停信号积极\n\n**风险:** PE极高96.7,估值透支空间有限\n\n**仓位:** 轻仓 · 虽符合多项条件但高PE风险突出,需等回调"
+    },
+    {
+      "code": "002297",
+      "name": "博云新材",
+      "industry": "航空",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 14413586198.0,
+        "pe_ttm": 74.613,
+        "pb": 6.3787,
+        "dv_ttm": null,
+        "debt_ratio": 30.2976,
+        "industry_pb_avg": 6.337291836734694,
+        "industry_debt_avg": 39.23318
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": false,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 9,
+      "advice": "**亮点:** 军工航空赛道,资产负债率低于行业均值,技术面强势。\n\n**风险:** PE达74倍处历史高位,估值泡沫风险较大。\n\n**仓位:** 轻仓 · 估值透支,虽基本面良好但风险收益不对等。"
+    },
+    {
+      "code": "002446",
+      "name": "盛路通信",
+      "industry": "通信设备",
+      "concepts": [
+        "集成电路概念",
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 10325889367.0,
+        "pe_ttm": 148.444,
+        "pb": 4.0568,
+        "dv_ttm": null,
+        "debt_ratio": 32.4191,
+        "industry_pb_avg": 10.680790322580645,
+        "industry_debt_avg": 43.64741071428572
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": "亮点: 主力资金净流入,技术面向上,行业负债率低于平均\n风险: PE估值过高(148倍),股价涨幅透支业绩增长空间\n仓位: 轻仓 · 估值泡沫明显,需等待调整"
+    },
+    {
+      "code": "002298",
+      "name": "中电鑫龙",
+      "industry": "电气设备",
+      "concepts": [
+        "新能源",
+        "军工",
+        "储能"
+      ],
+      "metrics": {
+        "market_cap": 8429863162.0,
+        "pe_ttm": null,
+        "pb": 4.5178,
+        "dv_ttm": null,
+        "debt_ratio": 54.619,
+        "industry_pb_avg": 5.007864590163934,
+        "industry_debt_avg": 48.07524556962025
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": "**亮点：** 概念热度高，技术面向好，成交活跃度提升\n\n**风险：** PB偏高4.5倍，负债率超50%，无估值参考\n\n**仓位：** 标准 · 热点概念支撑但估值压力需警惕"
+    },
+    {
+      "code": "002328",
+      "name": "新朋股份",
+      "industry": "汽车配件",
+      "concepts": [
+        "集成电路概念",
+        "储能"
+      ],
+      "metrics": {
+        "market_cap": 8489470000.0,
+        "pe_ttm": 41.3804,
+        "pb": 2.4851,
+        "dv_ttm": 1.2909,
+        "debt_ratio": 29.7844,
+        "industry_pb_avg": 4.11404329004329,
+        "industry_debt_avg": 42.43399512195122
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": "亮点: 融资能力强,债务低于行业均值,概念契合储能赛道。\n\n风险: PE估值高企,短期涨幅过大存在回调压力。\n\n仓位: 标准 · 优质赛道但估值偏高,等待回调点更优。"
+    },
+    {
+      "code": "601101",
+      "name": "昊华能源",
+      "industry": "煤炭开采",
+      "concepts": [
+        "煤炭概念"
+      ],
+      "metrics": {
+        "market_cap": 16185576688.000002,
+        "pe_ttm": 29.1289,
+        "pb": 1.3145,
+        "dv_ttm": 4.0747,
+        "debt_ratio": 47.583,
+        "industry_pb_avg": 1.6868083333333335,
+        "industry_debt_avg": 60.33428
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 9,
+      "advice": "**亮点:** 股息率4%+,PE合理,资产质量优于同行\n\n**风险:** PE仍偏高,煤炭周期波动风险大\n\n**仓位:** 标准 · 基本面良好但缺乏极强催化,适度参与"
+    },
+    {
+      "code": "002613",
+      "name": "北玻股份",
+      "industry": "专用机械",
+      "concepts": [
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 4732445376.0,
+        "pe_ttm": 447.9497,
+        "pb": 2.1438,
+        "dv_ttm": 0.6977,
+        "debt_ratio": 21.4058,
+        "industry_pb_avg": 6.312604780876494,
+        "industry_debt_avg": 45.875022916666666
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": "**北玻股份 (002613)**\n\n**亮点:** 光伏设备龙头,低负债率21.4%,近月涨势良好\n\n**风险:** PE极高447.95倍,估值透支严重,回调风险大\n\n**仓位:** 轻仓 · PE虚高压制空间,谨慎观望为宜"
+    },
+    {
+      "code": "300187",
+      "name": "永清环保",
+      "industry": "环境保护",
+      "concepts": [
+        "风电",
+        "新能源",
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 3770433444.0,
+        "pe_ttm": 29.1256,
+        "pb": 3.2549,
+        "dv_ttm": 2.8596,
+        "debt_ratio": 67.8487,
+        "industry_pb_avg": 3.648769230769231,
+        "industry_debt_avg": 49.19146666666666
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 9,
+      "advice": "亮点: 概念契合新能源赛道,现金流质量良好,股息率可观。\n\n风险: PE估值偏高,资产负债率超七成,杠杆风险明显。\n\n仓位: 标准 · 概念优势与高杠杆风险相消,静待估值修复。"
+    },
+    {
+      "code": "002560",
+      "name": "通达股份",
+      "industry": "电气设备",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 7886078550.0,
+        "pe_ttm": 45.2306,
+        "pb": 2.867,
+        "dv_ttm": null,
+        "debt_ratio": 50.706,
+        "industry_pb_avg": 5.007864590163934,
+        "industry_debt_avg": 48.07524556962025
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 9,
+      "advice": "**亮点:** 军工概念+流动性好,技术面向上,估值在行业中等水平\n\n**风险:** PE处高位45倍,净利现金转化偏弱,杠杆率中等\n\n**仓位:** 标准 · 概念驱动+技术面可观,但估值偏高制约空间"
+    },
+    {
+      "code": "601965",
+      "name": "中国汽研",
+      "industry": "汽车服务",
+      "concepts": [
+        "氢能源"
+      ],
+      "metrics": {
+        "market_cap": 16690833320.0,
+        "pe_ttm": 15.9848,
+        "pb": 2.0854,
+        "dv_ttm": 2.0433,
+        "debt_ratio": 31.3357,
+        "industry_pb_avg": 2.7033625,
+        "industry_debt_avg": 53.12392
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": true,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": "**亮点：** 估值合理,9项条件达标,股息率2%+,氢能源概念契合。\n\n**风险：** PE虽低但行业增速放缓,市值偏大流动性需关注。\n\n**仓位：** 标准 · 基本面稳健但缺乏爆发力,中等配置较宜。"
+    },
+    {
+      "code": "002818",
+      "name": "富森美",
+      "industry": "其他商业",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 8876723028.0,
+        "pe_ttm": 11.1656,
+        "pb": 1.4852,
+        "dv_ttm": 3.0354,
+        "debt_ratio": 13.1515,
+        "industry_pb_avg": 5.690563636363636,
+        "industry_debt_avg": 13.1515
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 9,
+      "advice": "**亮点:** PE低估、股息率高、资产负债率轻、现金流健康\n\n**风险:** 市场风格偏好波动、军工概念匹配度需验证\n\n**仓位:** 标准 · 估值吸引但缺乏强势催化，观察后续表现"
+    },
+    {
+      "code": "002729",
+      "name": "好利科技",
+      "industry": "元器件",
+      "concepts": [
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 3772839750.0,
+        "pe_ttm": 93.1336,
+        "pb": 6.6584,
+        "dv_ttm": 0.1358,
+        "debt_ratio": 14.2205,
+        "industry_pb_avg": 7.345781654676259,
+        "industry_debt_avg": 42.307003571428574
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": "**亮点:** 光伏赛道概念匹配,资产质量优秀,成交活跃\n\n**风险:** PE高达93倍,估值泡沫明显,股息率极低\n\n**仓位:** 轻仓 · 虽多指标通过但高PE透支预期,需等待估值回调"
+    },
+    {
+      "code": "603042",
+      "name": "华脉科技",
+      "industry": "通信设备",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 3693566320.0,
+        "pe_ttm": null,
+        "pb": 4.4288,
+        "dv_ttm": null,
+        "debt_ratio": 44.5535,
+        "industry_pb_avg": 10.680790322580645,
+        "industry_debt_avg": 43.64741071428572
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": "**603042 华脉科技**\n\n**亮点:** 军工概念匹配,主力资金净流入,近月涨停信号。\n\n**风险:** PE缺失难判盈利质量,PB偏高4.43倍存高估风险。\n\n**仓位:** 标准 · 概念驱动强但估值偏高,需观察后续盈利表现。"
+    },
+    {
+      "code": "002885",
+      "name": "京泉华",
+      "industry": "元器件",
+      "concepts": [
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 10628072655.0,
+        "pe_ttm": 109.7917,
+        "pb": 6.889,
+        "dv_ttm": 0.0558,
+        "debt_ratio": 53.3291,
+        "industry_pb_avg": 7.345781654676259,
+        "industry_debt_avg": 42.307003571428574
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": "**亮点:** 光伏概念匹配,主力资金净流入,均线多头排列\n\n**风险:** PE极高达110倍,估值泡沫明显,股息率微乎其微\n\n**仓位:** 轻仓 · PE高位风险大,虽有技术面支持但估值透支空间有限"
+    },
+    {
+      "code": "300681",
+      "name": "英搏尔",
+      "industry": "汽车配件",
+      "concepts": [
+        "北汽新能源"
+      ],
+      "metrics": {
+        "market_cap": 10191642822.0,
+        "pe_ttm": 43.9651,
+        "pb": 3.2976,
+        "dv_ttm": 0.0753,
+        "debt_ratio": 59.3434,
+        "industry_pb_avg": 4.11404329004329,
+        "industry_debt_avg": 42.43399512195122
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": false
+      },
+      "n_pass": 9,
+      "advice": "亮点: 概念匹配北汽新能源,资金持续净流入,主要技术指标共振。\n\n风险: PE估值高位,PB溢价明显,股息率极低缺乏安全垫。\n\n仓位: 标准 · 概念热度支撑但估值压力较大,谨慎参与。"
+    },
+    {
+      "code": "300632",
+      "name": "光莆股份",
+      "industry": "半导体",
+      "concepts": [
+        "芯片"
+      ],
+      "metrics": {
+        "market_cap": 7632592316.000001,
+        "pe_ttm": null,
+        "pb": 4.4064,
+        "dv_ttm": 0.3701,
+        "debt_ratio": 33.8912,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": "**光莆股份 (300632)**\n\n亮点: 芯片概念匹配,技术面均线对齐,成交量温和扩张\n风险: 估值处于行业高位,无盈利数据支撑,财务杠杆中等\n仓位: 标准 · 9/14条件触发,但缺盈利指标支撑估值"
+    },
+    {
+      "code": "300786",
+      "name": "国林科技",
+      "industry": "环境保护",
+      "concepts": [
+        "疫苗存储"
+      ],
+      "metrics": {
+        "market_cap": 3117228989.9999995,
+        "pe_ttm": null,
+        "pb": 2.7875,
+        "dv_ttm": null,
+        "debt_ratio": 34.1854,
+        "industry_pb_avg": 3.648769230769231,
+        "industry_debt_avg": 49.19146666666666
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": false
+      },
+      "n_pass": 9,
+      "advice": "**亮点：** 疫苗存储需求稳定，资产负债率低于行业，主力资金净流入\n\n**风险：** PE缺失无法评估盈利能力，PB高于行业均值存在估值溢价\n\n**仓位：** 标准 · 9项条件触发但缺利润指标，需观察后续盈利确认"
+    },
+    {
+      "code": "300828",
+      "name": "锐新科技",
+      "industry": "机械基件",
+      "concepts": [
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 4386883920.0,
+        "pe_ttm": 159.8907,
+        "pb": 5.5562,
+        "dv_ttm": null,
+        "debt_ratio": 9.7135,
+        "industry_pb_avg": 5.8920142857142865,
+        "industry_debt_avg": 34.73879411764705
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": ""
+    },
+    {
+      "code": "300862",
+      "name": "蓝盾光电",
+      "industry": "电器仪表",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 5163762719.0,
+        "pe_ttm": null,
+        "pb": 2.6334,
+        "dv_ttm": 0.0536,
+        "debt_ratio": 17.6726,
+        "industry_pb_avg": 5.885220930232558,
+        "industry_debt_avg": 28.194242105263157
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": ""
+    },
+    {
+      "code": "688551",
+      "name": "科威尔",
+      "industry": "专用机械",
+      "concepts": [
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 5082915066.0,
+        "pe_ttm": 99.9536,
+        "pb": 3.8609,
+        "dv_ttm": 0.8187,
+        "debt_ratio": 21.3025,
+        "industry_pb_avg": 6.312604780876494,
+        "industry_debt_avg": 45.875022916666666
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": ""
+    },
+    {
+      "code": "301095",
+      "name": "广立微",
+      "industry": "半导体",
+      "concepts": [
+        "芯片"
+      ],
+      "metrics": {
+        "market_cap": 19445290834.0,
+        "pe_ttm": 212.0853,
+        "pb": 6.1898,
+        "dv_ttm": 0.2534,
+        "debt_ratio": 14.252,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 9,
+      "advice": ""
+    },
+    {
+      "code": "688416",
+      "name": "恒烁股份",
+      "industry": "半导体",
+      "concepts": [
+        "芯片"
+      ],
+      "metrics": {
+        "market_cap": 10823941846.0,
+        "pe_ttm": null,
+        "pb": 8.1347,
+        "dv_ttm": null,
+        "debt_ratio": 6.9706,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": false
+      },
+      "n_pass": 9,
+      "advice": ""
+    },
+    {
+      "code": "000404",
+      "name": "长虹华意",
+      "industry": "家用电器",
+      "concepts": [
+        "疫苗存储"
+      ],
+      "metrics": {
+        "market_cap": 5902045902.0,
+        "pe_ttm": 11.5776,
+        "pb": 1.3364,
+        "dv_ttm": 3.5377,
+        "debt_ratio": 61.2607,
+        "industry_pb_avg": 3.8551551282051286,
+        "industry_debt_avg": 47.52035333333333
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "000543",
+      "name": "皖能电力",
+      "industry": "火力发电",
+      "concepts": [
+        "电力改革"
+      ],
+      "metrics": {
+        "market_cap": 18996314714.0,
+        "pe_ttm": 8.8364,
+        "pb": 1.0819,
+        "dv_ttm": 3.8067,
+        "debt_ratio": 62.7224,
+        "industry_pb_avg": 2.8378096774193557,
+        "industry_debt_avg": 62.529587500000005
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "000551",
+      "name": "创元科技",
+      "industry": "专用机械",
+      "concepts": [
+        "氢能源"
+      ],
+      "metrics": {
+        "market_cap": 8298629748.0,
+        "pe_ttm": 24.4299,
+        "pb": 2.7253,
+        "dv_ttm": 0.4868,
+        "debt_ratio": 37.3434,
+        "industry_pb_avg": 6.312604780876494,
+        "industry_debt_avg": 45.875022916666666
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "000589",
+      "name": "贵州轮胎",
+      "industry": "汽车配件",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 7819761255.0,
+        "pe_ttm": 10.652,
+        "pb": 0.8508,
+        "dv_ttm": 3.3666,
+        "debt_ratio": 50.943,
+        "industry_pb_avg": 4.11404329004329,
+        "industry_debt_avg": 42.43399512195122
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "000600",
+      "name": "建投能源",
+      "industry": "火力发电",
+      "concepts": [
+        "风电",
+        "电力改革",
+        "海上风电"
+      ],
+      "metrics": {
+        "market_cap": 17978246729.0,
+        "pe_ttm": 8.838,
+        "pb": 1.4407,
+        "dv_ttm": 2.3113,
+        "debt_ratio": 59.1779,
+        "industry_pb_avg": 2.8378096774193557,
+        "industry_debt_avg": 62.529587500000005
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "000767",
+      "name": "晋控电力",
+      "industry": "火力发电",
+      "concepts": [
+        "风电",
+        "电力改革",
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 13015465586.000002,
+        "pe_ttm": 65.6274,
+        "pb": 2.1547,
+        "dv_ttm": null,
+        "debt_ratio": 81.3669,
+        "industry_pb_avg": 2.8378096774193557,
+        "industry_debt_avg": 62.529587500000005
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "000862",
+      "name": "银星能源",
+      "industry": "新型电力",
+      "concepts": [
+        "风电",
+        "新能源",
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 6416503325.0,
+        "pe_ttm": 234.3994,
+        "pb": 1.4764,
+        "dv_ttm": null,
+        "debt_ratio": 49.3348,
+        "industry_pb_avg": 4.33041,
+        "industry_debt_avg": 51.68674285714286
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "000899",
+      "name": "赣能股份",
+      "industry": "火力发电",
+      "concepts": [
+        "新能源"
+      ],
+      "metrics": {
+        "market_cap": 13230190426.0,
+        "pe_ttm": 13.0262,
+        "pb": 1.9881,
+        "dv_ttm": 2.4336,
+        "debt_ratio": 65.3259,
+        "industry_pb_avg": 2.8378096774193557,
+        "industry_debt_avg": 62.529587500000005
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "000990",
+      "name": "诚志股份",
+      "industry": "化工原料",
+      "concepts": [
+        "氢能源",
+        "新能源"
+      ],
+      "metrics": {
+        "market_cap": 14145364907.0,
+        "pe_ttm": 199.9518,
+        "pb": 0.7882,
+        "dv_ttm": 0.4296,
+        "debt_ratio": 32.8035,
+        "industry_pb_avg": 4.535343103448276,
+        "industry_debt_avg": 45.84937142857143
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "000993",
+      "name": "闽东电力",
+      "industry": "水力发电",
+      "concepts": [
+        "风电",
+        "电力改革",
+        "海上风电"
+      ],
+      "metrics": {
+        "market_cap": 5893835226.0,
+        "pe_ttm": 288.1778,
+        "pb": 2.3138,
+        "dv_ttm": null,
+        "debt_ratio": 27.6852,
+        "industry_pb_avg": 2.432022727272727,
+        "industry_debt_avg": 51.56619090909091
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "600135",
+      "name": "乐凯胶片",
+      "industry": "塑料",
+      "concepts": [
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 6733747395.0,
+        "pe_ttm": null,
+        "pb": 2.8591,
+        "dv_ttm": null,
+        "debt_ratio": 13.7644,
+        "industry_pb_avg": 4.158093650793652,
+        "industry_debt_avg": 43.36360833333333
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "600163",
+      "name": "中闽能源",
+      "industry": "新型电力",
+      "concepts": [
+        "风电",
+        "电力改革",
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 12616864428.0,
+        "pe_ttm": 27.0332,
+        "pb": 1.7205,
+        "dv_ttm": 1.2519,
+        "debt_ratio": 33.8996,
+        "industry_pb_avg": 4.33041,
+        "industry_debt_avg": 51.68674285714286
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "600184",
+      "name": "光电股份",
+      "industry": "专用机械",
+      "concepts": [
+        "航天军工",
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 15896805327.000002,
+        "pe_ttm": 310.2211,
+        "pb": 4.6509,
+        "dv_ttm": null,
+        "debt_ratio": 34.9397,
+        "industry_pb_avg": 6.312604780876494,
+        "industry_debt_avg": 45.875022916666666
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "600207",
+      "name": "安彩高科",
+      "industry": "电气设备",
+      "concepts": [
+        "光伏玻璃",
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 6938920969.0,
+        "pe_ttm": null,
+        "pb": 3.6951,
+        "dv_ttm": null,
+        "debt_ratio": 66.4406,
+        "industry_pb_avg": 5.007864590163934,
+        "industry_debt_avg": 48.07524556962025
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "600458",
+      "name": "时代新材",
+      "industry": "塑料",
+      "concepts": [
+        "风电",
+        "氢能源"
+      ],
+      "metrics": {
+        "market_cap": 11792647098.0,
+        "pe_ttm": 22.665,
+        "pb": 1.464,
+        "dv_ttm": 2.0628,
+        "debt_ratio": 64.6703,
+        "industry_pb_avg": 4.158093650793652,
+        "industry_debt_avg": 43.36360833333333
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "600508",
+      "name": "上海能源",
+      "industry": "煤炭开采",
+      "concepts": [
+        "煤炭概念"
+      ],
+      "metrics": {
+        "market_cap": 9886782240.0,
+        "pe_ttm": 52.0889,
+        "pb": 0.7751,
+        "dv_ttm": 2.1199,
+        "debt_ratio": 35.3837,
+        "industry_pb_avg": 1.6868083333333335,
+        "industry_debt_avg": 60.33428
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "600770",
+      "name": "综艺股份",
+      "industry": "综合类",
+      "concepts": [
+        "新能源",
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 10751000000.0,
+        "pe_ttm": 82.2443,
+        "pb": 3.1626,
+        "dv_ttm": null,
+        "debt_ratio": 18.9494,
+        "industry_pb_avg": 8.61186875,
+        "industry_debt_avg": 18.24675
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "600821",
+      "name": "金开新能",
+      "industry": "新型电力",
+      "concepts": [
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 17351806085.0,
+        "pe_ttm": null,
+        "pb": 1.9246,
+        "dv_ttm": 2.2676,
+        "debt_ratio": 72.4189,
+        "industry_pb_avg": 4.33041,
+        "industry_debt_avg": 51.68674285714286
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "600874",
+      "name": "创业环保",
+      "industry": "环境保护",
+      "concepts": [
+        "新能源"
+      ],
+      "metrics": {
+        "market_cap": 9862225574.0,
+        "pe_ttm": 11.1567,
+        "pb": 0.9361,
+        "dv_ttm": 2.707,
+        "debt_ratio": 56.0982,
+        "industry_pb_avg": 3.648769230769231,
+        "industry_debt_avg": 49.19146666666666
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002011",
+      "name": "盾安环境",
+      "industry": "家用电器",
+      "concepts": [
+        "新能源",
+        "合同能源管理",
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 13454957780.0,
+        "pe_ttm": 12.7355,
+        "pb": 1.9715,
+        "dv_ttm": null,
+        "debt_ratio": 45.8208,
+        "industry_pb_avg": 3.8551551282051286,
+        "industry_debt_avg": 47.52035333333333
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": true,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002062",
+      "name": "宏润建设",
+      "industry": "建筑工程",
+      "concepts": [
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 12409827017.0,
+        "pe_ttm": 47.3992,
+        "pb": 2.4977,
+        "dv_ttm": 0.987,
+        "debt_ratio": 65.0207,
+        "industry_pb_avg": 3.619916037735849,
+        "industry_debt_avg": 62.974781818181825
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002077",
+      "name": "大港股份",
+      "industry": "半导体",
+      "concepts": [
+        "集成电路概念"
+      ],
+      "metrics": {
+        "market_cap": 10190919888.0,
+        "pe_ttm": 134.2538,
+        "pb": 3.0113,
+        "dv_ttm": null,
+        "debt_ratio": 17.0433,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002132",
+      "name": "恒星科技",
+      "industry": "钢加工",
+      "concepts": [
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 7876681202.999999,
+        "pe_ttm": 112.9215,
+        "pb": 2.2284,
+        "dv_ttm": 0.843,
+        "debt_ratio": 54.2895,
+        "industry_pb_avg": 2.279540909090909,
+        "industry_debt_avg": 45.395266666666664
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002218",
+      "name": "拓日新能",
+      "industry": "新型电力",
+      "concepts": [
+        "新能源",
+        "光伏玻璃",
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 8280804876.0,
+        "pe_ttm": null,
+        "pb": 2.1071,
+        "dv_ttm": 0.1701,
+        "debt_ratio": 38.9294,
+        "industry_pb_avg": 4.33041,
+        "industry_debt_avg": 51.68674285714286
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002263",
+      "name": "大东南",
+      "industry": "塑料",
+      "concepts": [
+        "储能"
+      ],
+      "metrics": {
+        "market_cap": 7945463223.0,
+        "pe_ttm": 438.3871,
+        "pb": 2.8603,
+        "dv_ttm": null,
+        "debt_ratio": 6.4452,
+        "industry_pb_avg": 4.158093650793652,
+        "industry_debt_avg": 43.36360833333333
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002256",
+      "name": "兆新股份",
+      "industry": "新型电力",
+      "concepts": [
+        "能源互联网",
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 11006575175.0,
+        "pe_ttm": 216.0826,
+        "pb": 9.1132,
+        "dv_ttm": null,
+        "debt_ratio": 32.3918,
+        "industry_pb_avg": 4.33041,
+        "industry_debt_avg": 51.68674285714286
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": false,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002448",
+      "name": "中原内配",
+      "industry": "汽车配件",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 9567540844.0,
+        "pe_ttm": 19.2645,
+        "pb": 2.4318,
+        "dv_ttm": 0.7995,
+        "debt_ratio": 35.7659,
+        "industry_pb_avg": 4.11404329004329,
+        "industry_debt_avg": 42.43399512195122
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002350",
+      "name": "北京科锐",
+      "industry": "电气设备",
+      "concepts": [
+        "军工",
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 9425718880.0,
+        "pe_ttm": 469.6144,
+        "pb": 5.2615,
+        "dv_ttm": 0.1629,
+        "debt_ratio": 40.9213,
+        "industry_pb_avg": 5.007864590163934,
+        "industry_debt_avg": 48.07524556962025
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": false,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002331",
+      "name": "皖通科技",
+      "industry": "软件服务",
+      "concepts": [
+        "集成电路概念",
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 4181493870.0,
+        "pe_ttm": null,
+        "pb": 2.8969,
+        "dv_ttm": 0.3052,
+        "debt_ratio": 49.6629,
+        "industry_pb_avg": 7.161432083333334,
+        "industry_debt_avg": 41.43976923076923
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002380",
+      "name": "科远智慧",
+      "industry": "软件服务",
+      "concepts": [
+        "电力物联网",
+        "合同能源管理"
+      ],
+      "metrics": {
+        "market_cap": 8418907047.0,
+        "pe_ttm": 54.5831,
+        "pb": 3.4596,
+        "dv_ttm": 0.114,
+        "debt_ratio": 38.5931,
+        "industry_pb_avg": 7.161432083333334,
+        "industry_debt_avg": 41.43976923076923
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002363",
+      "name": "隆基机械",
+      "industry": "汽车配件",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 3551947965.0,
+        "pe_ttm": 54.0526,
+        "pb": 1.6277,
+        "dv_ttm": 0.7058,
+        "debt_ratio": 28.1589,
+        "industry_pb_avg": 4.11404329004329,
+        "industry_debt_avg": 42.43399512195122
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002406",
+      "name": "远东传动",
+      "industry": "汽车配件",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 5965938920.0,
+        "pe_ttm": 34.5167,
+        "pb": 1.4488,
+        "dv_ttm": 1.836,
+        "debt_ratio": 19.8487,
+        "industry_pb_avg": 4.11404329004329,
+        "industry_debt_avg": 42.43399512195122
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300067",
+      "name": "安诺其",
+      "industry": "染料涂料",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 8623178068.0,
+        "pe_ttm": null,
+        "pb": 3.466,
+        "dv_ttm": 0.1339,
+        "debt_ratio": 29.1101,
+        "industry_pb_avg": 4.746969696969697,
+        "industry_debt_avg": 40.66375
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002443",
+      "name": "金洲管道",
+      "industry": "钢加工",
+      "concepts": [
+        "能源互联网"
+      ],
+      "metrics": {
+        "market_cap": 6246426240.0,
+        "pe_ttm": 41.2585,
+        "pb": 1.7827,
+        "dv_ttm": 1.6409,
+        "debt_ratio": 23.3076,
+        "industry_pb_avg": 2.279540909090909,
+        "industry_debt_avg": 45.395266666666664
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002439",
+      "name": "启明星辰",
+      "industry": "软件服务",
+      "concepts": [
+        "网络安全",
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 19891191366.0,
+        "pe_ttm": null,
+        "pb": 1.8264,
+        "dv_ttm": null,
+        "debt_ratio": 16.6606,
+        "industry_pb_avg": 7.161432083333334,
+        "industry_debt_avg": 41.43976923076923
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300103",
+      "name": "达刚控股",
+      "industry": "专用机械",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 2788536780.0,
+        "pe_ttm": null,
+        "pb": 6.2155,
+        "dv_ttm": null,
+        "debt_ratio": 34.8112,
+        "industry_pb_avg": 6.312604780876494,
+        "industry_debt_avg": 45.875022916666666
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002476",
+      "name": "宝莫股份",
+      "industry": "化工原料",
+      "concepts": [
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 3751560000.0,
+        "pe_ttm": 124.8557,
+        "pb": 3.8931,
+        "dv_ttm": 0.1631,
+        "debt_ratio": 16.3576,
+        "industry_pb_avg": 4.535343103448276,
+        "industry_debt_avg": 45.84937142857143
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": false,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002805",
+      "name": "丰元股份",
+      "industry": "电气设备",
+      "concepts": [
+        "新能源"
+      ],
+      "metrics": {
+        "market_cap": 7130391454.0,
+        "pe_ttm": null,
+        "pb": 7.625,
+        "dv_ttm": null,
+        "debt_ratio": 68.624,
+        "industry_pb_avg": 5.007864590163934,
+        "industry_debt_avg": 48.07524556962025
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": false,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002519",
+      "name": "银河电子",
+      "industry": "通信设备",
+      "concepts": [
+        "航天军工",
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 9833741740.0,
+        "pe_ttm": null,
+        "pb": 4.4341,
+        "dv_ttm": null,
+        "debt_ratio": 34.5062,
+        "industry_pb_avg": 10.680790322580645,
+        "industry_debt_avg": 43.64741071428572
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002552",
+      "name": "宝鼎科技",
+      "industry": "元器件",
+      "concepts": [
+        "航天军工",
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 11802513769.0,
+        "pe_ttm": 68.4922,
+        "pb": 7.5369,
+        "dv_ttm": 0.6575,
+        "debt_ratio": 57.877,
+        "industry_pb_avg": 7.345781654676259,
+        "industry_debt_avg": 42.307003571428574
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": false,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300188",
+      "name": "国投智能",
+      "industry": "软件服务",
+      "concepts": [
+        "网络安全",
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 11293531853.0,
+        "pe_ttm": null,
+        "pb": 4.524,
+        "dv_ttm": null,
+        "debt_ratio": 37.7711,
+        "industry_pb_avg": 7.161432083333334,
+        "industry_debt_avg": 41.43976923076923
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "601218",
+      "name": "吉鑫科技",
+      "industry": "电气设备",
+      "concepts": [
+        "风电",
+        "新能源"
+      ],
+      "metrics": {
+        "market_cap": 6192124142.0,
+        "pe_ttm": 39.1051,
+        "pb": 2.0654,
+        "dv_ttm": 0.7042,
+        "debt_ratio": 19.0021,
+        "industry_pb_avg": 5.007864590163934,
+        "industry_debt_avg": 48.07524556962025
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002585",
+      "name": "双星新材",
+      "industry": "塑料",
+      "concepts": [
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 9906680272.0,
+        "pe_ttm": null,
+        "pb": 1.1901,
+        "dv_ttm": 0.3456,
+        "debt_ratio": 32.9706,
+        "industry_pb_avg": 4.158093650793652,
+        "industry_debt_avg": 43.36360833333333
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300241",
+      "name": "瑞丰光电",
+      "industry": "半导体",
+      "concepts": [
+        "芯片"
+      ],
+      "metrics": {
+        "market_cap": 5067160645.0,
+        "pe_ttm": 75.0307,
+        "pb": 2.2202,
+        "dv_ttm": 0.2709,
+        "debt_ratio": 39.1166,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300244",
+      "name": "迪安诊断",
+      "industry": "医疗保健",
+      "concepts": [
+        "基因芯片"
+      ],
+      "metrics": {
+        "market_cap": 13199565688.0,
+        "pe_ttm": 101.9803,
+        "pb": 2.0224,
+        "dv_ttm": 1.1574,
+        "debt_ratio": 40.3405,
+        "industry_pb_avg": 3.801625153374233,
+        "industry_debt_avg": 27.475975
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300252",
+      "name": "金信诺",
+      "industry": "通信设备",
+      "concepts": [
+        "集成电路概念",
+        "数据中心",
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 10925538261.0,
+        "pe_ttm": 338.4528,
+        "pb": 4.9617,
+        "dv_ttm": null,
+        "debt_ratio": 58.5521,
+        "industry_pb_avg": 10.680790322580645,
+        "industry_debt_avg": 43.64741071428572
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002638",
+      "name": "勤上股份",
+      "industry": "家用电器",
+      "concepts": [
+        "合同能源管理"
+      ],
+      "metrics": {
+        "market_cap": 6881286932.0,
+        "pe_ttm": null,
+        "pb": 3.6403,
+        "dv_ttm": null,
+        "debt_ratio": 14.214,
+        "industry_pb_avg": 3.8551551282051286,
+        "industry_debt_avg": 47.52035333333333
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300306",
+      "name": "远方信息",
+      "industry": "电器仪表",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 3474947412.0,
+        "pe_ttm": 49.2573,
+        "pb": 2.3195,
+        "dv_ttm": 3.3437,
+        "debt_ratio": 6.9027,
+        "industry_pb_avg": 5.885220930232558,
+        "industry_debt_avg": 28.194242105263157
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "601515",
+      "name": "衢州东峰",
+      "industry": "广告包装",
+      "concepts": [
+        "疫苗存储"
+      ],
+      "metrics": {
+        "market_cap": 9468395701.0,
+        "pe_ttm": null,
+        "pb": 1.9324,
+        "dv_ttm": null,
+        "debt_ratio": 20.5787,
+        "industry_pb_avg": 6.669060416666667,
+        "industry_debt_avg": 41.0521
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300333",
+      "name": "兆日科技",
+      "industry": "IT设备",
+      "concepts": [
+        "网络安全"
+      ],
+      "metrics": {
+        "market_cap": 3447360000.0,
+        "pe_ttm": null,
+        "pb": 6.1142,
+        "dv_ttm": null,
+        "debt_ratio": 3.0099,
+        "industry_pb_avg": 7.007452941176472,
+        "industry_debt_avg": 27.108660000000004
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300397",
+      "name": "天和防务",
+      "industry": "通信设备",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 7164092550.999999,
+        "pe_ttm": null,
+        "pb": 4.9992,
+        "dv_ttm": null,
+        "debt_ratio": 47.2874,
+        "industry_pb_avg": 10.680790322580645,
+        "industry_debt_avg": 43.64741071428572
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002686",
+      "name": "亿利达",
+      "industry": "专用机械",
+      "concepts": [
+        "新能源",
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 4512925890.0,
+        "pe_ttm": 240.1487,
+        "pb": 2.7971,
+        "dv_ttm": 0.1253,
+        "debt_ratio": 38.702,
+        "industry_pb_avg": 6.312604780876494,
+        "industry_debt_avg": 45.875022916666666
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002708",
+      "name": "光洋股份",
+      "industry": "汽车配件",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 8611340854.0,
+        "pe_ttm": 80.0365,
+        "pb": 4.8683,
+        "dv_ttm": null,
+        "debt_ratio": 55.4232,
+        "industry_pb_avg": 4.11404329004329,
+        "industry_debt_avg": 42.43399512195122
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": false,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "603166",
+      "name": "福达股份",
+      "industry": "汽车配件",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 9394216972.0,
+        "pe_ttm": 28.7648,
+        "pb": 3.4363,
+        "dv_ttm": 0.6777,
+        "debt_ratio": 43.3576,
+        "industry_pb_avg": 4.11404329004329,
+        "industry_debt_avg": 42.43399512195122
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "603111",
+      "name": "康尼机电",
+      "industry": "运输设备",
+      "concepts": [
+        "北汽新能源"
+      ],
+      "metrics": {
+        "market_cap": 5887669490.0,
+        "pe_ttm": 16.5253,
+        "pb": 1.4312,
+        "dv_ttm": 3.6069,
+        "debt_ratio": 45.3607,
+        "industry_pb_avg": 3.264243181818182,
+        "industry_debt_avg": 61.9244
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002757",
+      "name": "南兴股份",
+      "industry": "专用机械",
+      "concepts": [
+        "网络安全",
+        "数据中心"
+      ],
+      "metrics": {
+        "market_cap": 9244815518.0,
+        "pe_ttm": 76.8821,
+        "pb": 4.4907,
+        "dv_ttm": 1.1186,
+        "debt_ratio": 41.5733,
+        "industry_pb_avg": 6.312604780876494,
+        "industry_debt_avg": 45.875022916666666
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002771",
+      "name": "真视通",
+      "industry": "软件服务",
+      "concepts": [
+        "数据中心",
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 3194707243.0,
+        "pe_ttm": null,
+        "pb": 5.395,
+        "dv_ttm": 0.067,
+        "debt_ratio": 32.6242,
+        "industry_pb_avg": 7.161432083333334,
+        "industry_debt_avg": 41.43976923076923
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "603017",
+      "name": "中衡设计",
+      "industry": "建筑工程",
+      "concepts": [
+        "数据中心"
+      ],
+      "metrics": {
+        "market_cap": 4446663717.0,
+        "pe_ttm": 91.4318,
+        "pb": 2.9784,
+        "dv_ttm": 1.2265,
+        "debt_ratio": 53.9078,
+        "industry_pb_avg": 3.619916037735849,
+        "industry_debt_avg": 62.974781818181825
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300429",
+      "name": "强力新材",
+      "industry": "化工原料",
+      "concepts": [
+        "集成电路概念"
+      ],
+      "metrics": {
+        "market_cap": 8222518294.0,
+        "pe_ttm": null,
+        "pb": 4.946,
+        "dv_ttm": null,
+        "debt_ratio": 45.7304,
+        "industry_pb_avg": 4.535343103448276,
+        "industry_debt_avg": 45.84937142857143
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": false,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "603636",
+      "name": "南威软件",
+      "industry": "软件服务",
+      "concepts": [
+        "网络安全"
+      ],
+      "metrics": {
+        "market_cap": 6407180174.0,
+        "pe_ttm": null,
+        "pb": 3.4627,
+        "dv_ttm": null,
+        "debt_ratio": 59.5974,
+        "industry_pb_avg": 7.161432083333334,
+        "industry_debt_avg": 41.43976923076923
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300470",
+      "name": "中密控股",
+      "industry": "机械基件",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 7076937910.0,
+        "pe_ttm": 19.791,
+        "pb": 2.3812,
+        "dv_ttm": 2.9386,
+        "debt_ratio": 17.1021,
+        "industry_pb_avg": 5.8920142857142865,
+        "industry_debt_avg": 34.73879411764705
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": true,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300414",
+      "name": "中光防雷",
+      "industry": "通信设备",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 4935934715.0,
+        "pe_ttm": 216.8928,
+        "pb": 4.932,
+        "dv_ttm": 0.0661,
+        "debt_ratio": 16.6627,
+        "industry_pb_avg": 10.680790322580645,
+        "industry_debt_avg": 43.64741071428572
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300560",
+      "name": "中富通",
+      "industry": "通信设备",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 3976862097.0,
+        "pe_ttm": null,
+        "pb": 4.475,
+        "dv_ttm": null,
+        "debt_ratio": 64.2833,
+        "industry_pb_avg": 10.680790322580645,
+        "industry_debt_avg": 43.64741071428572
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": false,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300553",
+      "name": "集智股份",
+      "industry": "电器仪表",
+      "concepts": [
+        "集成电路概念"
+      ],
+      "metrics": {
+        "market_cap": 6157329368.0,
+        "pe_ttm": 359.5867,
+        "pb": 7.2507,
+        "dv_ttm": null,
+        "debt_ratio": 39.1997,
+        "industry_pb_avg": 5.885220930232558,
+        "industry_debt_avg": 28.194242105263157
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": false,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300566",
+      "name": "激智科技",
+      "industry": "元器件",
+      "concepts": [
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 5417702557.0,
+        "pe_ttm": 26.8474,
+        "pb": 2.4328,
+        "dv_ttm": 0.9588,
+        "debt_ratio": 38.7936,
+        "industry_pb_avg": 7.345781654676259,
+        "industry_debt_avg": 42.307003571428574
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "603138",
+      "name": "海量数据",
+      "industry": "软件服务",
+      "concepts": [
+        "数据存储",
+        "数据中心"
+      ],
+      "metrics": {
+        "market_cap": 5936228742.0,
+        "pe_ttm": null,
+        "pb": 7.3384,
+        "dv_ttm": null,
+        "debt_ratio": 32.1087,
+        "industry_pb_avg": 7.161432083333334,
+        "industry_debt_avg": 41.43976923076923
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": false,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002871",
+      "name": "伟隆股份",
+      "industry": "机械基件",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 5193226284.0,
+        "pe_ttm": 39.5623,
+        "pb": 4.4328,
+        "dv_ttm": 1.687,
+        "debt_ratio": 22.4043,
+        "industry_pb_avg": 5.8920142857142865,
+        "industry_debt_avg": 34.73879411764705
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": true,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300613",
+      "name": "富瀚微",
+      "industry": "半导体",
+      "concepts": [
+        "集成电路概念",
+        "AI芯片"
+      ],
+      "metrics": {
+        "market_cap": 14457179260.0,
+        "pe_ttm": 67.1214,
+        "pb": 4.9579,
+        "dv_ttm": 0.191,
+        "debt_ratio": 25.2843,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "603978",
+      "name": "深圳新星",
+      "industry": "小金属",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 6497482523.000001,
+        "pe_ttm": null,
+        "pb": 3.9174,
+        "dv_ttm": null,
+        "debt_ratio": 62.2238,
+        "industry_pb_avg": 7.6416440677966095,
+        "industry_debt_avg": 47.94258571428571
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "300671",
+      "name": "富满微",
+      "industry": "半导体",
+      "concepts": [
+        "集成电路概念",
+        "第三代半导体"
+      ],
+      "metrics": {
+        "market_cap": 11786615130.0,
+        "pe_ttm": null,
+        "pb": 7.4281,
+        "dv_ttm": null,
+        "debt_ratio": 41.703,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "603949",
+      "name": "雪龙集团",
+      "industry": "汽车配件",
+      "concepts": [
+        "军工"
+      ],
+      "metrics": {
+        "market_cap": 3814334379.0,
+        "pe_ttm": 39.872,
+        "pb": 3.4516,
+        "dv_ttm": null,
+        "debt_ratio": 11.07,
+        "industry_pb_avg": 4.11404329004329,
+        "industry_debt_avg": 42.43399512195122
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "603105",
+      "name": "芯能科技",
+      "industry": "电气设备",
+      "concepts": [
+        "新能源",
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 4940107732.0,
+        "pe_ttm": 28.1538,
+        "pb": 2.2987,
+        "dv_ttm": 2.0243,
+        "debt_ratio": 49.6696,
+        "industry_pb_avg": 5.007864590163934,
+        "industry_debt_avg": 48.07524556962025
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": true,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "603353",
+      "name": "和顺石油",
+      "industry": "石油贸易",
+      "concepts": [
+        "能源"
+      ],
+      "metrics": {
+        "market_cap": 8987245680.0,
+        "pe_ttm": null,
+        "pb": 5.5921,
+        "dv_ttm": 0.3842,
+        "debt_ratio": 17.1177,
+        "industry_pb_avg": 3.028725,
+        "industry_debt_avg": 29.2756
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": false,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "603297",
+      "name": "永新光学",
+      "industry": "元器件",
+      "concepts": [
+        "航天军工"
+      ],
+      "metrics": {
+        "market_cap": 15642074700.0,
+        "pe_ttm": 74.3651,
+        "pb": 7.4342,
+        "dv_ttm": 0.6028,
+        "debt_ratio": 19.5768,
+        "industry_pb_avg": 7.345781654676259,
+        "industry_debt_avg": 42.307003571428574
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": false,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "603068",
+      "name": "博通集成",
+      "industry": "半导体",
+      "concepts": [
+        "芯片"
+      ],
+      "metrics": {
+        "market_cap": 5655595506.0,
+        "pe_ttm": 257.3256,
+        "pb": 3.2218,
+        "dv_ttm": null,
+        "debt_ratio": 14.322,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "002957",
+      "name": "科瑞技术",
+      "industry": "专用机械",
+      "concepts": [
+        "新能源"
+      ],
+      "metrics": {
+        "market_cap": 18718618510.0,
+        "pe_ttm": 62.7613,
+        "pb": 5.6549,
+        "dv_ttm": 0.3793,
+        "debt_ratio": 44.9063,
+        "industry_pb_avg": 6.312604780876494,
+        "industry_debt_avg": 45.875022916666666
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": false,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "605100",
+      "name": "华丰股份",
+      "industry": "机械基件",
+      "concepts": [
+        "数据中心"
+      ],
+      "metrics": {
+        "market_cap": 9060641100.0,
+        "pe_ttm": 376.9613,
+        "pb": 5.0285,
+        "dv_ttm": 0.5666,
+        "debt_ratio": 19.0265,
+        "industry_pb_avg": 5.8920142857142865,
+        "industry_debt_avg": 34.73879411764705
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "605222",
+      "name": "起帆电缆",
+      "industry": "电气设备",
+      "concepts": [
+        "军工",
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 16896004141.0,
+        "pe_ttm": 86.137,
+        "pb": 3.5898,
+        "dv_ttm": 0.0978,
+        "debt_ratio": 68.4065,
+        "industry_pb_avg": 5.007864590163934,
+        "industry_debt_avg": 48.07524556962025
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": true,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "003007",
+      "name": "直真科技",
+      "industry": "软件服务",
+      "concepts": [
+        "数据中心"
+      ],
+      "metrics": {
+        "market_cap": 5141910000.0,
+        "pe_ttm": 218.504,
+        "pb": 5.8937,
+        "dv_ttm": 0.1285,
+        "debt_ratio": 60.466,
+        "industry_pb_avg": 7.161432083333334,
+        "industry_debt_avg": 41.43976923076923
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "003026",
+      "name": "中晶科技",
+      "industry": "半导体",
+      "concepts": [
+        "芯片"
+      ],
+      "metrics": {
+        "market_cap": 6221712000.0,
+        "pe_ttm": 124.7923,
+        "pb": 9.1329,
+        "dv_ttm": 0.3115,
+        "debt_ratio": 46.7637,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "688598",
+      "name": "金博股份",
+      "industry": "矿物制品",
+      "concepts": [
+        "光伏概念"
+      ],
+      "metrics": {
+        "market_cap": 5903379419.0,
+        "pe_ttm": null,
+        "pb": 1.5296,
+        "dv_ttm": null,
+        "debt_ratio": 23.2159,
+        "industry_pb_avg": 6.2928375,
+        "industry_debt_avg": 30.042285714285715
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "688135",
+      "name": "利扬芯片",
+      "industry": "半导体",
+      "concepts": [
+        "集成电路概念"
+      ],
+      "metrics": {
+        "market_cap": 9053757068.0,
+        "pe_ttm": 5013.2124,
+        "pb": 5.711,
+        "dv_ttm": null,
+        "debt_ratio": 56.1214,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "688049",
+      "name": "炬芯科技",
+      "industry": "半导体",
+      "concepts": [
+        "芯片"
+      ],
+      "metrics": {
+        "market_cap": 8791664354.0,
+        "pe_ttm": 41.5021,
+        "pb": 4.1985,
+        "dv_ttm": 0.578,
+        "debt_ratio": 13.1902,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": false,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": true,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "688381",
+      "name": "帝奥微",
+      "industry": "半导体",
+      "concepts": [
+        "芯片"
+      ],
+      "metrics": {
+        "market_cap": 8046225000.0,
+        "pe_ttm": null,
+        "pb": 3.2038,
+        "dv_ttm": 0.6369,
+        "debt_ratio": 9.5329,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "301348",
+      "name": "蓝箭电子",
+      "industry": "半导体",
+      "concepts": [
+        "芯片"
+      ],
+      "metrics": {
+        "market_cap": 6828000000.0,
+        "pe_ttm": null,
+        "pb": 4.6471,
+        "dv_ttm": 0.1757,
+        "debt_ratio": 25.5158,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": true,
+        "debt_vs_industry": false,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": false,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": true
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "688478",
+      "name": "晶升股份",
+      "industry": "半导体",
+      "concepts": [
+        "芯片"
+      ],
+      "metrics": {
+        "market_cap": 6707988334.0,
+        "pe_ttm": null,
+        "pb": 4.4754,
+        "dv_ttm": 0.5108,
+        "debt_ratio": 15.6704,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    },
+    {
+      "code": "603375",
+      "name": "盛景微",
+      "industry": "半导体",
+      "concepts": [
+        "芯片"
+      ],
+      "metrics": {
+        "market_cap": 4830993349.0,
+        "pe_ttm": 573.7849,
+        "pb": 3.1193,
+        "dv_ttm": 0.2084,
+        "debt_ratio": 11.4793,
+        "industry_pb_avg": 9.258199465240642,
+        "industry_debt_avg": 24.218167532467533
+      },
+      "criteria": {
+        "market_cap": true,
+        "turnover_3d": true,
+        "pb_lt_10": true,
+        "roe_3y": false,
+        "cfo_vs_ni": false,
+        "debt_vs_industry": true,
+        "concept_match": true,
+        "pe_percentile": false,
+        "dividend_yield": false,
+        "pb_vs_industry": true,
+        "limit_up_1m": true,
+        "ma_alignment": true,
+        "main_fund_inflow": false,
+        "volume_expansion": false
+      },
+      "n_pass": 8,
+      "advice": ""
+    }
+  ]
 }
