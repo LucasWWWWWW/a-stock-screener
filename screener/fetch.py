@@ -394,7 +394,7 @@ def main():
     log.info(f"全主题命中股票输出: {len(output_stocks)} 只")
 
     if not args.skip_advice and output_stocks:
-        log.info(f"并行生成 {len(output_stocks)} 只投资建议(workers={ADVICE_WORKERS})...")
+        log.info(f"并行生成 {len(output_stocks)} 只投资建议(含 intro/bull/bear, workers={ADVICE_WORKERS})...")
         client = make_client()
         done_count = 0
 
@@ -406,12 +406,44 @@ def main():
             for fut in as_completed(futs):
                 s = futs[fut]
                 try:
-                    s["advice"] = fut.result()
+                    payload = fut.result()
+                    s["advice"] = payload.get("advice_text", "")
+                    s["intro"] = payload.get("intro", "")
+                    s["bull"] = payload.get("bull", [])
+                    s["bear"] = payload.get("bear", [])
                 except Exception as e:
                     s["advice"] = f"(生成失败: {e!s})"
+                    s["intro"] = ""
+                    s["bull"] = []
+                    s["bear"] = []
                 done_count += 1
                 if done_count % 100 == 0:
                     log.info(f"  advice {done_count}/{len(output_stocks)}")
+
+    # 行业聚合(热力图用):每个行业总数、平均通过条数、命中率
+    from collections import Counter
+    industry_stats: dict[str, dict] = {}
+    for s in output_stocks:
+        ind = s.get("industry") or "未分类"
+        if ind not in industry_stats:
+            industry_stats[ind] = {"name": ind, "count": 0, "n_pass_sum": 0, "perfect": 0}
+        industry_stats[ind]["count"] += 1
+        industry_stats[ind]["n_pass_sum"] += s["n_pass"]
+        if s["n_pass"] >= 11:
+            industry_stats[ind]["perfect"] += 1
+    industries = []
+    for ind, st in industry_stats.items():
+        c = st["count"]
+        industries.append({
+            "name": st["name"],
+            "count": c,
+            "avg_pass": round(st["n_pass_sum"] / c, 1) if c else 0,
+            "strong_ratio": round(st["perfect"] / c, 3) if c else 0,
+        })
+    industries.sort(key=lambda x: -x["avg_pass"])
+
+    # 信号稀缺度:同样通过条数的股票数量分布
+    npass_dist = dict(Counter(s["n_pass"] for s in output_stocks))
 
     daily_script = ""
     if not args.skip_advice and output_stocks:
@@ -428,6 +460,8 @@ def main():
         "unavailable_endpoints": sorted(UNAVAILABLE),
         "criteria_meta": CRITERIA_META,
         "daily_script": daily_script,
+        "industries": industries,
+        "npass_distribution": npass_dist,
         "stocks": output_stocks,
     }
 

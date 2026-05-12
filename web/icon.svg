@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#0e1014"/>
+  <g stroke="#ff6a3d" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polyline points="80,360 160,280 240,320 320,200 400,240 460,140"/>
+    <circle cx="80" cy="360" r="14" fill="#ff6a3d"/>
+    <circle cx="160" cy="280" r="14" fill="#ff6a3d"/>
+    <circle cx="240" cy="320" r="14" fill="#ff6a3d"/>
+    <circle cx="320" cy="200" r="14" fill="#ff6a3d"/>
+    <circle cx="400" cy="240" r="14" fill="#ff6a3d"/>
+    <circle cx="460" cy="140" r="14" fill="#ff6a3d"/>
+  </g>
+  <text x="256" y="460" font-family="-apple-system,sans-serif" font-size="68" font-weight="700" fill="#e6e8eb" text-anchor="middle">A股</text>
+</svg>

@@ -2,6 +2,8 @@ const LS_DISABLED = "screener.disabled.v3";
 const LS_THRESHOLDS = "screener.thresholds.v3";
 const LS_USAGE = "screener.usage.v3";
 const LS_FAVORITES = "screener.fav.v3";
+const LS_PORTFOLIO = "screener.portfolio.v3";
+const LS_LAST_SEEN = "screener.lastseen.v3";
 const MIN_USAGE_TO_PROMOTE = 3;
 
 const state = {
@@ -10,10 +12,12 @@ const state = {
   thresholds: JSON.parse(localStorage.getItem(LS_THRESHOLDS) || "{}"),
   usage: JSON.parse(localStorage.getItem(LS_USAGE) || "{}"),
   favorites: new Set(JSON.parse(localStorage.getItem(LS_FAVORITES) || "[]")),
+  portfolio: (localStorage.getItem(LS_PORTFOLIO) || "").split(/[\s,，\n]+/).filter(Boolean),
   byCode: new Map(),
   search: "",
   sort: "n_pass",
-  tab: "all", // "all" | "fav"
+  tab: "all", // "all" | "fav" | "portfolio"
+  currentList: [], // for detail page next/prev nav
 };
 
 const persist = () => {
@@ -21,6 +25,7 @@ const persist = () => {
   localStorage.setItem(LS_THRESHOLDS, JSON.stringify(state.thresholds));
   localStorage.setItem(LS_USAGE, JSON.stringify(state.usage));
   localStorage.setItem(LS_FAVORITES, JSON.stringify([...state.favorites]));
+  localStorage.setItem(LS_PORTFOLIO, state.portfolio.join(","));
 };
 
 const OP_FN = {
@@ -372,6 +377,12 @@ function renderListMain() {
 
   document.getElementById("fav-count").textContent = state.favorites.size;
 
+  // Portfolio tab is a different UI
+  if (state.tab === "portfolio") {
+    renderPortfolioTab(main);
+    return;
+  }
+
   const q = state.search.trim().toLowerCase();
   let stocks = state.data.stocks;
   if (state.tab === "fav") {
@@ -387,6 +398,9 @@ function renderListMain() {
   }
   filtered.sort(sortFn);
 
+  // Remember currentList order for detail page swipe navigation
+  state.currentList = filtered.map(s => s.code);
+
   const resultCount = document.getElementById("result-count");
   if (resultCount) {
     const base = state.tab === "fav" ? state.favorites.size : state.data.stocks.length;
@@ -398,7 +412,8 @@ function renderListMain() {
     return;
   }
   const total = activeCount();
-  main.innerHTML = `<div id="stocks-list">${
+  const heatmap = state.tab === "all" && !q ? heatmapHTML() : "";
+  main.innerHTML = `${heatmap}<div id="stocks-list">${
     filtered.map((s) => stockRow(s, total)).join("")
   }</div>`;
   main.querySelectorAll("[data-fav]").forEach((btn) => {
@@ -412,6 +427,95 @@ function renderListMain() {
       renderListMain();
     });
   });
+  main.querySelectorAll("[data-heat-industry]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      const ind = e.currentTarget.dataset.heatIndustry;
+      document.getElementById("search-input").value = ind;
+      state.search = ind;
+      renderListMain();
+    });
+  });
+}
+
+// ============== Industry heatmap ==============
+function heatmapHTML() {
+  const inds = (state.data.industries || []).slice(0, 18);
+  if (!inds.length) return "";
+  const maxAvg = Math.max(...inds.map(i => i.avg_pass));
+  const minAvg = Math.min(...inds.map(i => i.avg_pass));
+  const range = maxAvg - minAvg || 1;
+  const cells = inds.map(i => {
+    const t = (i.avg_pass - minAvg) / range; // 0..1
+    const opacity = 0.18 + 0.65 * t;
+    return `<button class="heat-cell" data-heat-industry="${escapeHtml(i.name)}"
+      style="background: rgba(255, 106, 61, ${opacity.toFixed(2)});">
+      <span class="heat-name">${escapeHtml(i.name)}</span>
+      <span class="heat-meta">${i.count} 只 · 均通过 ${i.avg_pass}</span>
+    </button>`;
+  }).join("");
+  return `<div class="heatmap-section">
+    <div class="heatmap-head">
+      <h3>🔥 行业热力(主题命中股按平均通过条数排序)</h3>
+      <span class="heatmap-hint">点击行业名筛选</span>
+    </div>
+    <div class="heatmap-grid">${cells}</div>
+  </div>`;
+}
+
+// ============== Portfolio tab ==============
+function renderPortfolioTab(main) {
+  const codes = state.portfolio;
+  const rows = codes.map(code => {
+    const s = state.byCode.get(code);
+    if (!s) {
+      return `<div class="port-row not-found">
+        <span class="stock-code">${escapeHtml(code)}</span>
+        <span class="port-status">⚠️ 不在追踪范围(非主题命中股)</span>
+      </div>`;
+    }
+    const n = passCount(s);
+    const total = activeCount();
+    const passNow = stockPasses(s);
+    const statusClass = passNow ? "ok" : "warn";
+    const statusText = passNow ? `✓ 仍符合筛选 (${n}/${total} 项)` : `✗ 已跌出筛选 (${n}/${total} 项)`;
+    return `<a class="port-row ${statusClass}" href="#/stock/${encodeURIComponent(s.code)}">
+      <span class="stock-code">${s.code}</span>
+      <span class="stock-name">${escapeHtml(s.name)}</span>
+      <span class="stock-industry">${escapeHtml(s.industry || "")}</span>
+      <span class="port-status">${statusText}</span>
+      <span class="row-arrow">›</span>
+    </a>`;
+  }).join("");
+
+  const okCount = codes.filter(c => {
+    const s = state.byCode.get(c);
+    return s && stockPasses(s);
+  }).length;
+
+  main.innerHTML = `
+    <div class="portfolio-page">
+      <div class="port-intro">
+        <h3>📋 持仓自检</h3>
+        <p>输入你持有的股票代码(逗号、空格或换行分隔),系统每天告诉你哪些仍符合筛选,哪些已经掉队。</p>
+        <textarea id="portfolio-input" placeholder="例如:600000 000001 002230">${state.portfolio.join(", ")}</textarea>
+        <div class="port-actions">
+          <button id="portfolio-save">保存</button>
+          <span class="port-summary">${codes.length ? `共 ${codes.length} 只,符合 ${okCount} / 掉队 ${codes.length - okCount}` : ""}</span>
+        </div>
+      </div>
+      ${codes.length ? `<div class="port-list">${rows}</div>` : ""}
+    </div>
+  `;
+  document.getElementById("portfolio-save").addEventListener("click", () => {
+    const txt = document.getElementById("portfolio-input").value;
+    const codes = [...new Set(txt.split(/[\s,，\n;；]+/).filter(Boolean).map(s => s.trim()))];
+    state.portfolio = codes;
+    persist();
+    renderListMain();
+  });
+
+  document.getElementById("result-count").textContent =
+    codes.length ? `持仓 ${codes.length} 只,符合 ${okCount} 只` : "未设置持仓";
 }
 
 function stockRow(s, total) {
@@ -448,6 +552,19 @@ function stockRow(s, total) {
 }
 
 // ============== Detail view ==============
+function rarityInfo(stock) {
+  const dist = state.data.npass_distribution || {};
+  const n = stock.n_pass;
+  const same = dist[n] || dist[String(n)] || 0;
+  const total = state.data.stocks.length || 1;
+  let level = "普通";
+  if (same <= 3) level = "极罕见";
+  else if (same <= 10) level = "罕见";
+  else if (same <= 30) level = "较少";
+  const pct = ((same / total) * 100).toFixed(1);
+  return { same, total, level, pct, n };
+}
+
 function renderDetailMain(code) {
   const main = document.getElementById("main-content");
   const toolbar = document.getElementById("list-toolbar");
@@ -461,6 +578,20 @@ function renderDetailMain(code) {
   const m = s.metrics;
   const conceptTags = (s.concepts || []).map(c => `<span class="concept-tag">${escapeHtml(c)}</span>`).join("");
   const fav = state.favorites.has(s.code);
+  const rarity = rarityInfo(s);
+
+  // prev/next from currentList
+  let prevCode = null, nextCode = null;
+  if (state.currentList?.length) {
+    const idx = state.currentList.indexOf(code);
+    if (idx > 0) prevCode = state.currentList[idx - 1];
+    if (idx >= 0 && idx < state.currentList.length - 1) nextCode = state.currentList[idx + 1];
+  }
+  const navHTML = (prevCode || nextCode) ? `
+    <div class="detail-nav">
+      ${prevCode ? `<a class="nav-arrow" href="#/stock/${prevCode}" title="上一只 (← / 右滑)">‹ ${state.byCode.get(prevCode)?.name || prevCode}</a>` : '<span></span>'}
+      ${nextCode ? `<a class="nav-arrow" href="#/stock/${nextCode}" title="下一只 (→ / 左滑)">${state.byCode.get(nextCode)?.name || nextCode} ›</a>` : '<span></span>'}
+    </div>` : "";
 
   const allChips = state.data.criteria_meta.map((meta) => {
     const pass = stockPassesCriterion(s, meta);
@@ -478,12 +609,29 @@ function renderDetailMain(code) {
     </div>`;
   }).join("");
 
+  const introHTML = s.intro
+    ? `<div class="intro-card"><span class="intro-icon">💡</span><span class="intro-text">${escapeHtml(s.intro)}</span></div>`
+    : "";
+
   const adviceHtml = s.advice
     ? `<div class="advice-card">
          <h3>AI 投资建议</h3>
          <div class="advice-body">${escapeHtml(s.advice)}</div>
        </div>`
     : `<div class="advice-card empty-advice">AI 建议未生成。</div>`;
+
+  const bullList = (s.bull || []).map((b, i) => `<li>${escapeHtml(b)}</li>`).join("");
+  const bearList = (s.bear || []).map((b, i) => `<li>${escapeHtml(b)}</li>`).join("");
+  const debateHTML = (bullList || bearList) ? `
+    <div class="debate-card">
+      <h3>看多 vs 看空</h3>
+      <div class="debate-tabs">
+        <button class="debate-tab active" data-debate="bull">💚 买入派</button>
+        <button class="debate-tab" data-debate="bear">💔 反对派</button>
+      </div>
+      <ul class="debate-list bull active">${bullList || "<li>暂无看多观点</li>"}</ul>
+      <ul class="debate-list bear">${bearList || "<li>暂无看空观点</li>"}</ul>
+    </div>` : "";
 
   const externalLinks = `
     <div class="external-links">
@@ -493,9 +641,11 @@ function renderDetailMain(code) {
     </div>`;
 
   const klineSparkBig = sparkline(s.kline_close, 320, 60);
+  const rarityBadge = `<span class="rarity-badge ${rarity.level === '极罕见' ? 'very-rare' : rarity.level === '罕见' ? 'rare' : ''}" title="共 ${rarity.total} 只主题股,通过 ${rarity.n}/13 的有 ${rarity.same} 只(${rarity.pct}%)">🎯 ${rarity.level}信号 · 同档 ${rarity.same} 只</span>`;
 
   main.innerHTML = `
-    <div class="detail-page">
+    <div class="detail-page" id="detail-root">
+      ${navHTML}
       <a class="back-link" href="#/">‹ 返回列表</a>
       <div class="detail-head">
         <div class="detail-title">
@@ -504,6 +654,8 @@ function renderDetailMain(code) {
           <span class="stock-industry">${escapeHtml(s.industry || "未分类")}</span>
           <button class="fav-btn big${fav ? " on" : ""}" id="detail-fav">${fav ? "★" : "☆"}</button>
         </div>
+        ${introHTML}
+        <div class="badges-row">${rarityBadge}</div>
         <div class="concept-tags">${conceptTags}</div>
         ${externalLinks}
       </div>
@@ -531,6 +683,7 @@ function renderDetailMain(code) {
       </div>
 
       ${adviceHtml}
+      ${debateHTML}
 
       <div class="detail-criteria">
         <h3>13 项条件评估</h3>
@@ -539,6 +692,7 @@ function renderDetailMain(code) {
     </div>
   `;
 
+  // Fav button
   const dfav = document.getElementById("detail-fav");
   if (dfav) {
     dfav.addEventListener("click", () => {
@@ -548,6 +702,51 @@ function renderDetailMain(code) {
       renderDetailMain(s.code);
     });
   }
+  // Debate tab toggle
+  main.querySelectorAll(".debate-tab").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const which = e.currentTarget.dataset.debate;
+      main.querySelectorAll(".debate-tab").forEach(t => t.classList.toggle("active", t.dataset.debate === which));
+      main.querySelectorAll(".debate-list").forEach(l => l.classList.toggle("active", l.classList.contains(which)));
+    });
+  });
+
+  // Swipe + arrow key navigation
+  attachSwipeNav(prevCode, nextCode);
+}
+
+let _navHandlers = null;
+function attachSwipeNav(prevCode, nextCode) {
+  // Clear previous listeners
+  if (_navHandlers) {
+    document.removeEventListener("keydown", _navHandlers.key);
+    const root = document.getElementById("detail-root");
+    if (root) {
+      root.removeEventListener("touchstart", _navHandlers.ts);
+      root.removeEventListener("touchend", _navHandlers.te);
+    }
+  }
+  const root = document.getElementById("detail-root");
+  if (!root) return;
+
+  let startX = null;
+  const ts = (e) => { startX = e.touches[0].clientX; };
+  const te = (e) => {
+    if (startX == null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    startX = null;
+    if (Math.abs(dx) < 60) return;
+    if (dx > 0 && prevCode) window.location.hash = `#/stock/${prevCode}`;
+    else if (dx < 0 && nextCode) window.location.hash = `#/stock/${nextCode}`;
+  };
+  const key = (e) => {
+    if (e.key === "ArrowLeft" && prevCode) window.location.hash = `#/stock/${prevCode}`;
+    else if (e.key === "ArrowRight" && nextCode) window.location.hash = `#/stock/${nextCode}`;
+  };
+  root.addEventListener("touchstart", ts, { passive: true });
+  root.addEventListener("touchend", te, { passive: true });
+  document.addEventListener("keydown", key);
+  _navHandlers = { ts, te, key };
 }
 
 // ============== Router ==============
@@ -669,6 +868,52 @@ async function init() {
     window.speechSynthesis.getVoices();
     window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
   }
+
+  // Daily data change notification
+  maybeNotifyDataChange();
+}
+
+function maybeNotifyDataChange() {
+  const generated = state.data?.generated_at;
+  if (!generated) return;
+  const lastSeen = localStorage.getItem(LS_LAST_SEEN);
+  if (lastSeen === generated) return;
+
+  // Compute simple diff vs previous lastSeen entry: just announce today's totals
+  const total = state.data.stocks.length;
+  const top = state.data.stocks[0];
+  const msg = `今日 ${total} 只股票入选,通过条数最高的是 ${top?.name || ""}(${top?.code || ""})。`;
+
+  const showHeaderToast = () => {
+    flashHeader(msg);
+  };
+
+  if ("Notification" in window) {
+    if (Notification.permission === "granted") {
+      try {
+        new Notification("A股选股 · 今日更新", { body: msg, icon: "icon.svg" });
+      } catch { showHeaderToast(); }
+    } else if (Notification.permission === "default") {
+      // ask quietly only after a short delay so user has context
+      setTimeout(() => {
+        Notification.requestPermission().then((p) => {
+          if (p === "granted") {
+            try { new Notification("A股选股 · 今日更新", { body: msg, icon: "icon.svg" }); }
+            catch { showHeaderToast(); }
+          } else {
+            showHeaderToast();
+          }
+        });
+      }, 3000);
+      showHeaderToast(); // also show inline as fallback
+    } else {
+      showHeaderToast();
+    }
+  } else {
+    showHeaderToast();
+  }
+
+  localStorage.setItem(LS_LAST_SEEN, generated);
 }
 
 init();

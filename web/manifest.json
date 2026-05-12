@@ -1,0 +1,18 @@
+{
+  "name": "A股选股",
+  "short_name": "A股选股",
+  "description": "按 13 项量化条件每日自动筛选 A 股,带 AI 投资建议",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0e1014",
+  "theme_color": "#ff6a3d",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
