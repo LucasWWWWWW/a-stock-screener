@@ -1,64 +1,170 @@
 {
-  "generated_at": "2026-05-12 13:45 CST",
+  "generated_at": "2026-05-12 14:16 CST",
   "trade_date": "20260511",
-  "elapsed_sec": 755.0,
+  "elapsed_sec": 777.7,
   "unavailable_endpoints": [],
   "criteria_meta": [
     {
       "key": "market_cap",
-      "label": "市值<200亿"
+      "label": "市值",
+      "tunable": true,
+      "operator": "<",
+      "unit": "亿",
+      "scale": 100000000.0,
+      "value_key": "market_cap",
+      "default": 200,
+      "presets": [
+        50,
+        100,
+        150,
+        200,
+        300,
+        500
+      ]
     },
     {
       "key": "turnover_3d",
-      "label": "近3日换手率每天≥5%"
+      "label": "近 3 日换手率每天",
+      "tunable": true,
+      "operator": ">=",
+      "unit": "%",
+      "scale": 1,
+      "value_key": "turnover_3d_min",
+      "default": 5,
+      "presets": [
+        3,
+        5,
+        7,
+        10
+      ]
     },
     {
       "key": "pb_lt_10",
-      "label": "PB<10"
+      "label": "PB",
+      "tunable": true,
+      "operator": "<",
+      "unit": "",
+      "scale": 1,
+      "value_key": "pb",
+      "default": 10,
+      "presets": [
+        1,
+        2,
+        3,
+        5,
+        10
+      ]
     },
     {
       "key": "roe_3y",
-      "label": "ROE连续3年>12%"
+      "label": "近 3 年 ROE 最低",
+      "tunable": true,
+      "operator": ">",
+      "unit": "%",
+      "scale": 1,
+      "value_key": "roe_3y_min",
+      "default": 12,
+      "presets": [
+        8,
+        10,
+        12,
+        15,
+        20
+      ]
     },
     {
       "key": "cfo_vs_ni",
-      "label": "经营现金流连续2年>净利润"
+      "label": "经营现金流>净利润(近 2 年)",
+      "tunable": false
     },
     {
       "key": "debt_vs_industry",
-      "label": "资产负债率低于行业均值20%+"
+      "label": "资产负债率低于行业均值",
+      "tunable": true,
+      "operator": ">=",
+      "unit": "%",
+      "scale": 1,
+      "value_key": "debt_vs_industry_gap",
+      "default": 20,
+      "presets": [
+        10,
+        20,
+        30,
+        40
+      ]
     },
     {
       "key": "concept_match",
-      "label": "命中目标行业/概念"
+      "label": "命中目标行业/概念",
+      "tunable": false
     },
     {
       "key": "pe_percentile",
-      "label": "PE 5年百分位<50%"
+      "label": "PE 近 5 年百分位",
+      "tunable": true,
+      "operator": "<",
+      "unit": "%",
+      "scale": 1,
+      "value_key": "pe_percentile",
+      "default": 50,
+      "presets": [
+        20,
+        30,
+        50,
+        70
+      ]
     },
     {
       "key": "dividend_yield",
-      "label": "股息率>2%"
+      "label": "股息率",
+      "tunable": true,
+      "operator": ">",
+      "unit": "%",
+      "scale": 1,
+      "value_key": "dv_ttm",
+      "default": 2,
+      "presets": [
+        1,
+        2,
+        3,
+        5
+      ]
     },
     {
       "key": "pb_vs_industry",
-      "label": "PB<行业均值"
+      "label": "PB 低于行业均值",
+      "tunable": false
     },
     {
       "key": "limit_up_1m",
-      "label": "近1月有过涨停"
+      "label": "近 1 月有过涨停",
+      "tunable": false
     },
     {
       "key": "ma_alignment",
-      "label": "5/10/20日多头排列"
+      "label": "5/10/20 日均线多头排列",
+      "tunable": false
     },
     {
       "key": "main_fund_inflow",
-      "label": "近3日主力连续净流入"
+      "label": "近 3 日主力连续净流入",
+      "tunable": false
     },
     {
       "key": "volume_expansion",
-      "label": "近3日成交量较前3日放大50%+"
+      "label": "近 3 日成交量较前 3 日放大",
+      "tunable": true,
+      "operator": ">",
+      "unit": "%",
+      "scale": 1,
+      "value_key": "volume_expansion_pct",
+      "default": 50,
+      "presets": [
+        20,
+        50,
+        100,
+        200
+      ]
     }
   ],
   "stocks": [
@@ -78,6 +184,16 @@
         "industry_pb_avg": 3.480419642857143,
         "industry_debt_avg": 30.442800000000002
       },
+      "tunable_values": {
+        "market_cap": 8172087101.0,
+        "turnover_3d_min": 5.7369,
+        "pb": 2.405,
+        "roe_3y_min": 2.5955,
+        "debt_vs_industry_gap": 65.08205552708685,
+        "pe_percentile": 99.2671009771987,
+        "dv_ttm": 1.9861,
+        "volume_expansion_pct": 97.8314106349291
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -95,7 +211,7 @@
         "volume_expansion": true
       },
       "n_pass": 10,
-      "advice": "**亮点:** 低负债率、概念匹配军工、技术面向上、成交活跃\n\n**风险:** PE高达76倍,明显高估,短期获利回吐压力大\n\n**仓位:** 轻仓 · 估值高企,需等待调整后介入"
+      "advice": "**飞亚达(000026)**\n\n亮点: 低杠杆、现金流稳健、军工概念共振强势突破\n\n风险: PE极高(76x)、估值泡沫风险、回调风险大\n\n仓位: **轻仓** · PE高估、虽多指标达标但估值风险不可忽视"
     },
     {
       "code": "000690",
@@ -116,6 +232,16 @@
         "industry_pb_avg": 2.8378096774193557,
         "industry_debt_avg": 62.529587500000005
       },
+      "tunable_values": {
+        "market_cap": 12424319692.0,
+        "turnover_3d_min": 7.1402,
+        "pb": 0.9492,
+        "roe_3y_min": 5.7992,
+        "debt_vs_industry_gap": 33.529387188105154,
+        "pe_percentile": 53.990228013029316,
+        "dv_ttm": 3.5026,
+        "volume_expansion_pct": 28.10344269361369
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -133,7 +259,7 @@
         "volume_expansion": false
       },
       "n_pass": 10,
-      "advice": "**亮点:** PB破净、股息率3.5%、估值低于行业均值,现金流健康。\n\n**风险:** 火力发电主业面临能源转型压力,需关注政策变化。\n\n**仓位:** 标准 · 估值吸引但行业转型风险制约,观察执行力。"
+      "advice": "**亮点:** PE低至12倍,PB破净,股息率3.5%,现金流健康。\n\n**风险:** 火力发电传统业务压力,转型期业绩存变数。\n\n**仓位:** 标准 · 估值吸引但行业转型风险制衡。"
     },
     {
       "code": "603936",
@@ -152,6 +278,16 @@
         "industry_pb_avg": 7.345781654676259,
         "industry_debt_avg": 42.307003571428574
       },
+      "tunable_values": {
+        "market_cap": 12746647641.0,
+        "turnover_3d_min": 12.0869,
+        "pb": 2.9643,
+        "roe_3y_min": -13.7211,
+        "debt_vs_industry_gap": -35.5498975557998,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 261.26980925003727
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -169,7 +305,7 @@
         "volume_expansion": true
       },
       "n_pass": 10,
-      "advice": "亮点: 主力资金净流入,技术面向上,PB低于行业均值。\n\n风险: 资产负债率偏高,PE数据缺失难以判断估值。\n\n仓位: 标准 · 条件触发率高但缺乏盈利确认,建议观察。"
+      "advice": "**亮点:** 主力资金持续净流入,技术面向上,概念匹配度高\n\n**风险:** 负债率偏高,估值溢价空间有限\n\n**仓位:** 标准 · 10/14条件达成但PE缺失,资产结构需关注"
     },
     {
       "code": "603131",
@@ -188,6 +324,16 @@
         "industry_pb_avg": 6.312604780876494,
         "industry_debt_avg": 45.875022916666666
       },
+      "tunable_values": {
+        "market_cap": 8351929984.0,
+        "turnover_3d_min": 9.0021,
+        "pb": 5.0582,
+        "roe_3y_min": -4.3822,
+        "debt_vs_industry_gap": 31.990224709697014,
+        "pe_percentile": null,
+        "dv_ttm": 0.0457,
+        "volume_expansion_pct": 65.72170305750215
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -205,7 +351,7 @@
         "volume_expansion": true
       },
       "n_pass": 10,
-      "advice": "**亮点:** 军工概念股,融资能力强,技术积累优势明显。\n\n**风险:** PB高位5.06,缺乏盈利数据支撑,估值透支风险。\n\n**仓位:** 标准 · 概念热度高但估值偏贵,需等回调。"
+      "advice": "**亮点:** 军工概念、低杠杆、技术面强势，10/14条件达成率高\n\n**风险:** PE缺失无法判断估值，PB高于行业均值存溢价风险\n\n**仓位:** 标准 · 基本面信号尚可但缺PE验证，宜观察确认"
     },
     {
       "code": "688584",
@@ -223,6 +369,16 @@
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
       },
+      "tunable_values": {
+        "market_cap": 18630398600.0,
+        "turnover_3d_min": 8.5991,
+        "pb": 4.4772,
+        "roe_3y_min": 3.0312,
+        "debt_vs_industry_gap": 34.137461149296044,
+        "pe_percentile": 99.81447124304268,
+        "dv_ttm": 0.7144,
+        "volume_expansion_pct": 109.82173648831481
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -240,7 +396,7 @@
         "volume_expansion": true
       },
       "n_pass": 10,
-      "advice": "**亮点:** 资产负债率低,现金流健康,技术面向好\n\n**风险:** PE过高(157倍),估值显著溢价\n\n**仓位:** 轻仓 · 高估值压制,等待调整机会"
+      "advice": "**亮点：** 10/14条件触发，低杠杆、现金流健康、技术面向好\n\n**风险：** PE极高156倍，估值透支明显，存在回调压力\n\n**仓位：** 轻仓 · 高估值压制上升空间，需等回调时机"
     },
     {
       "code": "000601",
@@ -259,6 +415,16 @@
         "industry_pb_avg": 2.432022727272727,
         "industry_debt_avg": 51.56619090909091
       },
+      "tunable_values": {
+        "market_cap": 7822923431.000001,
+        "turnover_3d_min": 9.192,
+        "pb": 1.8925,
+        "roe_3y_min": -6.0273,
+        "debt_vs_industry_gap": -27.874870797127294,
+        "pe_percentile": 22.448979591836736,
+        "dv_ttm": null,
+        "volume_expansion_pct": 24.73217899416462
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -276,7 +442,7 @@
         "volume_expansion": false
       },
       "n_pass": 9,
-      "advice": "亮点: 概念契合度高,技术面向好,现金流质量较优\n风险: PE估值偏高,负债率偏高,股息回报缺失\n仓位: 轻仓 · 估值压力大,虽基本面有亮点但缺乏安全边际"
+      "advice": "亮点: 概念匹配新能源,技术面多头排列,成交活跃\n风险: PE估值过高达78.6倍,资产负债率65.9%较高\n仓位: 轻仓 · 估值透支风险大,需等待调整机会"
     },
     {
       "code": "000697",
@@ -293,6 +459,16 @@
         "debt_ratio": 27.2972,
         "industry_pb_avg": 6.337291836734694,
         "industry_debt_avg": 39.23318
+      },
+      "tunable_values": {
+        "market_cap": 17199807856.0,
+        "turnover_3d_min": 3.3795,
+        "pb": 5.1038,
+        "roe_3y_min": -1422.5969,
+        "debt_vs_industry_gap": 30.423177524737987,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 127.50932754931128
       },
       "criteria": {
         "market_cap": true,
@@ -311,7 +487,7 @@
         "volume_expansion": true
       },
       "n_pass": 9,
-      "advice": "**炼石航空 (000697) 投资建议**\n\n亮点: 9/14条件通过,PB低于行业均值,军工概念匹配,资产负债率健康。\n\n风险: PE数据缺失,PB仍处高位(5.1倍),无股息保障,估值仍需关注。\n\n仓位: 标准 · 条件触发充分但估值偏高,等待进一步回调确认。"
+      "advice": "亮点: 九项条件通过,PB低于行业均值,现金流充沛,军工概念共鸣。\n风险: 无PE数据无法评估盈利,PB仍处历史高位,缺乏股息保障。\n仓位: 标准 · 技术面积极但估值偏高,需等待更优入场时机。"
     },
     {
       "code": "600480",
@@ -328,6 +504,16 @@
         "debt_ratio": 50.5818,
         "industry_pb_avg": 4.11404329004329,
         "industry_debt_avg": 42.43399512195122
+      },
+      "tunable_values": {
+        "market_cap": 13896724753.0,
+        "turnover_3d_min": 2.8992,
+        "pb": 1.6844,
+        "roe_3y_min": 9.0529,
+        "debt_vs_industry_gap": -19.201126018497128,
+        "pe_percentile": 30.700325732899024,
+        "dv_ttm": 2.9095,
+        "volume_expansion_pct": 141.26841628035055
       },
       "criteria": {
         "market_cap": true,
@@ -346,7 +532,7 @@
         "volume_expansion": true
       },
       "n_pass": 9,
-      "advice": "**凌云股份(600480)**\n\n亮点: PE估值合理,股息率近3%,资产负债率控制良好,航天军工概念契合。\n\n风险: 市场热度可能高估,需关注后续成长能否支撑估值。\n\n仓位: **标准** · 9/14条件达成,估值适中但无明显低估优势。"
+      "advice": "亮点: PE处于低分位,股息率近3%,现金流质量良好。\n\n风险: 资产负债率超50%,杠杆水平偏高。\n\n仓位: 标准 · 9/14条件通过,估值合理但财务杠杆制约。"
     },
     {
       "code": "600558",
@@ -363,6 +549,16 @@
         "debt_ratio": 18.613,
         "industry_pb_avg": 2.279540909090909,
         "industry_debt_avg": 45.395266666666664
+      },
+      "tunable_values": {
+        "market_cap": 5197131971.0,
+        "turnover_3d_min": 1.7765,
+        "pb": 2.095,
+        "roe_3y_min": 4.5697,
+        "debt_vs_industry_gap": 58.99792783094859,
+        "pe_percentile": 27.524429967426713,
+        "dv_ttm": 2.5907,
+        "volume_expansion_pct": -27.372820938111264
       },
       "criteria": {
         "market_cap": true,
@@ -381,7 +577,7 @@
         "volume_expansion": false
       },
       "n_pass": 9,
-      "advice": "**亮点：** 军工概念匹配,资产负债率低,现金流质量好\n\n**风险：** PE估值偏高,PB相对溢价明显\n\n**仓位：** 标准 · 条件触发率高但估值偏贵,待回调"
+      "advice": "**亮点:** 军工概念匹配,低杠杆率18.6%,现金流质量良好\n\n**风险:** PE26.4处高位,PB2.1相对偏高,估值需关注\n\n**仓位:** 标准 · 概念契合但估值偏高,需等待调整机会"
     },
     {
       "code": "600847",
@@ -398,6 +594,16 @@
         "debt_ratio": 12.8964,
         "industry_pb_avg": 5.007864590163934,
         "industry_debt_avg": 48.07524556962025
+      },
+      "tunable_values": {
+        "market_cap": 2277850764.0,
+        "turnover_3d_min": 2.0227,
+        "pb": 4.7535,
+        "roe_3y_min": -10.1527,
+        "debt_vs_industry_gap": 73.17455200239371,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": -13.671332057363571
       },
       "criteria": {
         "market_cap": true,
@@ -416,7 +622,7 @@
         "volume_expansion": false
       },
       "n_pass": 9,
-      "advice": "**亮点:** 新能源概念匹配,主力资金净流入,技术面均线向上。\n\n**风险:** PE缺失难判盈利质量,PB高于行业均值存高估风险。\n\n**仓位:** 标准 · 概念契合但缺乏盈利数据支撑,谨慎参与。"
+      "advice": "亮点: 低负债率、主力资金流入、均线向上排列。\n\n风险: PE缺失无法评估估值,PB偏高存在泡沫风险。\n\n仓位: 标准 · 条件触发9/14但估值信号混合,谨慎参与。"
     },
     {
       "code": "600969",
@@ -433,6 +639,16 @@
         "debt_ratio": 72.5137,
         "industry_pb_avg": 2.432022727272727,
         "industry_debt_avg": 51.56619090909091
+      },
+      "tunable_values": {
+        "market_cap": 4163067945.0,
+        "turnover_3d_min": 5.5592,
+        "pb": 1.1436,
+        "roe_3y_min": -1.7067,
+        "debt_vs_industry_gap": -40.62256436167389,
+        "pe_percentile": 28.653295128939828,
+        "dv_ttm": null,
+        "volume_expansion_pct": 278.7855814788172
       },
       "criteria": {
         "market_cap": true,
@@ -451,7 +667,7 @@
         "volume_expansion": true
       },
       "n_pass": 9,
-      "advice": "**郴电国际(600969)**\n\n亮点: 市值适中,概念匹配电力改革,技术面均线对齐向上。\n\n风险: PE估值偏高(54倍),资产负债率超70%,股息率缺失。\n\n仓位: **轻仓** · PE高企叠加高杠杆,上升空间受限。"
+      "advice": "亮点: 概念匹配电力改革,PE分位数低,资产负债率高但可控\n\n风险: PE 54倍偏高,股息率缺失,财务杠杆压力大\n\n仓位: 轻仓 · 估值高企风险与改革预期难平衡"
     },
     {
       "code": "002030",
@@ -468,6 +684,16 @@
         "debt_ratio": 13.4625,
         "industry_pb_avg": 3.801625153374233,
         "industry_debt_avg": 27.475975
+      },
+      "tunable_values": {
+        "market_cap": 10245156034.0,
+        "turnover_3d_min": 2.0181,
+        "pb": 1.4553,
+        "roe_3y_min": -11.0401,
+        "debt_vs_industry_gap": 51.00264867761744,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 444.08576556877193
       },
       "criteria": {
         "market_cap": true,
@@ -486,7 +712,7 @@
         "volume_expansion": true
       },
       "n_pass": 9,
-      "advice": "亮点：低负债率、PB低于行业均值，现金流质量好，技术面强势\n\n风险：PE缺失无法评估盈利能力，近期涨幅可能存在高估\n\n仓位：标准 · 9/14条件触发，但缺乏估值全景，观察后续表现"
+      "advice": "**亮点:** 基因芯片概念匹配,PB低于行业均值,现金流稳健\n\n**风险:** PE缺失无法判估,需警惕高估值风险\n\n**仓位:** 标准 · 9/14条件达成但缺乏盈利估值参考,谨慎介入"
     },
     {
       "code": "600982",
@@ -503,6 +729,16 @@
         "debt_ratio": 61.6299,
         "industry_pb_avg": 3.3501395348837204,
         "industry_debt_avg": 45.945433333333334
+      },
+      "tunable_values": {
+        "market_cap": 7264578652.999999,
+        "turnover_3d_min": 7.8102,
+        "pb": 1.5921,
+        "roe_3y_min": 6.6778,
+        "debt_vs_industry_gap": -34.1371612557795,
+        "pe_percentile": 91.85667752442997,
+        "dv_ttm": 2.3077,
+        "volume_expansion_pct": 14.145240048389795
       },
       "criteria": {
         "market_cap": true,
@@ -521,7 +757,7 @@
         "volume_expansion": false
       },
       "n_pass": 9,
-      "advice": "亮点: 9项条件达成,股息率2.3%,PB低于行业均值,现金流健康\n\n风险: 负债率61.6%偏高,PE处中等水平,流动性需关注\n\n仓位: 标准 · 基本面可,但高负债削弱安全边际"
+      "advice": "亮点: 电力改革概念匹配,估值合理,现金流健康,股息率可观。\n\n风险: 负债率偏高,融资成本承压。\n\n仓位: 标准 · 条件充分但负债制约,中等配置为宜。"
     },
     {
       "code": "002079",
@@ -543,6 +779,16 @@
         "industry_pb_avg": 5.007864590163934,
         "industry_debt_avg": 48.07524556962025
       },
+      "tunable_values": {
+        "market_cap": 11760235883.0,
+        "turnover_3d_min": 8.6636,
+        "pb": 2.889,
+        "roe_3y_min": 2.3949,
+        "debt_vs_industry_gap": 63.385938456603,
+        "pe_percentile": 98.37133550488599,
+        "dv_ttm": 0.1309,
+        "volume_expansion_pct": -8.157804551125025
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -560,7 +806,7 @@
         "volume_expansion": false
       },
       "n_pass": 9,
-      "advice": "**亮点:** 概念丰富,财务健康,近期涨停信号积极\n\n**风险:** PE极高96.7,估值透支空间有限\n\n**仓位:** 轻仓 · 虽符合多项条件但高PE风险突出,需等回调"
+      "advice": "亮点: 9项条件达成,资产质量优,概念布局前景好\n风险: 估值极高PE96倍,股息率极低缺乏吸引力\n仓位: 轻仓 · 高估值压制,需等待回调机会"
     },
     {
       "code": "002297",
@@ -577,6 +823,16 @@
         "debt_ratio": 30.2976,
         "industry_pb_avg": 6.337291836734694,
         "industry_debt_avg": 39.23318
+      },
+      "tunable_values": {
+        "market_cap": 14413586198.0,
+        "turnover_3d_min": 26.9894,
+        "pb": 6.3787,
+        "roe_3y_min": -3.2219,
+        "debt_vs_industry_gap": 22.775569046404087,
+        "pe_percentile": 0.5701254275940707,
+        "dv_ttm": null,
+        "volume_expansion_pct": -20.484347598427732
       },
       "criteria": {
         "market_cap": true,
@@ -595,7 +851,7 @@
         "volume_expansion": false
       },
       "n_pass": 9,
-      "advice": "**亮点:** 军工航空赛道,资产负债率低于行业均值,技术面强势。\n\n**风险:** PE达74倍处历史高位,估值泡沫风险较大。\n\n**仓位:** 轻仓 · 估值透支,虽基本面良好但风险收益不对等。"
+      "advice": "**博云新材 (002297)**\n\n亮点: 军工概念匹配,资产负债率低,现金流质量良好。\n\n风险: PE极高(74.6倍),PB高达6.4倍,估值严重透支。\n\n仓位: 轻仓 · 估值过高压制上行空间,需等待调整。"
     },
     {
       "code": "002446",
@@ -614,6 +870,16 @@
         "industry_pb_avg": 10.680790322580645,
         "industry_debt_avg": 43.64741071428572
       },
+      "tunable_values": {
+        "market_cap": 10325889367.0,
+        "turnover_3d_min": 4.1104,
+        "pb": 4.0568,
+        "roe_3y_min": -26.4165,
+        "debt_vs_industry_gap": 25.72503278094962,
+        "pe_percentile": 63.91752577319587,
+        "dv_ttm": null,
+        "volume_expansion_pct": 83.0140019846928
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -631,7 +897,7 @@
         "volume_expansion": true
       },
       "n_pass": 9,
-      "advice": "亮点: 主力资金净流入,技术面向上,行业负债率低于平均\n风险: PE估值过高(148倍),股价涨幅透支业绩增长空间\n仓位: 轻仓 · 估值泡沫明显,需等待调整"
+      "advice": "**亮点:** 军工IC概念热门,主力资金持续净流入,技术形态向上。\n\n**风险:** PE极高达148倍,估值泡沫明显,股息率缺失。\n\n**仓位:** 轻仓 · 概念炒作迹象,估值严重高估需谨慎。"
     },
     {
       "code": "002298",
@@ -651,6 +917,16 @@
         "industry_pb_avg": 5.007864590163934,
         "industry_debt_avg": 48.07524556962025
       },
+      "tunable_values": {
+        "market_cap": 8429863162.0,
+        "turnover_3d_min": 12.4958,
+        "pb": 4.5178,
+        "roe_3y_min": -55.1852,
+        "debt_vs_industry_gap": -13.61148414916238,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 328.57462772826835
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -668,7 +944,7 @@
         "volume_expansion": true
       },
       "n_pass": 9,
-      "advice": "**亮点：** 概念热度高，技术面向好，成交活跃度提升\n\n**风险：** PB偏高4.5倍，负债率超50%，无估值参考\n\n**仓位：** 标准 · 热点概念支撑但估值压力需警惕"
+      "advice": "**亮点：** 9项条件达成,新能源储能概念热度高,技术面向上\n\n**风险：** PB 4.5偏高,负债率55%存在财务压力\n\n**仓位：** 标准 · 概念契合但估值偏高,需观察业绩兑现情况"
     },
     {
       "code": "002328",
@@ -687,6 +963,16 @@
         "industry_pb_avg": 4.11404329004329,
         "industry_debt_avg": 42.43399512195122
       },
+      "tunable_values": {
+        "market_cap": 8489470000.0,
+        "turnover_3d_min": 15.8128,
+        "pb": 2.4851,
+        "roe_3y_min": 4.2562,
+        "debt_vs_industry_gap": 29.81004990361501,
+        "pe_percentile": 98.53420195439739,
+        "dv_ttm": 1.2909,
+        "volume_expansion_pct": 70.89158968113216
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -704,7 +990,7 @@
         "volume_expansion": true
       },
       "n_pass": 9,
-      "advice": "亮点: 融资能力强,债务低于行业均值,概念契合储能赛道。\n\n风险: PE估值高企,短期涨幅过大存在回调压力。\n\n仓位: 标准 · 优质赛道但估值偏高,等待回调点更优。"
+      "advice": "**亮点：** 概念热点明显,现金流健康,负债水平行业领先\n\n**风险：** PE估值偏高,股息率低,概念炒作风险\n\n**仓位：** 标准 · 指标参半,估值需关注风险收益比"
     },
     {
       "code": "601101",
@@ -721,6 +1007,16 @@
         "debt_ratio": 47.583,
         "industry_pb_avg": 1.6868083333333335,
         "industry_debt_avg": 60.33428
+      },
+      "tunable_values": {
+        "market_cap": 16185576688.000002,
+        "turnover_3d_min": 2.9884,
+        "pb": 1.3145,
+        "roe_3y_min": 4.2959,
+        "debt_vs_industry_gap": 21.134386620674018,
+        "pe_percentile": 94.66338259441707,
+        "dv_ttm": 4.0747,
+        "volume_expansion_pct": -27.428106614888804
       },
       "criteria": {
         "market_cap": true,
@@ -739,7 +1035,7 @@
         "volume_expansion": false
       },
       "n_pass": 9,
-      "advice": "**亮点:** 股息率4%+,PE合理,资产质量优于同行\n\n**风险:** PE仍偏高,煤炭周期波动风险大\n\n**仓位:** 标准 · 基本面良好但缺乏极强催化,适度参与"
+      "advice": "**亮点:** 股息率高达4.07%,资产负债率低于行业均值,现金流质量良好\n\n**风险:** PE-TTM达29倍处高位,估值相对偏贵,煤炭周期下行风险\n\n**仓位:** 标准 · 高分红难抵估值偏高,需等调整机会"
     },
     {
       "code": "002613",
@@ -756,6 +1052,16 @@
         "debt_ratio": 21.4058,
         "industry_pb_avg": 6.312604780876494,
         "industry_debt_avg": 45.875022916666666
+      },
+      "tunable_values": {
+        "market_cap": 4732445376.0,
+        "turnover_3d_min": 11.1199,
+        "pb": 2.1438,
+        "roe_3y_min": 1.4228,
+        "debt_vs_industry_gap": 53.33887889520128,
+        "pe_percentile": 99.62721342031688,
+        "dv_ttm": 0.6977,
+        "volume_expansion_pct": 415.8617379643065
       },
       "criteria": {
         "market_cap": true,
@@ -774,7 +1080,7 @@
         "volume_expansion": true
       },
       "n_pass": 9,
-      "advice": "**北玻股份 (002613)**\n\n**亮点:** 光伏设备龙头,低负债率21.4%,近月涨势良好\n\n**风险:** PE极高447.95倍,估值透支严重,回调风险大\n\n**仓位:** 轻仓 · PE虚高压制空间,谨慎观望为宜"
+      "advice": "**亮点：** 光伏产业链受益,低杠杆率,技术面向上排列\n\n**风险：** PE极高447倍,估值透支幅度大,盈利能力需验证\n\n**仓位：** 轻仓 · 高估值压制,需等待业绩兑现或估值回归"
     },
     {
       "code": "300187",
@@ -794,6 +1100,16 @@
         "industry_pb_avg": 3.648769230769231,
         "industry_debt_avg": 49.19146666666666
       },
+      "tunable_values": {
+        "market_cap": 3770433444.0,
+        "turnover_3d_min": 3.7674,
+        "pb": 3.2549,
+        "roe_3y_min": 8.0055,
+        "debt_vs_industry_gap": -37.92778422273781,
+        "pe_percentile": 3.54251012145749,
+        "dv_ttm": 2.8596,
+        "volume_expansion_pct": -30.530921650259625
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -811,7 +1127,7 @@
         "volume_expansion": false
       },
       "n_pass": 9,
-      "advice": "亮点: 概念契合新能源赛道,现金流质量良好,股息率可观。\n\n风险: PE估值偏高,资产负债率超七成,杠杆风险明显。\n\n仓位: 标准 · 概念优势与高杠杆风险相消,静待估值修复。"
+      "advice": "亮点: 9/14条件触发,概念匹配新能源,估值相对合理,分红稳定。\n\n风险: 资产负债率67.8%偏高,PE29倍不低,融资压力大。\n\n仓位: 标准 · 条件触发充分但负债率制约,谨慎参与。"
     },
     {
       "code": "002560",
@@ -828,6 +1144,16 @@
         "debt_ratio": 50.706,
         "industry_pb_avg": 5.007864590163934,
         "industry_debt_avg": 48.07524556962025
+      },
+      "tunable_values": {
+        "market_cap": 7886078550.0,
+        "turnover_3d_min": 18.8648,
+        "pb": 2.867,
+        "roe_3y_min": 0.9968,
+        "debt_vs_industry_gap": -5.472160150633076,
+        "pe_percentile": 33.79478827361563,
+        "dv_ttm": null,
+        "volume_expansion_pct": -16.811472478318734
       },
       "criteria": {
         "market_cap": true,
@@ -846,7 +1172,7 @@
         "volume_expansion": false
       },
       "n_pass": 9,
-      "advice": "**亮点:** 军工概念+流动性好,技术面向上,估值在行业中等水平\n\n**风险:** PE处高位45倍,净利现金转化偏弱,杠杆率中等\n\n**仓位:** 标准 · 概念驱动+技术面可观,但估值偏高制约空间"
+      "advice": "**亮点:** 9项条件触发,资产周转良好,军工概念匹配度高\n\n**风险:** PE高达45倍,估值处高位,股息缺失\n\n**仓位:** 标准 · 概念符合但估值偏高,需等回调机会"
     },
     {
       "code": "601965",
@@ -863,6 +1189,16 @@
         "debt_ratio": 31.3357,
         "industry_pb_avg": 2.7033625,
         "industry_debt_avg": 53.12392
+      },
+      "tunable_values": {
+        "market_cap": 16690833320.0,
+        "turnover_3d_min": 0.7741,
+        "pb": 2.0854,
+        "roe_3y_min": 13.2241,
+        "debt_vs_industry_gap": 41.01395378955469,
+        "pe_percentile": 0.8143322475570033,
+        "dv_ttm": 2.0433,
+        "volume_expansion_pct": 71.75572812219248
       },
       "criteria": {
         "market_cap": true,
@@ -881,7 +1217,7 @@
         "volume_expansion": true
       },
       "n_pass": 9,
-      "advice": "**亮点：** 估值合理,9项条件达标,股息率2%+,氢能源概念契合。\n\n**风险：** PE虽低但行业增速放缓,市值偏大流动性需关注。\n\n**仓位：** 标准 · 基本面稳健但缺乏爆发力,中等配置较宜。"
+      "advice": "**亮点:** PE低估值、分红稳定、资产质量优良\n\n**风险:** 市值偏大流动性制约、概念热度存变数\n\n**仓位:** 标准 · 9项条件达成但大盘股容量限制"
     },
     {
       "code": "002818",
@@ -898,6 +1234,16 @@
         "debt_ratio": 13.1515,
         "industry_pb_avg": 5.690563636363636,
         "industry_debt_avg": 13.1515
+      },
+      "tunable_values": {
+        "market_cap": 8876723028.0,
+        "turnover_3d_min": 2.3506,
+        "pb": 1.4852,
+        "roe_3y_min": 9.7443,
+        "debt_vs_industry_gap": 0.0,
+        "pe_percentile": 27.524429967426713,
+        "dv_ttm": 3.0354,
+        "volume_expansion_pct": -61.004854604234524
       },
       "criteria": {
         "market_cap": true,
@@ -916,7 +1262,7 @@
         "volume_expansion": false
       },
       "n_pass": 9,
-      "advice": "**亮点:** PE低估、股息率高、资产负债率轻、现金流健康\n\n**风险:** 市场风格偏好波动、军工概念匹配度需验证\n\n**仓位:** 标准 · 估值吸引但缺乏强势催化，观察后续表现"
+      "advice": "亮点: PE低位11倍,股息率3%,资产负债率轻,多条技术面向好。\n\n风险: 行业属性与军工概念匹配度存疑,市场认可度需验证。\n\n仓位: 标准 · 估值具吸引力但概念匹配需确认。"
     },
     {
       "code": "002729",
@@ -934,6 +1280,16 @@
         "industry_pb_avg": 7.345781654676259,
         "industry_debt_avg": 42.307003571428574
       },
+      "tunable_values": {
+        "market_cap": 3772839750.0,
+        "turnover_3d_min": 7.6245,
+        "pb": 6.6584,
+        "roe_3y_min": 3.7842,
+        "debt_vs_industry_gap": 66.38736190335254,
+        "pe_percentile": 36.61740558292282,
+        "dv_ttm": 0.1358,
+        "volume_expansion_pct": 137.90262453684514
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -951,7 +1307,7 @@
         "volume_expansion": true
       },
       "n_pass": 9,
-      "advice": "**亮点:** 光伏赛道概念匹配,资产质量优秀,成交活跃\n\n**风险:** PE高达93倍,估值泡沫明显,股息率极低\n\n**仓位:** 轻仓 · 虽多指标通过但高PE透支预期,需等待估值回调"
+      "advice": "**亮点:** 光伏概念匹配,资产负债率低,近期涨势强劲\n\n**风险:** PE高企93倍,PB溢价严重,股息率极低\n\n**仓位:** 轻仓 · 估值泡沫风险大,补涨迹象需谨慎观察"
     },
     {
       "code": "603042",
@@ -969,6 +1325,16 @@
         "industry_pb_avg": 10.680790322580645,
         "industry_debt_avg": 43.64741071428572
       },
+      "tunable_values": {
+        "market_cap": 3693566320.0,
+        "turnover_3d_min": 11.0841,
+        "pb": 4.4288,
+        "roe_3y_min": -9.0654,
+        "debt_vs_industry_gap": -2.075929066320814,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 120.00007874039831
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -986,7 +1352,7 @@
         "volume_expansion": true
       },
       "n_pass": 9,
-      "advice": "**603042 华脉科技**\n\n**亮点:** 军工概念匹配,主力资金净流入,近月涨停信号。\n\n**风险:** PE缺失难判盈利质量,PB偏高4.43倍存高估风险。\n\n**仓位:** 标准 · 概念驱动强但估值偏高,需观察后续盈利表现。"
+      "advice": "亮点: 军工概念匹配,主力资金净流入,近期涨停,成交量放大。\n\n风险: PE缺失难判盈利质量,PB处高位,杠杆率偏高。\n\n仓位: 标准 · 概念热度强但盈利确定性不足,谨慎参与。"
     },
     {
       "code": "002885",
@@ -1003,6 +1369,16 @@
         "debt_ratio": 53.3291,
         "industry_pb_avg": 7.345781654676259,
         "industry_debt_avg": 42.307003571428574
+      },
+      "tunable_values": {
+        "market_cap": 10628072655.0,
+        "turnover_3d_min": 15.8946,
+        "pb": 6.889,
+        "roe_3y_min": 2.7209,
+        "debt_vs_industry_gap": -26.052652038952328,
+        "pe_percentile": 55.10026155187445,
+        "dv_ttm": 0.0558,
+        "volume_expansion_pct": 59.85853198175513
       },
       "criteria": {
         "market_cap": true,
@@ -1021,7 +1397,7 @@
         "volume_expansion": true
       },
       "n_pass": 9,
-      "advice": "**亮点:** 光伏概念匹配,主力资金净流入,均线多头排列\n\n**风险:** PE极高达110倍,估值泡沫明显,股息率微乎其微\n\n**仓位:** 轻仓 · PE高位风险大,虽有技术面支持但估值透支空间有限"
+      "advice": "亮点: 光伏概念热度高,资金净流入,技术面向好。\n\n风险: PE过高(109.79倍),估值泡沫风险大。\n\n仓位: 轻仓 · 高估值压制收益,反弹中应控制风险。"
     },
     {
       "code": "300681",
@@ -1038,6 +1414,16 @@
         "debt_ratio": 59.3434,
         "industry_pb_avg": 4.11404329004329,
         "industry_debt_avg": 42.43399512195122
+      },
+      "tunable_values": {
+        "market_cap": 10191642822.0,
+        "turnover_3d_min": 5.7065,
+        "pb": 3.2976,
+        "roe_3y_min": 3.6668,
+        "debt_vs_industry_gap": -39.84872230260852,
+        "pe_percentile": 17.493237150586115,
+        "dv_ttm": 0.0753,
+        "volume_expansion_pct": 12.919535918777324
       },
       "criteria": {
         "market_cap": true,
@@ -1056,7 +1442,7 @@
         "volume_expansion": false
       },
       "n_pass": 9,
-      "advice": "亮点: 概念匹配北汽新能源,资金持续净流入,主要技术指标共振。\n\n风险: PE估值高位,PB溢价明显,股息率极低缺乏安全垫。\n\n仓位: 标准 · 概念热度支撑但估值压力较大,谨慎参与。"
+      "advice": "**亮点:** 概念匹配北汽新能源,主力资金净流入,PE估值处历史低位\n\n**风险:** 负债率59%偏高,股息率极低,缺乏分红能力\n\n**仓位:** 轻仓 · PE虽低但PB仍高,资产质量待改善"
     },
     {
       "code": "300632",
@@ -1073,6 +1459,16 @@
         "debt_ratio": 33.8912,
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
+      },
+      "tunable_values": {
+        "market_cap": 7632592316.000001,
+        "turnover_3d_min": 26.8986,
+        "pb": 4.4064,
+        "roe_3y_min": -0.7289,
+        "debt_vs_industry_gap": -39.941223689053,
+        "pe_percentile": null,
+        "dv_ttm": 0.3701,
+        "volume_expansion_pct": 51.09513494758626
       },
       "criteria": {
         "market_cap": true,
@@ -1091,7 +1487,7 @@
         "volume_expansion": true
       },
       "n_pass": 9,
-      "advice": "**光莆股份 (300632)**\n\n亮点: 芯片概念匹配,技术面均线对齐,成交量温和扩张\n风险: 估值处于行业高位,无盈利数据支撑,财务杠杆中等\n仓位: 标准 · 9/14条件触发,但缺盈利指标支撑估值"
+      "advice": "**光莆股份 (300632)**\n\n亮点: 芯片概念匹配,破净资产倍数处于行业低位,资金面活跃。\n\n风险: PE缺失无法评估盈利能力,高杠杆率存在财务风险。\n\n仓位: 标准 · 概念与技术面有利,但盈利数据缺失制约上行空间。"
     },
     {
       "code": "300786",
@@ -1108,6 +1504,16 @@
         "debt_ratio": 34.1854,
         "industry_pb_avg": 3.648769230769231,
         "industry_debt_avg": 49.19146666666666
+      },
+      "tunable_values": {
+        "market_cap": 3117228989.9999995,
+        "turnover_3d_min": 5.5893,
+        "pb": 2.7875,
+        "roe_3y_min": -4.1673,
+        "debt_vs_industry_gap": 30.50542641542163,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": -2.419455415768168
       },
       "criteria": {
         "market_cap": true,
@@ -1126,7 +1532,7 @@
         "volume_expansion": false
       },
       "n_pass": 9,
-      "advice": "**亮点：** 疫苗存储需求稳定，资产负债率低于行业，主力资金净流入\n\n**风险：** PE缺失无法评估盈利能力，PB高于行业均值存在估值溢价\n\n**仓位：** 标准 · 9项条件触发但缺利润指标，需观察后续盈利确认"
+      "advice": "**亮点:** 低负债、主力持续净流入、PB低于行业均值，基本面稳健\n\n**风险:** 无PE数据难估值、疫苗存储概念偏弱、盈利能力未知\n\n**仓位:** 标准 · 条件触发率高但缺核心盈利指标，宜观察"
     },
     {
       "code": "300828",
@@ -1143,6 +1549,16 @@
         "debt_ratio": 9.7135,
         "industry_pb_avg": 5.8920142857142865,
         "industry_debt_avg": 34.73879411764705
+      },
+      "tunable_values": {
+        "market_cap": 4386883920.0,
+        "turnover_3d_min": 17.9263,
+        "pb": 5.5562,
+        "roe_3y_min": 4.1174,
+        "debt_vs_industry_gap": 72.03846521815329,
+        "pe_percentile": 99.91789819376025,
+        "dv_ttm": null,
+        "volume_expansion_pct": 223.32664723815122
       },
       "criteria": {
         "market_cap": true,
@@ -1179,6 +1595,16 @@
         "industry_pb_avg": 5.885220930232558,
         "industry_debt_avg": 28.194242105263157
       },
+      "tunable_values": {
+        "market_cap": 5163762719.0,
+        "turnover_3d_min": 3.245,
+        "pb": 2.6334,
+        "roe_3y_min": -4.4659,
+        "debt_vs_industry_gap": 37.318407304514956,
+        "pe_percentile": null,
+        "dv_ttm": 0.0536,
+        "volume_expansion_pct": 225.78357557346789
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -1213,6 +1639,16 @@
         "debt_ratio": 21.3025,
         "industry_pb_avg": 6.312604780876494,
         "industry_debt_avg": 45.875022916666666
+      },
+      "tunable_values": {
+        "market_cap": 5082915066.0,
+        "turnover_3d_min": 3.6089,
+        "pb": 3.8609,
+        "roe_3y_min": 3.7562,
+        "debt_vs_industry_gap": 53.56405589443166,
+        "pe_percentile": 99.9185667752443,
+        "dv_ttm": 0.8187,
+        "volume_expansion_pct": 63.58533695729325
       },
       "criteria": {
         "market_cap": true,
@@ -1249,6 +1685,16 @@
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
       },
+      "tunable_values": {
+        "market_cap": 19445290834.0,
+        "turnover_3d_min": 6.3006,
+        "pb": 6.1898,
+        "roe_3y_min": 2.5097,
+        "debt_vs_industry_gap": 41.15161693842698,
+        "pe_percentile": 84.03083700440529,
+        "dv_ttm": 0.2534,
+        "volume_expansion_pct": 73.15835305946088
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -1283,6 +1729,16 @@
         "debt_ratio": 6.9706,
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
+      },
+      "tunable_values": {
+        "market_cap": 10823941846.0,
+        "turnover_3d_min": 6.426,
+        "pb": 8.1347,
+        "roe_3y_min": -11.1327,
+        "debt_vs_industry_gap": 71.21747551438389,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 3.456194616463648
       },
       "criteria": {
         "market_cap": true,
@@ -1319,6 +1775,16 @@
         "industry_pb_avg": 3.8551551282051286,
         "industry_debt_avg": 47.52035333333333
       },
+      "tunable_values": {
+        "market_cap": 5902045902.0,
+        "turnover_3d_min": 3.3948,
+        "pb": 1.3364,
+        "roe_3y_min": 9.7647,
+        "debt_vs_industry_gap": -28.91465593760316,
+        "pe_percentile": 43.48534201954398,
+        "dv_ttm": 3.5377,
+        "volume_expansion_pct": -24.03487940977286
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -1353,6 +1819,16 @@
         "debt_ratio": 62.7224,
         "industry_pb_avg": 2.8378096774193557,
         "industry_debt_avg": 62.529587500000005
+      },
+      "tunable_values": {
+        "market_cap": 18996314714.0,
+        "turnover_3d_min": 1.6964,
+        "pb": 1.0819,
+        "roe_3y_min": 10.8098,
+        "debt_vs_industry_gap": -0.3083540252044603,
+        "pe_percentile": 36.50057937427578,
+        "dv_ttm": 3.8067,
+        "volume_expansion_pct": 26.262016663828057
       },
       "criteria": {
         "market_cap": true,
@@ -1389,6 +1865,16 @@
         "industry_pb_avg": 6.312604780876494,
         "industry_debt_avg": 45.875022916666666
       },
+      "tunable_values": {
+        "market_cap": 8298629748.0,
+        "turnover_3d_min": 5.3639,
+        "pb": 2.7253,
+        "roe_3y_min": 6.7008,
+        "debt_vs_industry_gap": 18.59753385227645,
+        "pe_percentile": 52.19869706840391,
+        "dv_ttm": 0.4868,
+        "volume_expansion_pct": -32.160832036646966
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -1423,6 +1909,16 @@
         "debt_ratio": 50.943,
         "industry_pb_avg": 4.11404329004329,
         "industry_debt_avg": 42.43399512195122
+      },
+      "tunable_values": {
+        "market_cap": 7819761255.0,
+        "turnover_3d_min": 1.6509,
+        "pb": 0.8508,
+        "roe_3y_min": 6.946,
+        "debt_vs_industry_gap": -20.05233033937699,
+        "pe_percentile": 43.97394136807817,
+        "dv_ttm": 3.3666,
+        "volume_expansion_pct": -59.910344850214905
       },
       "criteria": {
         "market_cap": true,
@@ -1461,6 +1957,16 @@
         "industry_pb_avg": 2.8378096774193557,
         "industry_debt_avg": 62.529587500000005
       },
+      "tunable_values": {
+        "market_cap": 17978246729.0,
+        "turnover_3d_min": 3.8616,
+        "pb": 1.4407,
+        "roe_3y_min": 1.7007,
+        "debt_vs_industry_gap": 5.36016249907294,
+        "pe_percentile": 2.6615969581749046,
+        "dv_ttm": 2.3113,
+        "volume_expansion_pct": -21.254812380986433
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -1497,6 +2003,16 @@
         "debt_ratio": 81.3669,
         "industry_pb_avg": 2.8378096774193557,
         "industry_debt_avg": 62.529587500000005
+      },
+      "tunable_values": {
+        "market_cap": 13015465586.000002,
+        "turnover_3d_min": 6.1007,
+        "pb": 2.1547,
+        "roe_3y_min": -4.7104,
+        "debt_vs_industry_gap": -30.125438617358526,
+        "pe_percentile": 37.669376693766935,
+        "dv_ttm": null,
+        "volume_expansion_pct": 27.424081033838288
       },
       "criteria": {
         "market_cap": true,
@@ -1535,6 +2051,16 @@
         "industry_pb_avg": 4.33041,
         "industry_debt_avg": 51.68674285714286
       },
+      "tunable_values": {
+        "market_cap": 6416503325.0,
+        "turnover_3d_min": 6.3483,
+        "pb": 1.4764,
+        "roe_3y_min": 1.0424,
+        "debt_vs_industry_gap": 4.550379318045639,
+        "pe_percentile": 99.83633387888707,
+        "dv_ttm": null,
+        "volume_expansion_pct": 9.550594225508835
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -1569,6 +2095,16 @@
         "debt_ratio": 65.3259,
         "industry_pb_avg": 2.8378096774193557,
         "industry_debt_avg": 62.529587500000005
+      },
+      "tunable_values": {
+        "market_cap": 13230190426.0,
+        "turnover_3d_min": 2.9103,
+        "pb": 1.9881,
+        "roe_3y_min": 9.9655,
+        "debt_vs_industry_gap": -4.471982963265186,
+        "pe_percentile": 36.28048780487805,
+        "dv_ttm": 2.4336,
+        "volume_expansion_pct": 40.08312205207743
       },
       "criteria": {
         "market_cap": true,
@@ -1605,6 +2141,16 @@
         "debt_ratio": 32.8035,
         "industry_pb_avg": 4.535343103448276,
         "industry_debt_avg": 45.84937142857143
+      },
+      "tunable_values": {
+        "market_cap": 14145364907.0,
+        "turnover_3d_min": 5.7307,
+        "pb": 0.7882,
+        "roe_3y_min": -0.4399,
+        "debt_vs_industry_gap": 28.45376288068757,
+        "pe_percentile": 97.7,
+        "dv_ttm": 0.4296,
+        "volume_expansion_pct": 22.50520337459747
       },
       "criteria": {
         "market_cap": true,
@@ -1643,6 +2189,16 @@
         "industry_pb_avg": 2.432022727272727,
         "industry_debt_avg": 51.56619090909091
       },
+      "tunable_values": {
+        "market_cap": 5893835226.0,
+        "turnover_3d_min": 4.2899,
+        "pb": 2.3138,
+        "roe_3y_min": 2.3191,
+        "debt_vs_industry_gap": 46.311334011837566,
+        "pe_percentile": 99.72602739726028,
+        "dv_ttm": null,
+        "volume_expansion_pct": 29.130224794271207
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -1677,6 +2233,16 @@
         "debt_ratio": 13.7644,
         "industry_pb_avg": 4.158093650793652,
         "industry_debt_avg": 43.36360833333333
+      },
+      "tunable_values": {
+        "market_cap": 6733747395.0,
+        "turnover_3d_min": 4.3486,
+        "pb": 2.8591,
+        "roe_3y_min": -4.0727,
+        "debt_vs_industry_gap": 68.25817654703934,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": -13.786057103314441
       },
       "criteria": {
         "market_cap": true,
@@ -1715,6 +2281,16 @@
         "industry_pb_avg": 4.33041,
         "industry_debt_avg": 51.68674285714286
       },
+      "tunable_values": {
+        "market_cap": 12616864428.0,
+        "turnover_3d_min": 2.3745,
+        "pb": 1.7205,
+        "roe_3y_min": 7.5039,
+        "debt_vs_industry_gap": 34.413356063671486,
+        "pe_percentile": 98.69706840390879,
+        "dv_ttm": 1.2519,
+        "volume_expansion_pct": 37.84734810305519
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -1750,6 +2326,16 @@
         "debt_ratio": 34.9397,
         "industry_pb_avg": 6.312604780876494,
         "industry_debt_avg": 45.875022916666666
+      },
+      "tunable_values": {
+        "market_cap": 15896805327.000002,
+        "turnover_3d_min": 5.8505,
+        "pb": 4.6509,
+        "roe_3y_min": -8.4314,
+        "debt_vs_industry_gap": 23.837204259343913,
+        "pe_percentile": 99.89878542510121,
+        "dv_ttm": null,
+        "volume_expansion_pct": 7.897447544605707
       },
       "criteria": {
         "market_cap": true,
@@ -1787,6 +2373,16 @@
         "industry_pb_avg": 5.007864590163934,
         "industry_debt_avg": 48.07524556962025
       },
+      "tunable_values": {
+        "market_cap": 6938920969.0,
+        "turnover_3d_min": 2.5957,
+        "pb": 3.6951,
+        "roe_3y_min": -30.4501,
+        "debt_vs_industry_gap": -38.20127013971033,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 215.67436938269537
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -1823,6 +2419,16 @@
         "industry_pb_avg": 4.158093650793652,
         "industry_debt_avg": 43.36360833333333
       },
+      "tunable_values": {
+        "market_cap": 11792647098.0,
+        "turnover_3d_min": 1.2747,
+        "pb": 1.464,
+        "roe_3y_min": 6.8226,
+        "debt_vs_industry_gap": -49.13496013266116,
+        "pe_percentile": 41.36807817589577,
+        "dv_ttm": 2.0628,
+        "volume_expansion_pct": -5.925429970791973
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -1857,6 +2463,16 @@
         "debt_ratio": 35.3837,
         "industry_pb_avg": 1.6868083333333335,
         "industry_debt_avg": 60.33428
+      },
+      "tunable_values": {
+        "market_cap": 9886782240.0,
+        "turnover_3d_min": 0.9468,
+        "pb": 0.7751,
+        "roe_3y_min": 1.7327,
+        "debt_vs_industry_gap": 41.353903618307875,
+        "pe_percentile": 99.6742671009772,
+        "dv_ttm": 2.1199,
+        "volume_expansion_pct": -11.490928599759698
       },
       "criteria": {
         "market_cap": true,
@@ -1894,6 +2510,16 @@
         "industry_pb_avg": 8.61186875,
         "industry_debt_avg": 18.24675
       },
+      "tunable_values": {
+        "market_cap": 10751000000.0,
+        "turnover_3d_min": 14.5302,
+        "pb": 3.1626,
+        "roe_3y_min": -5.2314,
+        "debt_vs_industry_gap": -3.8508227492567215,
+        "pe_percentile": 20.88122605363985,
+        "dv_ttm": null,
+        "volume_expansion_pct": 3.1256793134075256
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -1929,6 +2555,16 @@
         "industry_pb_avg": 4.33041,
         "industry_debt_avg": 51.68674285714286
       },
+      "tunable_values": {
+        "market_cap": 17351806085.0,
+        "turnover_3d_min": 9.7567,
+        "pb": 1.9246,
+        "roe_3y_min": 1.1049,
+        "debt_vs_industry_gap": -40.11116970585438,
+        "pe_percentile": null,
+        "dv_ttm": 2.2676,
+        "volume_expansion_pct": -14.830907594630405
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -1963,6 +2599,16 @@
         "debt_ratio": 56.0982,
         "industry_pb_avg": 3.648769230769231,
         "industry_debt_avg": 49.19146666666666
+      },
+      "tunable_values": {
+        "market_cap": 9862225574.0,
+        "turnover_3d_min": 0.6786,
+        "pb": 0.9361,
+        "roe_3y_min": 8.5914,
+        "debt_vs_industry_gap": -14.040511091354603,
+        "pe_percentile": 29.23452768729642,
+        "dv_ttm": 2.707,
+        "volume_expansion_pct": -7.41714215959327
       },
       "criteria": {
         "market_cap": true,
@@ -2001,6 +2647,16 @@
         "industry_pb_avg": 3.8551551282051286,
         "industry_debt_avg": 47.52035333333333
       },
+      "tunable_values": {
+        "market_cap": 13454957780.0,
+        "turnover_3d_min": 0.9699,
+        "pb": 1.9715,
+        "roe_3y_min": 17.706,
+        "debt_vs_industry_gap": 3.57647452958052,
+        "pe_percentile": 23.54104846686449,
+        "dv_ttm": null,
+        "volume_expansion_pct": 50.742375624004076
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -2035,6 +2691,16 @@
         "debt_ratio": 65.0207,
         "industry_pb_avg": 3.619916037735849,
         "industry_debt_avg": 62.974781818181825
+      },
+      "tunable_values": {
+        "market_cap": 12409827017.0,
+        "turnover_3d_min": 3.7633,
+        "pb": 2.4977,
+        "roe_3y_min": 5.6821,
+        "debt_vs_industry_gap": -3.248789630943172,
+        "pe_percentile": 96.98205546492659,
+        "dv_ttm": 0.987,
+        "volume_expansion_pct": 54.55719962190526
       },
       "criteria": {
         "market_cap": true,
@@ -2071,6 +2737,16 @@
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
       },
+      "tunable_values": {
+        "market_cap": 10190919888.0,
+        "turnover_3d_min": 3.872,
+        "pb": 3.0113,
+        "roe_3y_min": 0.7202,
+        "debt_vs_industry_gap": 29.62597200159224,
+        "pe_percentile": 50.0,
+        "dv_ttm": null,
+        "volume_expansion_pct": -5.000462063473343
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -2105,6 +2781,16 @@
         "debt_ratio": 54.2895,
         "industry_pb_avg": 2.279540909090909,
         "industry_debt_avg": 45.395266666666664
+      },
+      "tunable_values": {
+        "market_cap": 7876681202.999999,
+        "turnover_3d_min": 8.0926,
+        "pb": 2.2284,
+        "roe_3y_min": 0.3755,
+        "debt_vs_industry_gap": -19.592865041729745,
+        "pe_percentile": 68.72964169381108,
+        "dv_ttm": 0.843,
+        "volume_expansion_pct": 49.58677947326042
       },
       "criteria": {
         "market_cap": true,
@@ -2143,6 +2829,16 @@
         "industry_pb_avg": 4.33041,
         "industry_debt_avg": 51.68674285714286
       },
+      "tunable_values": {
+        "market_cap": 8280804876.0,
+        "turnover_3d_min": 7.4084,
+        "pb": 2.1071,
+        "roe_3y_min": -4.8813,
+        "debt_vs_industry_gap": 24.682040600629286,
+        "pe_percentile": null,
+        "dv_ttm": 0.1701,
+        "volume_expansion_pct": 11.572784872270358
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -2177,6 +2873,16 @@
         "debt_ratio": 6.4452,
         "industry_pb_avg": 4.158093650793652,
         "industry_debt_avg": 43.36360833333333
+      },
+      "tunable_values": {
+        "market_cap": 7945463223.0,
+        "turnover_3d_min": 8.9863,
+        "pb": 2.8603,
+        "roe_3y_min": 0.6673,
+        "debt_vs_industry_gap": 85.13684573835242,
+        "pe_percentile": 81.2043795620438,
+        "dv_ttm": null,
+        "volume_expansion_pct": 0.999205474559206
       },
       "criteria": {
         "market_cap": true,
@@ -2214,6 +2920,16 @@
         "industry_pb_avg": 4.33041,
         "industry_debt_avg": 51.68674285714286
       },
+      "tunable_values": {
+        "market_cap": 11006575175.0,
+        "turnover_3d_min": 12.4045,
+        "pb": 9.1132,
+        "roe_3y_min": -12.03,
+        "debt_vs_industry_gap": 37.33054510800227,
+        "pe_percentile": 83.78378378378379,
+        "dv_ttm": null,
+        "volume_expansion_pct": 94.78891157394158
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -2248,6 +2964,16 @@
         "debt_ratio": 35.7659,
         "industry_pb_avg": 4.11404329004329,
         "industry_debt_avg": 42.43399512195122
+      },
+      "tunable_values": {
+        "market_cap": 9567540844.0,
+        "turnover_3d_min": 5.0307,
+        "pb": 2.4318,
+        "roe_3y_min": 5.9738,
+        "debt_vs_industry_gap": 15.714040365013371,
+        "pe_percentile": 43.48534201954398,
+        "dv_ttm": 0.7995,
+        "volume_expansion_pct": 13.595078543447903
       },
       "criteria": {
         "market_cap": true,
@@ -2285,6 +3011,16 @@
         "industry_pb_avg": 5.007864590163934,
         "industry_debt_avg": 48.07524556962025
       },
+      "tunable_values": {
+        "market_cap": 9425718880.0,
+        "turnover_3d_min": 7.5814,
+        "pb": 5.2615,
+        "roe_3y_min": -9.3772,
+        "debt_vs_industry_gap": 14.880726005362256,
+        "pe_percentile": 99.89868287740629,
+        "dv_ttm": 0.1629,
+        "volume_expansion_pct": 63.25766340224024
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -2320,6 +3056,16 @@
         "debt_ratio": 49.6629,
         "industry_pb_avg": 7.161432083333334,
         "industry_debt_avg": 41.43976923076923
+      },
+      "tunable_values": {
+        "market_cap": 4181493870.0,
+        "turnover_3d_min": 6.3812,
+        "pb": 2.8969,
+        "roe_3y_min": -20.5293,
+        "debt_vs_industry_gap": -19.843572784968732,
+        "pe_percentile": null,
+        "dv_ttm": 0.3052,
+        "volume_expansion_pct": 30.169618943549324
       },
       "criteria": {
         "market_cap": true,
@@ -2357,6 +3103,16 @@
         "industry_pb_avg": 7.161432083333334,
         "industry_debt_avg": 41.43976923076923
       },
+      "tunable_values": {
+        "market_cap": 8418907047.0,
+        "turnover_3d_min": 7.1729,
+        "pb": 3.4596,
+        "roe_3y_min": 6.0585,
+        "debt_vs_industry_gap": 6.869413810961966,
+        "pe_percentile": 74.94929006085192,
+        "dv_ttm": 0.114,
+        "volume_expansion_pct": 55.04621308453639
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -2391,6 +3147,16 @@
         "debt_ratio": 28.1589,
         "industry_pb_avg": 4.11404329004329,
         "industry_debt_avg": 42.43399512195122
+      },
+      "tunable_values": {
+        "market_cap": 3551947965.0,
+        "turnover_3d_min": 1.9102,
+        "pb": 1.6277,
+        "roe_3y_min": 1.7327,
+        "debt_vs_industry_gap": 33.6407050076854,
+        "pe_percentile": 8.224755700325732,
+        "dv_ttm": 0.7058,
+        "volume_expansion_pct": 4.101302782584471
       },
       "criteria": {
         "market_cap": true,
@@ -2427,6 +3193,16 @@
         "industry_pb_avg": 4.11404329004329,
         "industry_debt_avg": 42.43399512195122
       },
+      "tunable_values": {
+        "market_cap": 5965938920.0,
+        "turnover_3d_min": 6.6857,
+        "pb": 1.4488,
+        "roe_3y_min": 2.5304,
+        "debt_vs_industry_gap": 53.22453155080792,
+        "pe_percentile": 35.99348534201955,
+        "dv_ttm": 1.836,
+        "volume_expansion_pct": 8.167329024054816
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -2462,6 +3238,16 @@
         "industry_pb_avg": 4.746969696969697,
         "industry_debt_avg": 40.66375
       },
+      "tunable_values": {
+        "market_cap": 8623178068.0,
+        "turnover_3d_min": 13.7605,
+        "pb": 3.466,
+        "roe_3y_min": -2.5193,
+        "debt_vs_industry_gap": 28.41265254680152,
+        "pe_percentile": null,
+        "dv_ttm": 0.1339,
+        "volume_expansion_pct": -25.207278763432218
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -2496,6 +3282,16 @@
         "debt_ratio": 23.3076,
         "industry_pb_avg": 2.279540909090909,
         "industry_debt_avg": 45.395266666666664
+      },
+      "tunable_values": {
+        "market_cap": 6246426240.0,
+        "turnover_3d_min": 5.6752,
+        "pb": 1.7827,
+        "roe_3y_min": 3.964,
+        "debt_vs_industry_gap": 48.656320996755895,
+        "pe_percentile": 99.6742671009772,
+        "dv_ttm": 1.6409,
+        "volume_expansion_pct": -9.004678180420434
       },
       "criteria": {
         "market_cap": true,
@@ -2533,6 +3329,16 @@
         "industry_pb_avg": 7.161432083333334,
         "industry_debt_avg": 41.43976923076923
       },
+      "tunable_values": {
+        "market_cap": 19891191366.0,
+        "turnover_3d_min": 7.681,
+        "pb": 1.8264,
+        "roe_3y_min": -5.1424,
+        "debt_vs_industry_gap": 59.79562553251522,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 8.758005495804655
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -2567,6 +3373,16 @@
         "debt_ratio": 34.8112,
         "industry_pb_avg": 6.312604780876494,
         "industry_debt_avg": 45.875022916666666
+      },
+      "tunable_values": {
+        "market_cap": 2788536780.0,
+        "turnover_3d_min": 3.5119,
+        "pb": 6.2155,
+        "roe_3y_min": -20.2117,
+        "debt_vs_industry_gap": 24.11731311124231,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 29.271743137177776
       },
       "criteria": {
         "market_cap": true,
@@ -2603,6 +3419,16 @@
         "industry_pb_avg": 4.535343103448276,
         "industry_debt_avg": 45.84937142857143
       },
+      "tunable_values": {
+        "market_cap": 3751560000.0,
+        "turnover_3d_min": 2.4652,
+        "pb": 3.8931,
+        "roe_3y_min": 0.5992,
+        "debt_vs_industry_gap": 64.32317501782234,
+        "pe_percentile": 46.34146341463415,
+        "dv_ttm": 0.1631,
+        "volume_expansion_pct": 80.61405748464891
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -2637,6 +3463,16 @@
         "debt_ratio": 68.624,
         "industry_pb_avg": 5.007864590163934,
         "industry_debt_avg": 48.07524556962025
+      },
+      "tunable_values": {
+        "market_cap": 7130391454.0,
+        "turnover_3d_min": 18.4993,
+        "pb": 7.625,
+        "roe_3y_min": -37.7961,
+        "debt_vs_industry_gap": -42.74290060697044,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 72.8383036630974
       },
       "criteria": {
         "market_cap": true,
@@ -2674,6 +3510,16 @@
         "industry_pb_avg": 10.680790322580645,
         "industry_debt_avg": 43.64741071428572
       },
+      "tunable_values": {
+        "market_cap": 9833741740.0,
+        "turnover_3d_min": 7.4275,
+        "pb": 4.4341,
+        "roe_3y_min": -24.8489,
+        "debt_vs_industry_gap": 20.943305833474835,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 128.2179648201056
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -2709,6 +3555,16 @@
         "debt_ratio": 57.877,
         "industry_pb_avg": 7.345781654676259,
         "industry_debt_avg": 42.307003571428574
+      },
+      "tunable_values": {
+        "market_cap": 11802513769.0,
+        "turnover_3d_min": 3.091,
+        "pb": 7.5369,
+        "roe_3y_min": 8.4337,
+        "debt_vs_industry_gap": -36.802408854798685,
+        "pe_percentile": 44.563279857397504,
+        "dv_ttm": 0.6575,
+        "volume_expansion_pct": 67.38027892007867
       },
       "criteria": {
         "market_cap": true,
@@ -2746,6 +3602,16 @@
         "industry_pb_avg": 7.161432083333334,
         "industry_debt_avg": 41.43976923076923
       },
+      "tunable_values": {
+        "market_cap": 11293531853.0,
+        "turnover_3d_min": 1.3766,
+        "pb": 4.524,
+        "roe_3y_min": -25.3657,
+        "debt_vs_industry_gap": 8.853015590746171,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 59.934138169605376
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -2782,6 +3648,16 @@
         "industry_pb_avg": 5.007864590163934,
         "industry_debt_avg": 48.07524556962025
       },
+      "tunable_values": {
+        "market_cap": 6192124142.0,
+        "turnover_3d_min": 5.7996,
+        "pb": 2.0654,
+        "roe_3y_min": 1.0603,
+        "debt_vs_industry_gap": 60.47425286162693,
+        "pe_percentile": 70.60260586319218,
+        "dv_ttm": 0.7042,
+        "volume_expansion_pct": -22.94215311875115
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -2816,6 +3692,16 @@
         "debt_ratio": 32.9706,
         "industry_pb_avg": 4.158093650793652,
         "industry_debt_avg": 43.36360833333333
+      },
+      "tunable_values": {
+        "market_cap": 9906680272.0,
+        "turnover_3d_min": 4.1462,
+        "pb": 1.1901,
+        "roe_3y_min": -6.132,
+        "debt_vs_industry_gap": 23.96712066358254,
+        "pe_percentile": null,
+        "dv_ttm": 0.3456,
+        "volume_expansion_pct": 3.956687549250937
       },
       "criteria": {
         "market_cap": true,
@@ -2852,6 +3738,16 @@
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
       },
+      "tunable_values": {
+        "market_cap": 5067160645.0,
+        "turnover_3d_min": 6.5724,
+        "pb": 2.2202,
+        "roe_3y_min": -2.1789,
+        "debt_vs_industry_gap": -61.51758776777485,
+        "pe_percentile": 34.11264612114772,
+        "dv_ttm": 0.2709,
+        "volume_expansion_pct": 6.5345364591055555
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -2886,6 +3782,16 @@
         "debt_ratio": 40.3405,
         "industry_pb_avg": 3.801625153374233,
         "industry_debt_avg": 27.475975
+      },
+      "tunable_values": {
+        "market_cap": 13199565688.0,
+        "turnover_3d_min": 6.8144,
+        "pb": 2.0224,
+        "roe_3y_min": -5.0568,
+        "debt_vs_industry_gap": -46.82099543328309,
+        "pe_percentile": 94.25770308123249,
+        "dv_ttm": 1.1574,
+        "volume_expansion_pct": 83.28532764011469
       },
       "criteria": {
         "market_cap": true,
@@ -2924,6 +3830,16 @@
         "industry_pb_avg": 10.680790322580645,
         "industry_debt_avg": 43.64741071428572
       },
+      "tunable_values": {
+        "market_cap": 10925538261.0,
+        "turnover_3d_min": 8.8532,
+        "pb": 4.9617,
+        "roe_3y_min": -16.4549,
+        "debt_vs_industry_gap": -34.1479346467533,
+        "pe_percentile": 67.85009861932939,
+        "dv_ttm": null,
+        "volume_expansion_pct": 65.28138760571946
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -2958,6 +3874,16 @@
         "debt_ratio": 14.214,
         "industry_pb_avg": 3.8551551282051286,
         "industry_debt_avg": 47.52035333333333
+      },
+      "tunable_values": {
+        "market_cap": 6881286932.0,
+        "turnover_3d_min": 5.082,
+        "pb": 3.6403,
+        "roe_3y_min": -15.7611,
+        "debt_vs_industry_gap": 70.08860624352822,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 49.35323655332689
       },
       "criteria": {
         "market_cap": true,
@@ -2994,6 +3920,16 @@
         "industry_pb_avg": 5.885220930232558,
         "industry_debt_avg": 28.194242105263157
       },
+      "tunable_values": {
+        "market_cap": 3474947412.0,
+        "turnover_3d_min": 1.6408,
+        "pb": 2.3195,
+        "roe_3y_min": 4.7296,
+        "debt_vs_industry_gap": 75.51734154006063,
+        "pe_percentile": 99.0228013029316,
+        "dv_ttm": 3.3437,
+        "volume_expansion_pct": -5.1425993220516215
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -3028,6 +3964,16 @@
         "debt_ratio": 20.5787,
         "industry_pb_avg": 6.669060416666667,
         "industry_debt_avg": 41.0521
+      },
+      "tunable_values": {
+        "market_cap": 9468395701.0,
+        "turnover_3d_min": 1.6835,
+        "pb": 1.9324,
+        "roe_3y_min": -8.94,
+        "debt_vs_industry_gap": 49.87174833930542,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 125.46353901572007
       },
       "criteria": {
         "market_cap": true,
@@ -3064,6 +4010,16 @@
         "industry_pb_avg": 7.007452941176472,
         "industry_debt_avg": 27.108660000000004
       },
+      "tunable_values": {
+        "market_cap": 3447360000.0,
+        "turnover_3d_min": 1.8594,
+        "pb": 6.1142,
+        "roe_3y_min": -10.2524,
+        "debt_vs_industry_gap": 88.89690600715787,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 88.65691564025504
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -3098,6 +4054,16 @@
         "debt_ratio": 47.2874,
         "industry_pb_avg": 10.680790322580645,
         "industry_debt_avg": 43.64741071428572
+      },
+      "tunable_values": {
+        "market_cap": 7164092550.999999,
+        "turnover_3d_min": 6.9503,
+        "pb": 4.9992,
+        "roe_3y_min": -11.2723,
+        "debt_vs_industry_gap": -8.339530859096111,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 91.77930965713313
       },
       "criteria": {
         "market_cap": true,
@@ -3135,6 +4101,16 @@
         "industry_pb_avg": 6.312604780876494,
         "industry_debt_avg": 45.875022916666666
       },
+      "tunable_values": {
+        "market_cap": 4512925890.0,
+        "turnover_3d_min": 5.1876,
+        "pb": 2.7971,
+        "roe_3y_min": 1.2849,
+        "debt_vs_industry_gap": 15.636009446135157,
+        "pe_percentile": 81.92968111201962,
+        "dv_ttm": 0.1253,
+        "volume_expansion_pct": 27.606467562826253
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -3169,6 +4145,16 @@
         "debt_ratio": 55.4232,
         "industry_pb_avg": 4.11404329004329,
         "industry_debt_avg": 42.43399512195122
+      },
+      "tunable_values": {
+        "market_cap": 8611340854.0,
+        "turnover_3d_min": 4.7587,
+        "pb": 4.8683,
+        "roe_3y_min": -7.9714,
+        "debt_vs_industry_gap": -30.610374631752336,
+        "pe_percentile": 42.22222222222222,
+        "dv_ttm": null,
+        "volume_expansion_pct": 161.52449364408517
       },
       "criteria": {
         "market_cap": true,
@@ -3205,6 +4191,16 @@
         "industry_pb_avg": 4.11404329004329,
         "industry_debt_avg": 42.43399512195122
       },
+      "tunable_values": {
+        "market_cap": 9394216972.0,
+        "turnover_3d_min": 1.3577,
+        "pb": 3.4363,
+        "roe_3y_min": 4.4065,
+        "debt_vs_industry_gap": -2.1765682806778486,
+        "pe_percentile": 35.74918566775244,
+        "dv_ttm": 0.6777,
+        "volume_expansion_pct": 84.62442067745488
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -3239,6 +4235,16 @@
         "debt_ratio": 45.3607,
         "industry_pb_avg": 3.264243181818182,
         "industry_debt_avg": 61.9244
+      },
+      "tunable_values": {
+        "market_cap": 5887669490.0,
+        "turnover_3d_min": 0.6624,
+        "pb": 1.4312,
+        "roe_3y_min": 8.8144,
+        "debt_vs_industry_gap": 26.74826078250253,
+        "pe_percentile": 56.59609120521173,
+        "dv_ttm": 3.6069,
+        "volume_expansion_pct": -30.125926331687392
       },
       "criteria": {
         "market_cap": true,
@@ -3276,6 +4282,16 @@
         "industry_pb_avg": 6.312604780876494,
         "industry_debt_avg": 45.875022916666666
       },
+      "tunable_values": {
+        "market_cap": 9244815518.0,
+        "turnover_3d_min": 17.7578,
+        "pb": 4.4907,
+        "roe_3y_min": -8.1078,
+        "debt_vs_industry_gap": 9.377047995116794,
+        "pe_percentile": 99.89816700610999,
+        "dv_ttm": 1.1186,
+        "volume_expansion_pct": 38.92281231287027
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -3312,6 +4328,16 @@
         "industry_pb_avg": 7.161432083333334,
         "industry_debt_avg": 41.43976923076923
       },
+      "tunable_values": {
+        "market_cap": 3194707243.0,
+        "turnover_3d_min": 5.7404,
+        "pb": 5.395,
+        "roe_3y_min": -9.9746,
+        "debt_vs_industry_gap": 21.27321023839974,
+        "pe_percentile": null,
+        "dv_ttm": 0.067,
+        "volume_expansion_pct": -20.822753837794494
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -3346,6 +4372,16 @@
         "debt_ratio": 53.9078,
         "industry_pb_avg": 3.619916037735849,
         "industry_debt_avg": 62.974781818181825
+      },
+      "tunable_values": {
+        "market_cap": 4446663717.0,
+        "turnover_3d_min": 12.8393,
+        "pb": 2.9784,
+        "roe_3y_min": 3.3418,
+        "debt_vs_industry_gap": 14.39779790640583,
+        "pe_percentile": 97.66970618034448,
+        "dv_ttm": 1.2265,
+        "volume_expansion_pct": 11.150794909008432
       },
       "criteria": {
         "market_cap": true,
@@ -3382,6 +4418,16 @@
         "industry_pb_avg": 4.535343103448276,
         "industry_debt_avg": 45.84937142857143
       },
+      "tunable_values": {
+        "market_cap": 8222518294.0,
+        "turnover_3d_min": 5.0854,
+        "pb": 4.946,
+        "roe_3y_min": -9.6718,
+        "debt_vs_industry_gap": 0.25948322706402793,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 68.50115503061525
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -3416,6 +4462,16 @@
         "debt_ratio": 59.5974,
         "industry_pb_avg": 7.161432083333334,
         "industry_debt_avg": 41.43976923076923
+      },
+      "tunable_values": {
+        "market_cap": 6407180174.0,
+        "turnover_3d_min": 2.7214,
+        "pb": 3.4627,
+        "roe_3y_min": -20.9618,
+        "debt_vs_industry_gap": -43.81692057239701,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 322.0451736299143
       },
       "criteria": {
         "market_cap": true,
@@ -3452,6 +4508,16 @@
         "industry_pb_avg": 5.8920142857142865,
         "industry_debt_avg": 34.73879411764705
       },
+      "tunable_values": {
+        "market_cap": 7076937910.0,
+        "turnover_3d_min": 1.5458,
+        "pb": 2.3812,
+        "roe_3y_min": 13.8351,
+        "debt_vs_industry_gap": 50.769448294371685,
+        "pe_percentile": 21.986970684039086,
+        "dv_ttm": 2.9386,
+        "volume_expansion_pct": -16.42940443648897
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -3486,6 +4552,16 @@
         "debt_ratio": 16.6627,
         "industry_pb_avg": 10.680790322580645,
         "industry_debt_avg": 43.64741071428572
+      },
+      "tunable_values": {
+        "market_cap": 4935934715.0,
+        "turnover_3d_min": 2.2791,
+        "pb": 4.932,
+        "roe_3y_min": 0.8329,
+        "debt_vs_industry_gap": 61.8243104749709,
+        "pe_percentile": 82.2701688555347,
+        "dv_ttm": 0.0661,
+        "volume_expansion_pct": 50.376203211029406
       },
       "criteria": {
         "market_cap": true,
@@ -3522,6 +4598,16 @@
         "industry_pb_avg": 10.680790322580645,
         "industry_debt_avg": 43.64741071428572
       },
+      "tunable_values": {
+        "market_cap": 3976862097.0,
+        "turnover_3d_min": 8.2591,
+        "pb": 4.475,
+        "roe_3y_min": -12.095,
+        "debt_vs_industry_gap": -47.278610455946676,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 61.90363058707036
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -3557,6 +4643,16 @@
         "industry_pb_avg": 5.885220930232558,
         "industry_debt_avg": 28.194242105263157
       },
+      "tunable_values": {
+        "market_cap": 6157329368.0,
+        "turnover_3d_min": 7.5466,
+        "pb": 7.2507,
+        "roe_3y_min": 2.4335,
+        "debt_vs_industry_gap": -39.034416508335234,
+        "pe_percentile": 99.8371335504886,
+        "dv_ttm": null,
+        "volume_expansion_pct": 84.5453134205389
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -3591,6 +4687,16 @@
         "debt_ratio": 38.7936,
         "industry_pb_avg": 7.345781654676259,
         "industry_debt_avg": 42.307003571428574
+      },
+      "tunable_values": {
+        "market_cap": 5417702557.0,
+        "turnover_3d_min": 3.0561,
+        "pb": 2.4328,
+        "roe_3y_min": 8.2084,
+        "debt_vs_industry_gap": 8.304543633057726,
+        "pe_percentile": 34.69055374592834,
+        "dv_ttm": 0.9588,
+        "volume_expansion_pct": 17.468304493591845
       },
       "criteria": {
         "market_cap": true,
@@ -3628,6 +4734,16 @@
         "industry_pb_avg": 7.161432083333334,
         "industry_debt_avg": 41.43976923076923
       },
+      "tunable_values": {
+        "market_cap": 5936228742.0,
+        "turnover_3d_min": 5.107,
+        "pb": 7.3384,
+        "roe_3y_min": -9.5065,
+        "debt_vs_industry_gap": 22.51718434725468,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 55.68309847968504
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -3662,6 +4778,16 @@
         "debt_ratio": 22.4043,
         "industry_pb_avg": 5.8920142857142865,
         "industry_debt_avg": 34.73879411764705
+      },
+      "tunable_values": {
+        "market_cap": 5193226284.0,
+        "turnover_3d_min": 3.4383,
+        "pb": 4.4328,
+        "roe_3y_min": 13.4131,
+        "debt_vs_industry_gap": 35.50639689988899,
+        "pe_percentile": 99.0228013029316,
+        "dv_ttm": 1.687,
+        "volume_expansion_pct": 3.5302842354856034
       },
       "criteria": {
         "market_cap": true,
@@ -3699,6 +4825,16 @@
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
       },
+      "tunable_values": {
+        "market_cap": 14457179260.0,
+        "turnover_3d_min": 10.9068,
+        "pb": 4.9579,
+        "roe_3y_min": 5.1129,
+        "debt_vs_industry_gap": -4.4022012239496755,
+        "pe_percentile": 80.54187192118226,
+        "dv_ttm": 0.191,
+        "volume_expansion_pct": -11.354516288036987
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -3733,6 +4869,16 @@
         "debt_ratio": 62.2238,
         "industry_pb_avg": 7.6416440677966095,
         "industry_debt_avg": 47.94258571428571
+      },
+      "tunable_values": {
+        "market_cap": 6497482523.000001,
+        "turnover_3d_min": 13.3733,
+        "pb": 3.9174,
+        "roe_3y_min": -17.52,
+        "debt_vs_industry_gap": -29.788160302457012,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 71.78448092284533
       },
       "criteria": {
         "market_cap": true,
@@ -3770,6 +4916,16 @@
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
       },
+      "tunable_values": {
+        "market_cap": 11786615130.0,
+        "turnover_3d_min": 7.4285,
+        "pb": 7.4281,
+        "roe_3y_min": -17.341,
+        "debt_vs_industry_gap": -72.19717364698145,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 59.01805850519533
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -3804,6 +4960,16 @@
         "debt_ratio": 11.07,
         "industry_pb_avg": 4.11404329004329,
         "industry_debt_avg": 42.43399512195122
+      },
+      "tunable_values": {
+        "market_cap": 3814334379.0,
+        "turnover_3d_min": 1.9546,
+        "pb": 3.4516,
+        "roe_3y_min": 5.9237,
+        "debt_vs_industry_gap": 73.91242571389782,
+        "pe_percentile": 31.107491856677527,
+        "dv_ttm": null,
+        "volume_expansion_pct": 53.38648175655349
       },
       "criteria": {
         "market_cap": true,
@@ -3841,6 +5007,16 @@
         "industry_pb_avg": 5.007864590163934,
         "industry_debt_avg": 48.07524556962025
       },
+      "tunable_values": {
+        "market_cap": 4940107732.0,
+        "turnover_3d_min": 3.3565,
+        "pb": 2.2987,
+        "roe_3y_min": 8.9911,
+        "debt_vs_industry_gap": -3.3163729305779377,
+        "pe_percentile": 46.17263843648208,
+        "dv_ttm": 2.0243,
+        "volume_expansion_pct": -13.168031907237687
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -3875,6 +5051,16 @@
         "debt_ratio": 17.1177,
         "industry_pb_avg": 3.028725,
         "industry_debt_avg": 29.2756
+      },
+      "tunable_values": {
+        "market_cap": 8987245680.0,
+        "turnover_3d_min": 5.1691,
+        "pb": 5.5921,
+        "roe_3y_min": -1.3316,
+        "debt_vs_industry_gap": 41.529123228900524,
+        "pe_percentile": null,
+        "dv_ttm": 0.3842,
+        "volume_expansion_pct": -20.793362616313015
       },
       "criteria": {
         "market_cap": true,
@@ -3911,6 +5097,16 @@
         "industry_pb_avg": 7.345781654676259,
         "industry_debt_avg": 42.307003571428574
       },
+      "tunable_values": {
+        "market_cap": 15642074700.0,
+        "turnover_3d_min": 2.9406,
+        "pb": 7.4342,
+        "roe_3y_min": 11.0074,
+        "debt_vs_industry_gap": 53.72681034489308,
+        "pe_percentile": 99.9185667752443,
+        "dv_ttm": 0.6028,
+        "volume_expansion_pct": 72.82151402048042
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": false,
@@ -3945,6 +5141,16 @@
         "debt_ratio": 14.322,
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
+      },
+      "tunable_values": {
+        "market_cap": 5655595506.0,
+        "turnover_3d_min": 2.4728,
+        "pb": 3.2218,
+        "roe_3y_min": -5.3639,
+        "debt_vs_industry_gap": 40.86257772889077,
+        "pe_percentile": 34.56561922365989,
+        "dv_ttm": null,
+        "volume_expansion_pct": -15.953581821977192
       },
       "criteria": {
         "market_cap": true,
@@ -3981,6 +5187,16 @@
         "industry_pb_avg": 6.312604780876494,
         "industry_debt_avg": 45.875022916666666
       },
+      "tunable_values": {
+        "market_cap": 18718618510.0,
+        "turnover_3d_min": 7.8775,
+        "pb": 5.6549,
+        "roe_3y_min": 4.827,
+        "debt_vs_industry_gap": 2.111656529145234,
+        "pe_percentile": 78.74592833876221,
+        "dv_ttm": 0.3793,
+        "volume_expansion_pct": 55.69566478035783
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -4015,6 +5231,16 @@
         "debt_ratio": 19.0265,
         "industry_pb_avg": 5.8920142857142865,
         "industry_debt_avg": 34.73879411764705
+      },
+      "tunable_values": {
+        "market_cap": 9060641100.0,
+        "turnover_3d_min": 1.8842,
+        "pb": 5.0285,
+        "roe_3y_min": 1.252,
+        "debt_vs_industry_gap": 45.22982019593284,
+        "pe_percentile": 99.8371335504886,
+        "dv_ttm": 0.5666,
+        "volume_expansion_pct": 44.60446110590441
       },
       "criteria": {
         "market_cap": true,
@@ -4052,6 +5278,16 @@
         "industry_pb_avg": 5.007864590163934,
         "industry_debt_avg": 48.07524556962025
       },
+      "tunable_values": {
+        "market_cap": 16896004141.0,
+        "turnover_3d_min": 6.2611,
+        "pb": 3.5898,
+        "roe_3y_min": 2.9424,
+        "debt_vs_industry_gap": -42.290484821210114,
+        "pe_percentile": 99.5928338762215,
+        "dv_ttm": 0.0978,
+        "volume_expansion_pct": 3.4282525966241595
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -4086,6 +5322,16 @@
         "debt_ratio": 60.466,
         "industry_pb_avg": 7.161432083333334,
         "industry_debt_avg": 41.43976923076923
+      },
+      "tunable_values": {
+        "market_cap": 5141910000.0,
+        "turnover_3d_min": 9.3779,
+        "pb": 5.8937,
+        "roe_3y_min": 1.9809,
+        "debt_vs_industry_gap": -45.91297471585267,
+        "pe_percentile": 89.12037037037037,
+        "dv_ttm": 0.1285,
+        "volume_expansion_pct": 82.91386111068026
       },
       "criteria": {
         "market_cap": true,
@@ -4122,6 +5368,16 @@
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
       },
+      "tunable_values": {
+        "market_cap": 6221712000.0,
+        "turnover_3d_min": 15.71,
+        "pb": 9.1329,
+        "roe_3y_min": -4.7632,
+        "debt_vs_industry_gap": -93.09346975698023,
+        "pe_percentile": 84.42953020134229,
+        "dv_ttm": 0.3115,
+        "volume_expansion_pct": -33.812024539633924
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -4156,6 +5412,16 @@
         "debt_ratio": 23.2159,
         "industry_pb_avg": 6.2928375,
         "industry_debt_avg": 30.042285714285715
+      },
+      "tunable_values": {
+        "market_cap": 5903379419.0,
+        "turnover_3d_min": 2.7323,
+        "pb": 1.5296,
+        "roe_3y_min": -28.1577,
+        "debt_vs_industry_gap": 22.722591014569936,
+        "pe_percentile": null,
+        "dv_ttm": null,
+        "volume_expansion_pct": 91.82580457836096
       },
       "criteria": {
         "market_cap": true,
@@ -4192,6 +5458,16 @@
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
       },
+      "tunable_values": {
+        "market_cap": 9053757068.0,
+        "turnover_3d_min": 6.5429,
+        "pb": 5.711,
+        "roe_3y_min": -5.5264,
+        "debt_vs_industry_gap": -131.7326442009377,
+        "pe_percentile": 99.7584541062802,
+        "dv_ttm": null,
+        "volume_expansion_pct": -7.005850818491954
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -4226,6 +5502,16 @@
         "debt_ratio": 13.1902,
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
+      },
+      "tunable_values": {
+        "market_cap": 8791664354.0,
+        "turnover_3d_min": 3.2412,
+        "pb": 4.1985,
+        "roe_3y_min": 3.6356,
+        "debt_vs_industry_gap": 45.53592883393485,
+        "pe_percentile": 6.4186046511627906,
+        "dv_ttm": 0.578,
+        "volume_expansion_pct": -10.074581578684949
       },
       "criteria": {
         "market_cap": true,
@@ -4262,6 +5548,16 @@
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
       },
+      "tunable_values": {
+        "market_cap": 8046225000.0,
+        "turnover_3d_min": 6.3323,
+        "pb": 3.2038,
+        "roe_3y_min": -2.4966,
+        "debt_vs_industry_gap": 60.63740170588904,
+        "pe_percentile": null,
+        "dv_ttm": 0.6369,
+        "volume_expansion_pct": -9.080829598626938
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -4296,6 +5592,16 @@
         "debt_ratio": 25.5158,
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
+      },
+      "tunable_values": {
+        "market_cap": 6828000000.0,
+        "turnover_3d_min": 11.0322,
+        "pb": 4.6471,
+        "roe_3y_min": -2.4881,
+        "debt_vs_industry_gap": -5.358095181201561,
+        "pe_percentile": null,
+        "dv_ttm": 0.1757,
+        "volume_expansion_pct": 68.86300510025617
       },
       "criteria": {
         "market_cap": true,
@@ -4332,6 +5638,16 @@
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
       },
+      "tunable_values": {
+        "market_cap": 6707988334.0,
+        "turnover_3d_min": 5.2329,
+        "pb": 4.4754,
+        "roe_3y_min": -2.486,
+        "debt_vs_industry_gap": 35.29485672691034,
+        "pe_percentile": null,
+        "dv_ttm": 0.5108,
+        "volume_expansion_pct": 3.114710462135162
+      },
       "criteria": {
         "market_cap": true,
         "turnover_3d": true,
@@ -4366,6 +5682,16 @@
         "debt_ratio": 11.4793,
         "industry_pb_avg": 9.258199465240642,
         "industry_debt_avg": 24.218167532467533
+      },
+      "tunable_values": {
+        "market_cap": 4830993349.0,
+        "turnover_3d_min": 11.4771,
+        "pb": 3.1193,
+        "roe_3y_min": 0.6491,
+        "debt_vs_industry_gap": 52.60046002815639,
+        "pe_percentile": 99.81818181818181,
+        "dv_ttm": 0.2084,
+        "volume_expansion_pct": 36.95118992459272
       },
       "criteria": {
         "market_cap": true,
