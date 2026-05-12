@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "screener"))
 
 from criteria import StockData, CRITERIA, CRITERIA_META, CONCEPT_KEYWORDS, evaluate_all, extract_tunable_values  # noqa
-from advice import make_client, generate_advice  # noqa
+from advice import make_client, generate_advice, generate_daily_script  # noqa
 
 
 load_dotenv(ROOT / ".env")
@@ -363,6 +363,12 @@ def main():
     for s in stocks:
         result = evaluate_all(s)
         n_pass = sum(result["passed"].values())
+        kline_close = []
+        if s.kline_30d is not None and not s.kline_30d.empty and "收盘" in s.kline_30d.columns:
+            kline_close = [
+                round(float(x), 3) for x in s.kline_30d["收盘"].tail(30).tolist()
+                if pd.notna(x)
+            ]
         output_stocks.append({
             "code": s.code,
             "name": s.name,
@@ -379,6 +385,7 @@ def main():
             },
             "tunable_values": extract_tunable_values(s, result),
             "criteria": result["passed"],
+            "kline_close": kline_close,
             "n_pass": n_pass,
             "advice": "",
         })
@@ -406,12 +413,21 @@ def main():
                 if done_count % 100 == 0:
                     log.info(f"  advice {done_count}/{len(output_stocks)}")
 
+    daily_script = ""
+    if not args.skip_advice and output_stocks:
+        log.info("生成 AI 主播日报...")
+        client_d = make_client()
+        daily_script = generate_daily_script(client_d, output_stocks, trade_date)
+        if daily_script:
+            log.info(f"  日报 {len(daily_script)} 字 ✓")
+
     out = {
         "generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M CST"),
         "trade_date": trade_date,
         "elapsed_sec": round(time.time() - started, 1),
         "unavailable_endpoints": sorted(UNAVAILABLE),
         "criteria_meta": CRITERIA_META,
+        "daily_script": daily_script,
         "stocks": output_stocks,
     }
 

@@ -96,3 +96,56 @@ def generate_advice(client: Anthropic | None, stock: dict) -> str:
     except Exception as e:
         log.error(f"生成建议失败 {stock['code']}: {str(e)[:120]}")
         return ""
+
+
+DAILY_SCRIPT_SYSTEM = """你是 AI 选股助手的主播,根据今日筛选结果用口语化中文播报。
+要求:
+- 长度严格在 150~200 字之间(对应朗读 60 秒左右)
+- 自然流畅,像电台主播,不要罗列指标
+- 包含:今日命中股票总数、最强主题/行业、1~2 只重点股票(代码+名称+一句亮点)、整体市场情绪、免责一句
+- 不要 emoji、不要 markdown、不要书名号引号
+- 句末用句号或问号,不要叹号"""
+
+
+def generate_daily_script(client: Anthropic | None, stocks: list[dict], trade_date: str) -> str:
+    if client is None or not stocks:
+        return ""
+    from collections import Counter
+
+    top10 = stocks[:10]
+    industries = Counter(s.get("industry", "") for s in stocks).most_common(3)
+    concepts = Counter(c for s in stocks for c in (s.get("concepts") or [])).most_common(3)
+
+    top_lines = []
+    for s in top10:
+        m = s.get("metrics", {})
+        top_lines.append(
+            f"{s['code']} {s['name']} ({s.get('industry', '')}): 通过 {s['n_pass']}/13, "
+            f"PE={m.get('pe_ttm')}, PB={m.get('pb')}, 股息率={m.get('dv_ttm')}%"
+        )
+    user_msg = f"""今天是 {trade_date},筛选条件命中股票 {len(stocks)} 只。
+
+最强 10 只:
+{chr(10).join(top_lines)}
+
+集中行业 top3: {industries}
+集中概念 top3: {concepts}
+
+请按系统提示要求,写一段 150~200 字的口语化播报,作为今日 A 股选股日报。"""
+
+    _limiter.acquire()
+    try:
+        resp = client.messages.create(
+            model=MODEL,
+            max_tokens=500,
+            system=[{
+                "type": "text",
+                "text": DAILY_SCRIPT_SYSTEM,
+                "cache_control": {"type": "ephemeral"},
+            }],
+            messages=[{"role": "user", "content": user_msg}],
+        )
+        return resp.content[0].text.strip()
+    except Exception as e:
+        log.error(f"生成日报失败: {str(e)[:120]}")
+        return ""

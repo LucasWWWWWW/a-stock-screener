@@ -1,6 +1,7 @@
 const LS_DISABLED = "screener.disabled.v3";
 const LS_THRESHOLDS = "screener.thresholds.v3";
 const LS_USAGE = "screener.usage.v3";
+const LS_FAVORITES = "screener.fav.v3";
 const MIN_USAGE_TO_PROMOTE = 3;
 
 const state = {
@@ -8,13 +9,18 @@ const state = {
   disabled: new Set(JSON.parse(localStorage.getItem(LS_DISABLED) || "[]")),
   thresholds: JSON.parse(localStorage.getItem(LS_THRESHOLDS) || "{}"),
   usage: JSON.parse(localStorage.getItem(LS_USAGE) || "{}"),
+  favorites: new Set(JSON.parse(localStorage.getItem(LS_FAVORITES) || "[]")),
   byCode: new Map(),
+  search: "",
+  sort: "n_pass",
+  tab: "all", // "all" | "fav"
 };
 
 const persist = () => {
   localStorage.setItem(LS_DISABLED, JSON.stringify([...state.disabled]));
   localStorage.setItem(LS_THRESHOLDS, JSON.stringify(state.thresholds));
   localStorage.setItem(LS_USAGE, JSON.stringify(state.usage));
+  localStorage.setItem(LS_FAVORITES, JSON.stringify([...state.favorites]));
 };
 
 const OP_FN = {
@@ -84,7 +90,109 @@ function escapeHtml(s) {
   }[c]));
 }
 
-// ====== Filter sidebar ======
+// ============== URL SHARE ==============
+function encodeShareState() {
+  const payload = {
+    d: [...state.disabled],
+    t: state.thresholds,
+  };
+  const json = JSON.stringify(payload);
+  return btoa(unescape(encodeURIComponent(json))).replace(/=+$/, "").replace(/\+/g, "-").replace(/\//g, "_");
+}
+function decodeShareState(s) {
+  try {
+    const b64 = s.replace(/-/g, "+").replace(/_/g, "/");
+    const pad = b64.length % 4;
+    const padded = b64 + "===".slice(0, pad ? 4 - pad : 0);
+    const json = decodeURIComponent(escape(atob(padded)));
+    const p = JSON.parse(json);
+    if (Array.isArray(p.d)) state.disabled = new Set(p.d);
+    if (p.t && typeof p.t === "object") state.thresholds = p.t;
+    persist();
+    return true;
+  } catch (e) {
+    console.warn("decode share state failed", e);
+    return false;
+  }
+}
+function shareLink() {
+  const url = new URL(window.location.href);
+  url.hash = "#/s/" + encodeShareState();
+  return url.toString();
+}
+async function copyShare() {
+  const url = shareLink();
+  try {
+    await navigator.clipboard.writeText(url);
+    flashBtn(document.getElementById("share-btn"), "✓ 已复制");
+  } catch {
+    prompt("复制以下链接:", url);
+  }
+}
+function flashBtn(btn, txt) {
+  const orig = btn.innerHTML;
+  btn.innerHTML = txt;
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.innerHTML = orig;
+    btn.disabled = false;
+  }, 1500);
+}
+
+// ============== AI 主播日报 ==============
+const tts = {
+  utter: null,
+  playing: false,
+};
+function pickChineseVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  return voices.find(v => /zh|Chinese|Mandarin/i.test(v.lang + v.name))
+      || voices.find(v => v.lang.startsWith("zh"))
+      || voices[0];
+}
+function toggleBroadcast() {
+  const btn = document.getElementById("broadcast-btn");
+  const transcript = document.getElementById("broadcast-transcript");
+  if (!state.data?.daily_script) {
+    transcript.classList.remove("hidden");
+    transcript.textContent = "今日 AI 日报暂未生成(可能 ANTHROPIC_API_KEY 未配置或调用失败)。";
+    return;
+  }
+  if (tts.playing) {
+    window.speechSynthesis.cancel();
+    tts.playing = false;
+    btn.querySelector(".bc-icon").textContent = "▶";
+    btn.querySelector(".bc-text").textContent = "AI 主播日报";
+    return;
+  }
+  if (!window.speechSynthesis) {
+    transcript.classList.remove("hidden");
+    transcript.textContent = "浏览器不支持语音合成,请阅读以下文本:\n\n" + state.data.daily_script;
+    return;
+  }
+  const u = new SpeechSynthesisUtterance(state.data.daily_script);
+  u.lang = "zh-CN";
+  u.rate = 1.05;
+  u.pitch = 1;
+  const voice = pickChineseVoice();
+  if (voice) u.voice = voice;
+  u.onstart = () => {
+    tts.playing = true;
+    btn.querySelector(".bc-icon").textContent = "⏸";
+    btn.querySelector(".bc-text").textContent = "正在播报…";
+    transcript.classList.remove("hidden");
+    transcript.textContent = state.data.daily_script;
+  };
+  u.onend = () => {
+    tts.playing = false;
+    btn.querySelector(".bc-icon").textContent = "▶";
+    btn.querySelector(".bc-text").textContent = "AI 主播日报";
+  };
+  tts.utter = u;
+  window.speechSynthesis.speak(u);
+}
+
+// ============== Filter sidebar ==============
 function renderCriteria() {
   const list = document.getElementById("criteria-list");
   if (!list) return;
@@ -164,33 +272,156 @@ function renderCriteria() {
   });
 }
 
-// ====== List view ======
+// ============== Sparkline SVG ==============
+function sparkline(values, w = 90, h = 26) {
+  if (!values || values.length < 2) return "";
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const range = max - min || 1;
+  const stepX = w / (values.length - 1);
+  const points = values
+    .map((v, i) => `${(i * stepX).toFixed(1)},${(h - ((v - min) / range) * h).toFixed(1)}`)
+    .join(" ");
+  const last = values[values.length - 1];
+  const first = values[0];
+  const up = last >= first;
+  const stroke = up ? "var(--green)" : "var(--red)";
+  return `<svg class="sparkline" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <polyline fill="none" stroke="${stroke}" stroke-width="1.4" points="${points}"/>
+  </svg>`;
+}
+
+// ============== Radar (DNA) ==============
+function radarSVG(stock) {
+  const metas = state.data.criteria_meta;
+  const n = metas.length;
+  const size = 260;
+  const cx = size / 2;
+  const cy = size / 2;
+  const R = size / 2 - 38;
+
+  const points = [];
+  const labels = [];
+  metas.forEach((meta, i) => {
+    const angle = (-Math.PI / 2) + (2 * Math.PI * i / n);
+    const pass = stockPassesCriterion(stock, meta) ? 1 : 0.15;
+    const x = cx + Math.cos(angle) * R * pass;
+    const y = cy + Math.sin(angle) * R * pass;
+    points.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+    const lx = cx + Math.cos(angle) * (R + 18);
+    const ly = cy + Math.sin(angle) * (R + 18);
+    labels.push({ x: lx, y: ly, text: meta.label, pass: pass === 1 });
+  });
+
+  const grid = [0.2, 0.4, 0.6, 0.8, 1.0].map(scale => {
+    const pts = [];
+    for (let i = 0; i < n; i++) {
+      const a = (-Math.PI / 2) + (2 * Math.PI * i / n);
+      pts.push(`${cx + Math.cos(a) * R * scale},${cy + Math.sin(a) * R * scale}`);
+    }
+    return `<polygon points="${pts.join(" ")}" fill="none" stroke="var(--border)" stroke-width="0.7"/>`;
+  }).join("");
+
+  const axisLines = metas.map((_, i) => {
+    const a = (-Math.PI / 2) + (2 * Math.PI * i / n);
+    const x2 = cx + Math.cos(a) * R;
+    const y2 = cy + Math.sin(a) * R;
+    return `<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="var(--border)" stroke-width="0.5"/>`;
+  }).join("");
+
+  const labelsHTML = labels.map(l => {
+    const anchor = Math.abs(l.x - cx) < 5 ? "middle" : (l.x < cx ? "end" : "start");
+    return `<text x="${l.x}" y="${l.y}" text-anchor="${anchor}" dominant-baseline="middle" font-size="10" fill="${l.pass ? 'var(--text)' : 'var(--muted)'}">${escapeHtml(l.text)}</text>`;
+  }).join("");
+
+  return `<svg class="radar" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
+    ${grid}
+    ${axisLines}
+    <polygon points="${points.join(" ")}" fill="var(--accent)" fill-opacity="0.25" stroke="var(--accent)" stroke-width="1.5"/>
+    ${labelsHTML}
+  </svg>`;
+}
+
+// ============== List view ==============
+function sortFn(a, b) {
+  switch (state.sort) {
+    case "n_pass": return passCount(b) - passCount(a);
+    case "market_cap_asc": return (a.metrics.market_cap || 0) - (b.metrics.market_cap || 0);
+    case "market_cap_desc": return (b.metrics.market_cap || 0) - (a.metrics.market_cap || 0);
+    case "pe_asc": {
+      const av = a.metrics.pe_ttm ?? Infinity;
+      const bv = b.metrics.pe_ttm ?? Infinity;
+      return av - bv;
+    }
+    case "pb_asc": {
+      const av = a.metrics.pb ?? Infinity;
+      const bv = b.metrics.pb ?? Infinity;
+      return av - bv;
+    }
+    case "dv_desc": return (b.metrics.dv_ttm ?? 0) - (a.metrics.dv_ttm ?? 0);
+    case "code": return a.code.localeCompare(b.code);
+    default: return 0;
+  }
+}
+
 function renderListMain() {
   const main = document.getElementById("main-content");
   if (!main) return;
-  const filtered = state.data.stocks
-    .filter(stockPasses)
-    .sort((a, b) => passCount(b) - passCount(a));
+  const toolbar = document.getElementById("list-toolbar");
+  if (toolbar) toolbar.classList.remove("hidden");
+
+  document.getElementById("fav-count").textContent = state.favorites.size;
+
+  const q = state.search.trim().toLowerCase();
+  let stocks = state.data.stocks;
+  if (state.tab === "fav") {
+    stocks = stocks.filter(s => state.favorites.has(s.code));
+  }
+  let filtered = stocks.filter(stockPasses);
+  if (q) {
+    filtered = filtered.filter(s =>
+      s.code.toLowerCase().includes(q) ||
+      (s.name || "").toLowerCase().includes(q) ||
+      (s.industry || "").toLowerCase().includes(q)
+    );
+  }
+  filtered.sort(sortFn);
 
   const resultCount = document.getElementById("result-count");
-  if (resultCount) resultCount.textContent = `匹配 ${filtered.length} / ${state.data.stocks.length} 只`;
+  if (resultCount) {
+    const base = state.tab === "fav" ? state.favorites.size : state.data.stocks.length;
+    resultCount.textContent = `匹配 ${filtered.length} / ${base} 只`;
+  }
 
   if (filtered.length === 0) {
-    main.innerHTML = `<div class="empty">没有满足当前条件的股票。尝试放宽阈值或取消勾选。</div>`;
+    main.innerHTML = `<div class="empty">${state.tab === "fav" ? "你还没有收藏任何股票。点击列表中的 ⭐ 加入收藏。" : "没有满足当前条件的股票。尝试放宽阈值或取消勾选。"}</div>`;
     return;
   }
   const total = activeCount();
   main.innerHTML = `<div id="stocks-list">${
     filtered.map((s) => stockRow(s, total)).join("")
   }</div>`;
+  main.querySelectorAll("[data-fav]").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const code = e.currentTarget.dataset.fav;
+      if (state.favorites.has(code)) state.favorites.delete(code);
+      else state.favorites.add(code);
+      persist();
+      renderListMain();
+    });
+  });
 }
 
 function stockRow(s, total) {
   const n = passCount(s);
   const m = s.metrics;
+  const fav = state.favorites.has(s.code);
   const conceptsPreview = (s.concepts || []).slice(0, 3).map(c => escapeHtml(c)).join(" · ");
   return `
     <a class="stock-row" href="#/stock/${encodeURIComponent(s.code)}">
+      <button class="fav-btn${fav ? " on" : ""}" data-fav="${s.code}" title="${fav ? "取消收藏" : "加入收藏"}">${fav ? "★" : "☆"}</button>
       <div class="row-left">
         <div class="row-title">
           <span class="stock-code">${s.code}</span>
@@ -201,6 +432,7 @@ function stockRow(s, total) {
           ${conceptsPreview ? `<span class="row-concepts">${conceptsPreview}</span>` : ""}
         </div>
       </div>
+      <div class="row-spark">${sparkline(s.kline_close)}</div>
       <div class="row-metrics">
         <div><label>市值</label><b>${fmtCN(m.market_cap)}</b></div>
         <div><label>PE</label><b>${fmtNum(m.pe_ttm)}</b></div>
@@ -215,9 +447,11 @@ function stockRow(s, total) {
   `;
 }
 
-// ====== Detail view ======
+// ============== Detail view ==============
 function renderDetailMain(code) {
   const main = document.getElementById("main-content");
+  const toolbar = document.getElementById("list-toolbar");
+  if (toolbar) toolbar.classList.add("hidden");
   if (!main) return;
   const s = state.byCode.get(code);
   if (!s) {
@@ -226,6 +460,7 @@ function renderDetailMain(code) {
   }
   const m = s.metrics;
   const conceptTags = (s.concepts || []).map(c => `<span class="concept-tag">${escapeHtml(c)}</span>`).join("");
+  const fav = state.favorites.has(s.code);
 
   const allChips = state.data.criteria_meta.map((meta) => {
     const pass = stockPassesCriterion(s, meta);
@@ -248,7 +483,16 @@ function renderDetailMain(code) {
          <h3>AI 投资建议</h3>
          <div class="advice-body">${escapeHtml(s.advice)}</div>
        </div>`
-    : `<div class="advice-card empty-advice">AI 建议未生成 — 检查 ANTHROPIC_API_KEY 是否已配置。</div>`;
+    : `<div class="advice-card empty-advice">AI 建议未生成。</div>`;
+
+  const externalLinks = `
+    <div class="external-links">
+      <a href="https://quote.eastmoney.com/${s.code.startsWith('6') ? 'sh' : 'sz'}${s.code}.html" target="_blank" rel="noopener">东方财富</a>
+      <a href="https://xueqiu.com/S/${s.code.startsWith('6') ? 'SH' : 'SZ'}${s.code}" target="_blank" rel="noopener">雪球</a>
+      <a href="http://stockpage.10jqka.com.cn/${s.code}/" target="_blank" rel="noopener">同花顺F10</a>
+    </div>`;
+
+  const klineSparkBig = sparkline(s.kline_close, 320, 60);
 
   main.innerHTML = `
     <div class="detail-page">
@@ -258,8 +502,22 @@ function renderDetailMain(code) {
           <span class="stock-code">${s.code}</span>
           <span class="stock-name">${escapeHtml(s.name)}</span>
           <span class="stock-industry">${escapeHtml(s.industry || "未分类")}</span>
+          <button class="fav-btn big${fav ? " on" : ""}" id="detail-fav">${fav ? "★" : "☆"}</button>
         </div>
         <div class="concept-tags">${conceptTags}</div>
+        ${externalLinks}
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-radar-wrap">
+          <h3>股票 DNA 雷达图</h3>
+          <p class="hint">13 项条件命中可视化 — 越向外延展越优。</p>
+          ${radarSVG(s)}
+        </div>
+        <div class="detail-spark-wrap">
+          <h3>近 30 日价格</h3>
+          ${klineSparkBig || '<div class="empty-spark">无 K 线数据</div>'}
+        </div>
       </div>
 
       <div class="detail-metrics">
@@ -280,11 +538,34 @@ function renderDetailMain(code) {
       </div>
     </div>
   `;
+
+  const dfav = document.getElementById("detail-fav");
+  if (dfav) {
+    dfav.addEventListener("click", () => {
+      if (state.favorites.has(s.code)) state.favorites.delete(s.code);
+      else state.favorites.add(s.code);
+      persist();
+      renderDetailMain(s.code);
+    });
+  }
 }
 
-// ====== Router ======
+// ============== Router ==============
 function route() {
   const hash = window.location.hash || "";
+
+  // 共享状态恢复:#/s/<base64>
+  const ms = hash.match(/^#\/s\/(.+)$/);
+  if (ms) {
+    if (decodeShareState(ms[1])) {
+      window.history.replaceState(null, "", "#/");
+      renderCriteria();
+      renderListMain();
+      flashHeader("✓ 已应用分享的筛选条件");
+    }
+    return;
+  }
+
   const m = hash.match(/^#\/stock\/(.+)$/);
   if (m) {
     document.body.classList.add("detail-mode");
@@ -294,6 +575,14 @@ function route() {
     renderListMain();
   }
   window.scrollTo(0, 0);
+}
+
+function flashHeader(text) {
+  const tr = document.getElementById("broadcast-transcript");
+  if (!tr) return;
+  tr.classList.remove("hidden");
+  tr.textContent = text;
+  setTimeout(() => tr.classList.add("hidden"), 3000);
 }
 
 async function init() {
@@ -325,6 +614,7 @@ async function init() {
 
   window.addEventListener("hashchange", route);
 
+  // sidebar buttons
   document.getElementById("check-all").addEventListener("click", () => {
     state.disabled.clear();
     persist();
@@ -345,6 +635,39 @@ async function init() {
       renderCriteria();
       if (!window.location.hash.startsWith("#/stock/")) renderListMain();
     });
+  }
+
+  // header buttons
+  document.getElementById("broadcast-btn").addEventListener("click", toggleBroadcast);
+  document.getElementById("share-btn").addEventListener("click", copyShare);
+
+  // toolbar
+  const searchInput = document.getElementById("search-input");
+  let searchTimer = null;
+  searchInput.addEventListener("input", (e) => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      state.search = e.target.value;
+      renderListMain();
+    }, 120);
+  });
+  document.getElementById("sort-select").addEventListener("change", (e) => {
+    state.sort = e.target.value;
+    renderListMain();
+  });
+  document.querySelectorAll(".tab-switch .tab").forEach((tab) => {
+    tab.addEventListener("click", (e) => {
+      document.querySelectorAll(".tab-switch .tab").forEach(t => t.classList.remove("active"));
+      e.currentTarget.classList.add("active");
+      state.tab = e.currentTarget.dataset.tab;
+      renderListMain();
+    });
+  });
+
+  // preload Chinese voices (some browsers need a touch)
+  if (window.speechSynthesis) {
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
   }
 }
 

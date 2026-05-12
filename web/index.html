@@ -9,12 +9,22 @@
 <body>
 <header>
   <div class="header-inner">
-    <h1>A股选股</h1>
-    <div class="meta">
-      <span id="generated-at">加载中...</span>
-      <span id="result-count"></span>
+    <div class="header-left">
+      <h1>A股选股</h1>
+      <div class="meta">
+        <span id="generated-at">加载中...</span>
+        <span id="result-count"></span>
+      </div>
+    </div>
+    <div class="header-right">
+      <button id="broadcast-btn" class="broadcast-btn" title="点击播放 AI 主播日报">
+        <span class="bc-icon">▶</span>
+        <span class="bc-text">AI 主播日报</span>
+      </button>
+      <button id="share-btn" class="header-action" title="复制当前筛选条件的分享链接">🔗 分享</button>
     </div>
   </div>
+  <div id="broadcast-transcript" class="broadcast-transcript hidden"></div>
 </header>
 
 <main>
@@ -34,6 +44,22 @@
   </aside>
 
   <section id="results">
+    <div id="list-toolbar" class="list-toolbar hidden">
+      <input id="search-input" type="text" placeholder="🔍 搜索代码/名称…" autocomplete="off">
+      <select id="sort-select">
+        <option value="n_pass">通过条数 ↓</option>
+        <option value="market_cap_asc">市值 ↑</option>
+        <option value="market_cap_desc">市值 ↓</option>
+        <option value="pe_asc">PE ↑</option>
+        <option value="pb_asc">PB ↑</option>
+        <option value="dv_desc">股息率 ↓</option>
+        <option value="code">代码 ↑</option>
+      </select>
+      <div class="tab-switch">
+        <button class="tab active" data-tab="all">全部</button>
+        <button class="tab" data-tab="fav">⭐ <span id="fav-count">0</span></button>
+      </div>
+    </div>
     <div id="main-content">
       <div class="empty">加载中...</div>
     </div>
