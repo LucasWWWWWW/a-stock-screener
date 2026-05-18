@@ -170,6 +170,60 @@ def batch_kline(pro, trading_dates: list[str]) -> dict[str, pd.DataFrame]:
     return result
 
 
+def batch_northbound(pro, trading_dates: list[str]) -> dict[str, float]:
+    """近 5 日北向资金净流入(万元):用 hk_hold 持股 × 收盘价的差额估算。"""
+    if len(trading_dates) < 5:
+        return {}
+    date_today = trading_dates[-1]
+    date_5d_ago = trading_dates[-5]
+    log.info(f"按日期 batch 拉北向持股({date_5d_ago} → {date_today})...")
+
+    today_h = _safe_call("hk_hold_today", pro.hk_hold,
+                         trade_date=date_today, fields="ts_code,vol")
+    prev_h = _safe_call("hk_hold_5d", pro.hk_hold,
+                        trade_date=date_5d_ago, fields="ts_code,vol")
+    if today_h is None or prev_h is None or today_h.empty or prev_h.empty:
+        return {}
+
+    today_map = dict(zip(today_h["ts_code"].astype(str), today_h["vol"].fillna(0)))
+    prev_map = dict(zip(prev_h["ts_code"].astype(str), prev_h["vol"].fillna(0)))
+
+    # close map: take the latest daily price for valuation
+    close_df = _safe_call("daily_today_for_nb", pro.daily,
+                          trade_date=date_today, fields="ts_code,close")
+    if close_df is None or close_df.empty:
+        return {}
+    close_map = dict(zip(close_df["ts_code"].astype(str), close_df["close"]))
+
+    result: dict[str, float] = {}
+    for ts_code, today_vol in today_map.items():
+        prev_vol = prev_map.get(ts_code, 0)
+        delta_shares = today_vol - prev_vol
+        close = close_map.get(ts_code)
+        if close is None or pd.isna(close):
+            continue
+        # 净流入(万元)= delta_shares × close ÷ 1e4
+        result[ts_code] = round(delta_shares * close / 1e4, 1)
+    log.info(f"  北向净流入覆盖 {len(result)} 只")
+    return result
+
+
+def batch_top_list(pro, trading_dates: list[str]) -> dict[str, int]:
+    """近 1 月上龙虎榜次数。"""
+    use_dates = trading_dates[-20:]  # 月内有效交易日 ~20 天
+    log.info(f"按日期 batch 拉龙虎榜({len(use_dates)} 天)...")
+    counts: dict[str, int] = {}
+    for d in use_dates:
+        df = _safe_call("top_list_batch", pro.top_list,
+                        trade_date=d, fields="ts_code")
+        if df is None or df.empty:
+            continue
+        for ts_code in df["ts_code"].astype(str):
+            counts[ts_code] = counts.get(ts_code, 0) + 1
+    log.info(f"  龙虎榜覆盖 {len(counts)} 只")
+    return counts
+
+
 def batch_moneyflow(pro, trading_dates: list[str]) -> dict[str, pd.DataFrame]:
     log.info(f"按日期 batch 拉资金流(最近 {min(6, len(trading_dates))} 天)...")
     rows = []
@@ -246,7 +300,7 @@ def match_themes_by_industry(industry: str) -> list[str]:
     return matched
 
 
-def build_stock(pro, row, industry_avg, concept_map, kline_map, mf_map) -> StockData:
+def build_stock(pro, row, industry_avg, concept_map, kline_map, mf_map, nb_map, top_list_map) -> StockData:
     ts_code = row["ts_code"]
     code = row["symbol"]
     name = row["name"]
@@ -268,6 +322,8 @@ def build_stock(pro, row, industry_avg, concept_map, kline_map, mf_map) -> Stock
     s.fund_flow_3d = mf_map.get(ts_code)
     s.pe_history_5y = get_pe_history(pro, ts_code)
     s.annual_reports = get_annual_reports(pro, ts_code)
+    s.northbound_5d_inflow = nb_map.get(ts_code)
+    s.top_list_30d_count = top_list_map.get(ts_code, 0)
 
     if s.annual_reports is not None and not s.annual_reports.empty:
         if "debt_ratio" in s.annual_reports.columns:
@@ -341,12 +397,14 @@ def main():
 
     kline_map = batch_kline(pro, trading_dates)
     mf_map = batch_moneyflow(pro, trading_dates)
+    nb_map = batch_northbound(pro, trading_dates)
+    top_list_map = batch_top_list(pro, trading_dates)
     log.info("拉取近 10 年年度收盘(用于年度收益条形图)...")
     annual_close_map = batch_annual_closes(pro, _safe_call, years=10)
 
     stocks: list[StockData] = []
     with ThreadPoolExecutor(max_workers=WORKERS) as ex:
-        futures = {ex.submit(build_stock, pro, r, industry_avg, concept_map, kline_map, mf_map): r for r in rows}
+        futures = {ex.submit(build_stock, pro, r, industry_avg, concept_map, kline_map, mf_map, nb_map, top_list_map): r for r in rows}
         for i, fut in enumerate(as_completed(futures), 1):
             try:
                 s = fut.result()
@@ -485,6 +543,29 @@ def main():
     log.info(f"已写入 {out_path} (耗时 {out['elapsed_sec']}s)")
     if UNAVAILABLE:
         log.warning(f"权限不足接口: {sorted(UNAVAILABLE)} -- 相关条件按缺失评估")
+
+    # 追加到 history.json:用于真实策略回测
+    history_path = out_path.parent / "history.json"
+    history = {}
+    if history_path.exists():
+        try:
+            history = json.loads(history_path.read_text(encoding="utf-8"))
+        except Exception:
+            history = {}
+    # 只保留 top 30 只 + 总数,文件大小可控
+    top30 = [s["code"] for s in output_stocks[:30]]
+    history[trade_date] = {
+        "total": len(output_stocks),
+        "top30": top30,
+        "generated_at": out["generated_at"],
+    }
+    # 保留最近 365 天历史
+    keys_sorted = sorted(history.keys())
+    if len(keys_sorted) > 365:
+        for k in keys_sorted[:-365]:
+            history.pop(k, None)
+    history_path.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
+    log.info(f"history.json 累积:{len(history)} 天")
 
 
 if __name__ == "__main__":

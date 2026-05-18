@@ -204,6 +204,253 @@ function toggleBroadcast() {
   window.speechSynthesis.speak(u);
 }
 
+// ============== Investor personality quiz ==============
+const QUIZ_QUESTIONS = [
+  {
+    q: "你能接受单只股票在 1 年内最大跌幅?",
+    options: [
+      { label: "10% 以内,我会睡不着觉", score: { risk: 1 } },
+      { label: "20-30%,可以承受", score: { risk: 2 } },
+      { label: "40% 以上没问题,看长线", score: { risk: 3 } },
+    ],
+  },
+  {
+    q: "你计划持有这些股多久?",
+    options: [
+      { label: "1 个月内做波段", score: { horizon: 1 } },
+      { label: "半年到一年", score: { horizon: 2 } },
+      { label: "3 年以上,看好就拿", score: { horizon: 3 } },
+    ],
+  },
+  {
+    q: "你更信任哪类数据?",
+    options: [
+      { label: "财报数据(ROE / 现金流 / 负债)", score: { style: "value" } },
+      { label: "技术面(均线 / 成交量 / 涨停)", score: { style: "tech" } },
+      { label: "资金面(主力 / 北向 / 龙虎榜)", score: { style: "flow" } },
+    ],
+  },
+  {
+    q: "你最希望从一只股票得到什么?",
+    options: [
+      { label: "稳定分红 + 抗跌", score: { goal: "dividend" } },
+      { label: "高增长 + 几倍收益", score: { goal: "growth" } },
+      { label: "短期题材爆发", score: { goal: "momentum" } },
+      { label: "稳健不亏 + 安心", score: { goal: "safety" } },
+    ],
+  },
+  {
+    q: "你愿意每天花多少时间研究?",
+    options: [
+      { label: "<10 分钟,被动看看", score: { effort: 1 } },
+      { label: "10-30 分钟,挑挑股", score: { effort: 2 } },
+      { label: "1 小时+,深度跟踪", score: { effort: 3 } },
+    ],
+  },
+];
+
+const QUIZ_PROFILES = {
+  cashflow_steady: {
+    name: "现金流稳健派",
+    emoji: "🛡️",
+    desc: "你偏好财务健康、现金流强劲的公司,愿意牺牲爆发性换取睡得着觉。代表:格雷厄姆、张坤(部分)。",
+    preset: {
+      thresholds: { dividend_yield: 3, pb_lt_10: 3, roe_3y: 12, debt_vs_industry: 30, pe_percentile: 30 },
+      disabled: ["volume_expansion", "limit_up_1m", "ma_alignment"],
+    },
+  },
+  value_collector: {
+    name: "价值收藏家",
+    emoji: "💎",
+    desc: "你信奉\"好生意 + 好价格\",看重 PE 历史分位和股息率。代表:巴菲特、查理芒格、林园。",
+    preset: {
+      thresholds: { pe_percentile: 30, dividend_yield: 2, roe_3y: 15, debt_vs_industry: 20 },
+      disabled: ["volume_expansion", "limit_up_1m", "main_fund_inflow"],
+    },
+  },
+  growth_hunter: {
+    name: "成长猎手",
+    emoji: "🌱",
+    desc: "你愿意付溢价买高速增长,看重 ROE 和行业地位。代表:彼得·林奇、冯柳。",
+    preset: {
+      thresholds: { roe_3y: 15, pb_lt_10: 10, pe_percentile: 70, market_cap: 300 },
+      disabled: ["dividend_yield"],
+    },
+  },
+  trend_surfer: {
+    name: "趋势冲浪手",
+    emoji: "🏄",
+    desc: "你相信\"趋势是朋友\",重技术面、资金面信号,持仓周期短。代表:利弗莫尔、徐翔派。",
+    preset: {
+      thresholds: { turnover_3d: 5, volume_expansion: 50, market_cap: 200 },
+      disabled: ["pe_percentile", "dividend_yield", "pb_vs_industry"],
+    },
+  },
+  dark_horse: {
+    name: "黑马挖掘者",
+    emoji: "🐎",
+    desc: "你追逐题材爆发和小市值黑马,愿意承担高波动博取超额收益。代表:游资派、章建平。",
+    preset: {
+      thresholds: { market_cap: 100, turnover_3d: 7, volume_expansion: 100 },
+      disabled: ["dividend_yield", "roe_3y", "cfo_vs_ni"],
+    },
+  },
+};
+
+function quizClassify(answers) {
+  // Aggregate scores
+  const risk = answers[0]?.score?.risk || 2;
+  const horizon = answers[1]?.score?.horizon || 2;
+  const style = answers[2]?.score?.style || "value";
+  const goal = answers[3]?.score?.goal || "growth";
+  const effort = answers[4]?.score?.effort || 2;
+
+  // Decision tree
+  if (goal === "safety" || (risk === 1 && effort === 1)) return "cashflow_steady";
+  if (goal === "dividend") return "cashflow_steady";
+  if (goal === "growth" && horizon >= 2 && style === "value") return "value_collector";
+  if (goal === "growth" && (style === "value" || horizon >= 2)) return "growth_hunter";
+  if (goal === "momentum" || style === "tech") return "trend_surfer";
+  if (style === "flow" && risk >= 2) return "dark_horse";
+  if (risk === 3 && horizon === 1) return "dark_horse";
+  // Default
+  return "growth_hunter";
+}
+
+function renderQuizMain(main) {
+  const toolbar = document.getElementById("list-toolbar");
+  if (toolbar) toolbar.classList.add("hidden");
+
+  // Quiz state in memory only
+  if (!state.quizState) state.quizState = { step: 0, answers: [] };
+  const qs = state.quizState;
+
+  if (qs.step >= QUIZ_QUESTIONS.length) {
+    // Show result
+    const profileKey = quizClassify(qs.answers);
+    const profile = QUIZ_PROFILES[profileKey];
+    main.innerHTML = `
+      <div class="quiz-result">
+        <a class="back-link" href="#/">‹ 返回列表</a>
+        <div class="quiz-card profile">
+          <div class="profile-emoji">${profile.emoji}</div>
+          <h2>你的投资画像:${escapeHtml(profile.name)}</h2>
+          <p class="profile-desc">${escapeHtml(profile.desc)}</p>
+          <div class="quiz-actions">
+            <button id="quiz-apply">应用推荐筛选 →</button>
+            <button id="quiz-restart" class="ghost">重做测试</button>
+          </div>
+        </div>
+      </div>`;
+    document.getElementById("quiz-apply").addEventListener("click", () => {
+      state.thresholds = { ...profile.preset.thresholds };
+      state.disabled = new Set(profile.preset.disabled || []);
+      state.filterMode = "standard";
+      state.quizState = null;
+      persist();
+      window.location.hash = "#/";
+    });
+    document.getElementById("quiz-restart").addEventListener("click", () => {
+      state.quizState = { step: 0, answers: [] };
+      renderQuizMain(main);
+    });
+    return;
+  }
+
+  const q = QUIZ_QUESTIONS[qs.step];
+  const progress = ((qs.step) / QUIZ_QUESTIONS.length * 100).toFixed(0);
+  main.innerHTML = `
+    <div class="quiz-page">
+      <a class="back-link" href="#/">‹ 返回列表</a>
+      <div class="quiz-progress"><div class="quiz-bar" style="width:${progress}%"></div></div>
+      <div class="quiz-card">
+        <h2>问题 ${qs.step + 1} / ${QUIZ_QUESTIONS.length}</h2>
+        <p class="quiz-q">${escapeHtml(q.q)}</p>
+        <div class="quiz-options">
+          ${q.options.map((opt, i) => `<button class="quiz-opt" data-i="${i}">${escapeHtml(opt.label)}</button>`).join("")}
+        </div>
+      </div>
+    </div>`;
+  main.querySelectorAll(".quiz-opt").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const i = Number(e.currentTarget.dataset.i);
+      qs.answers.push(q.options[i]);
+      qs.step++;
+      renderQuizMain(main);
+    });
+  });
+}
+
+// ============== Backtest page ==============
+function renderBacktestMain(main) {
+  const toolbar = document.getElementById("list-toolbar");
+  if (toolbar) toolbar.classList.add("hidden");
+
+  // Use current screen's stocks for "假设组合" sim
+  const stocks = state.data.stocks.filter(stockPasses);
+  let curResult = null;
+  if (stocks.length) {
+    const rets = stocks
+      .map(s => s.kline_close)
+      .filter(k => k && k.length >= 2)
+      .map(k => (k[k.length - 1] - k[0]) / k[0] * 100);
+    if (rets.length) {
+      rets.sort((a, b) => a - b);
+      curResult = {
+        count: rets.length,
+        avg: rets.reduce((a, b) => a + b, 0) / rets.length,
+        median: rets[Math.floor(rets.length / 2)],
+        winRate: rets.filter(r => r > 0).length / rets.length * 100,
+        best: rets[rets.length - 1],
+        worst: rets[0],
+        period: stocks[0]?.kline_close?.length || 30,
+      };
+    }
+  }
+
+  // history.json based real backtest
+  let historyHTML = '<p class="muted">历史快照累积中(每天 18:00 自动追加一天)。</p>';
+  if (state.history) {
+    const dates = Object.keys(state.history).sort();
+    historyHTML = `
+      <p>已累积 <b>${dates.length}</b> 天快照(${dates[0]} → ${dates[dates.length - 1]})</p>
+      <p class="muted">每天保留 top 30 只入选股代码。当快照 ≥ 30 天后,这里会展示真实回测曲线。</p>
+      <div class="history-strip">
+        ${dates.slice(-30).map(d => {
+          const total = state.history[d]?.total || 0;
+          return `<div class="hist-day" title="${d} · ${total} 只"><span class="hist-d">${d.slice(4, 6)}/${d.slice(6, 8)}</span><span class="hist-bar" style="height:${Math.min(40, total / 30)}px"></span></div>`;
+        }).join("")}
+      </div>`;
+  }
+
+  const sim = curResult ? `
+    <div class="backtest-card">
+      <h3>📈 假设组合 · 当前筛选的 ${curResult.count} 只股近 ${curResult.period} 日表现</h3>
+      <div class="backtest-stats">
+        <div class="stat"><label>平均收益</label><b class="${curResult.avg >= 0 ? 'up' : 'down'}">${curResult.avg >= 0 ? '+' : ''}${curResult.avg.toFixed(2)}%</b></div>
+        <div class="stat"><label>中位数</label><b class="${curResult.median >= 0 ? 'up' : 'down'}">${curResult.median >= 0 ? '+' : ''}${curResult.median.toFixed(2)}%</b></div>
+        <div class="stat"><label>胜率</label><b>${curResult.winRate.toFixed(0)}%</b></div>
+        <div class="stat"><label>最佳</label><b class="up">+${curResult.best.toFixed(1)}%</b></div>
+        <div class="stat"><label>最差</label><b class="down">${curResult.worst.toFixed(1)}%</b></div>
+      </div>
+      <p class="muted small">⚠️ 注:这是\"当前命中股\"的历史涨跌,带有幸存者偏差(没命中的没在样本里)。真实回测需要历史快照,见下方。</p>
+    </div>` : `<div class="empty">当前没有命中股票,无法模拟</div>`;
+
+  main.innerHTML = `
+    <div class="backtest-page">
+      <a class="back-link" href="#/">‹ 返回列表</a>
+      <h1 class="bt-title">📊 策略回测</h1>
+      <p class="muted">参考 QQQ Tier 3 思路:用历史数据验证策略价值。</p>
+
+      ${sim}
+
+      <div class="backtest-card">
+        <h3>🗓️ 真实回测(历史快照累积)</h3>
+        ${historyHTML}
+      </div>
+    </div>`;
+}
+
 // ============== Market dashboard ==============
 function renderMarketDashboard() {
   const mr = state.data?.market_regime;
@@ -1135,6 +1382,22 @@ function route() {
     return;
   }
 
+  const main = document.getElementById("main-content");
+
+  if (hash === "#/quiz") {
+    document.body.classList.add("detail-mode");
+    renderQuizMain(main);
+    window.scrollTo(0, 0);
+    return;
+  }
+
+  if (hash === "#/backtest") {
+    document.body.classList.add("detail-mode");
+    renderBacktestMain(main);
+    window.scrollTo(0, 0);
+    return;
+  }
+
   const m = hash.match(/^#\/stock\/(.+)$/);
   if (m) {
     document.body.classList.add("detail-mode");
@@ -1172,6 +1435,12 @@ async function init() {
   try {
     const pr = await fetch("data/stocks.prev.json", { cache: "no-store" });
     if (pr.ok) state.prev = await pr.json();
+  } catch (e) { /* ignore */ }
+
+  // history.json for backtest
+  try {
+    const hr = await fetch("data/history.json", { cache: "no-store" });
+    if (hr.ok) state.history = await hr.json();
   } catch (e) { /* ignore */ }
 
   state.byCode = new Map((state.data.stocks || []).map(s => [s.code, s]));
