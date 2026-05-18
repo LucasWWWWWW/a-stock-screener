@@ -27,6 +27,7 @@ sys.path.insert(0, str(ROOT / "screener"))
 
 from criteria import StockData, CRITERIA, CRITERIA_META, CONCEPT_KEYWORDS, evaluate_all, extract_tunable_values  # noqa
 from advice import make_client, generate_advice, generate_daily_script  # noqa
+from market import fetch_market_regime, batch_annual_closes, to_annual_returns_list  # noqa
 
 
 load_dotenv(ROOT / ".env")
@@ -314,6 +315,11 @@ def main():
         out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
         return
 
+    log.info("拉取大盘天气数据(沪深300 / SMA200 / PE 分位 / HV30)...")
+    market_regime = fetch_market_regime(pro, _safe_call)
+    if market_regime:
+        log.info(f"  大盘状态: {market_regime['regime']} | 仓位档位 {market_regime['tier_label']} ({market_regime['position_pct']}%) | PE 分位 {market_regime.get('csi300_pe_percentile_5y')}")
+
     industry_avg = industry_averages_full(spot, universe)
     concept_map = get_concept_map(pro)
 
@@ -335,6 +341,8 @@ def main():
 
     kline_map = batch_kline(pro, trading_dates)
     mf_map = batch_moneyflow(pro, trading_dates)
+    log.info("拉取近 10 年年度收盘(用于年度收益条形图)...")
+    annual_close_map = batch_annual_closes(pro, _safe_call, years=10)
 
     stocks: list[StockData] = []
     with ThreadPoolExecutor(max_workers=WORKERS) as ex:
@@ -369,6 +377,8 @@ def main():
                 round(float(x), 3) for x in s.kline_30d["收盘"].tail(30).tolist()
                 if pd.notna(x)
             ]
+        ts_code = f"{s.code}.SH" if s.code.startswith(("6", "9")) else f"{s.code}.SZ"
+        annual_returns = to_annual_returns_list(annual_close_map.get(ts_code, {}))
         output_stocks.append({
             "code": s.code,
             "name": s.name,
@@ -386,6 +396,7 @@ def main():
             "tunable_values": extract_tunable_values(s, result),
             "criteria": result["passed"],
             "kline_close": kline_close,
+            "annual_returns": annual_returns,
             "n_pass": n_pass,
             "advice": "",
         })
@@ -462,6 +473,7 @@ def main():
         "unavailable_endpoints": sorted(UNAVAILABLE),
         "criteria_meta": CRITERIA_META,
         "daily_script": daily_script,
+        "market_regime": market_regime,
         "industries": industries,
         "npass_distribution": npass_dist,
         "stocks": output_stocks,

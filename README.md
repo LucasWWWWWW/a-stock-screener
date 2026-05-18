@@ -69,6 +69,21 @@ python -m http.server 8000 -d web
 4. 在 Netlify 中 "Import from Git" 选这个仓库,publish 目录会从 `netlify.toml` 自动读到 `web/`
 5. 触发一次 Actions 手动运行,等 push 完成后 Netlify 自动重建
 
+## 邮件订阅(可选)
+
+每日 18:00 跑完后自动给 `subscribers.json` 里的邮箱发当日选股简报(HTML)。
+
+启用步骤:
+1. Gmail 用户:开启两步验证 → https://myaccount.google.com/apppasswords 生成 16 位 App Password
+2. 在 GitHub 仓库 Settings → Secrets and variables → Actions 添加:
+   - `SMTP_FROM` = 你的 Gmail 地址
+   - `SMTP_PASSWORD` = 上一步生成的 App Password(非登录密码)
+   - `SMTP_HOST` = `smtp.gmail.com`(默认值,可不填)
+   - `SMTP_PORT` = `587`(默认值,可不填)
+3. 编辑 `subscribers.json`,把要接收邮件的邮箱地址加进去
+
+任一 Secret 缺失则跳过发送,不影响其他流程。
+
 ## 自定义
 
 - **改条件阈值**: `screener/criteria.py` 里每个 `c*` 函数

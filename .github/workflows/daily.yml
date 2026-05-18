@@ -45,3 +45,11 @@ jobs:
             git commit -m "data: refresh stocks.json ($DATE)"
             git push
           fi
+
+      - name: Send daily digest email
+        env:
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+        run: python screener/send_digest.py

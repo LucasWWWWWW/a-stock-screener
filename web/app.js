@@ -23,6 +23,7 @@ const state = {
   currentList: [], // for detail page next/prev nav
   prev: null, // previous day snapshot
   theme: localStorage.getItem(LS_THEME) || "dark",
+  filterMode: localStorage.getItem("screener.filterMode.v3") || "standard",
 };
 
 const persist = () => {
@@ -31,6 +32,7 @@ const persist = () => {
   localStorage.setItem(LS_USAGE, JSON.stringify(state.usage));
   localStorage.setItem(LS_FAVORITES, JSON.stringify([...state.favorites]));
   localStorage.setItem(LS_PORTFOLIO, state.portfolio.join(","));
+  localStorage.setItem("screener.filterMode.v3", state.filterMode);
 };
 
 const OP_FN = {
@@ -200,6 +202,191 @@ function toggleBroadcast() {
   };
   tts.utter = u;
   window.speechSynthesis.speak(u);
+}
+
+// ============== Market dashboard ==============
+function renderMarketDashboard() {
+  const mr = state.data?.market_regime;
+  const dash = document.getElementById("market-dashboard");
+  const bear = document.getElementById("bear-banner");
+  if (!dash || !mr) return;
+
+  const REGIME_BADGES = {
+    bull: { icon: "🟢", label: "牛市", cls: "bull" },
+    bear: { icon: "🔴", label: "熊市", cls: "bear" },
+    transition: { icon: "🟡", label: "中性带", cls: "neutral" },
+    unknown: { icon: "⚪", label: "未知", cls: "neutral" },
+  };
+  const rb = REGIME_BADGES[mr.regime] || REGIME_BADGES.unknown;
+
+  let valHint = "";
+  if (mr.csi300_pe_percentile_5y != null) {
+    const p = mr.csi300_pe_percentile_5y;
+    const pct = p.toFixed(1);
+    let hint = "";
+    if (p < 20) hint = "🔥 估值在历史底部,适合建仓";
+    else if (p < 40) hint = "✅ 估值偏低,可分批进场";
+    else if (p < 60) hint = "估值正常";
+    else if (p < 80) hint = "⚠️ 估值偏高,谨慎追高";
+    else hint = "🚫 估值过热,建议观望";
+    valHint = `<div class="dash-cell"><label>PE 5 年分位</label><b>${pct}% · ${escapeHtml(mr.valuation_zone || "")}</b><span class="dash-hint">${hint}</span></div>`;
+  }
+
+  let hvCell = "";
+  if (mr.hv30 != null) {
+    hvCell = `<div class="dash-cell"><label>HV30 波动率</label><b>${mr.hv30.toFixed(1)}%</b></div>`;
+  }
+
+  let smaCell = "";
+  if (mr.csi300_sma_ratio != null) {
+    const r = mr.csi300_sma_ratio;
+    const diff = ((r - 1) * 100).toFixed(2);
+    const sign = diff >= 0 ? "+" : "";
+    smaCell = `<div class="dash-cell"><label>沪深300 / SMA200</label><b>${sign}${diff}%</b><span class="dash-hint">收盘 ${mr.csi300_close?.toFixed(1)} · SMA ${mr.csi300_sma200?.toFixed(1)}</span></div>`;
+  }
+
+  dash.innerHTML = `
+    <div class="dash-row">
+      <div class="dash-cell regime ${rb.cls}">
+        <label>大盘状态</label>
+        <b>${rb.icon} ${rb.label}</b>
+      </div>
+      ${smaCell}
+      ${hvCell}
+      ${valHint}
+      <div class="dash-cell suggest">
+        <label>建议仓位</label>
+        <b class="tier-pct">${mr.position_pct}%</b>
+        <span class="dash-hint">${escapeHtml(mr.tier_label)} · ${escapeHtml(mr.tier_desc)}</span>
+      </div>
+    </div>
+    <div class="dash-tier-tabs">
+      <span class="dash-tier-label">仓位档位:</span>
+      ${["aggressive", "standard", "defensive"].map(mode => {
+        const labels = { aggressive: "🚀 激进", standard: "🎯 标准", defensive: "🛡️ 防御" };
+        const sel = state.filterMode === mode;
+        return `<button class="dash-tier-btn${sel ? " sel" : ""}" data-tier="${mode}">${labels[mode]}</button>`;
+      }).join("")}
+      <button class="dash-tier-btn ghost" data-tier="auto" title="按当前波动率自动选档">自动 (${
+        mr.position_pct >= 75 ? "激进" :
+        mr.position_pct >= 50 ? "标准" : "防御"
+      })</button>
+    </div>
+  `;
+  dash.classList.remove("hidden");
+
+  // Bear banner
+  if (mr.regime === "bear" && bear) {
+    bear.innerHTML = `
+      <div class="bear-inner">
+        🚨 <b>熊市保护</b> · 沪深300 已跌破 200 日均线 ${Math.abs((mr.csi300_sma_ratio - 1) * 100).toFixed(2)}%
+        · 建议仓位 ≤ ${mr.position_pct}%
+        · 优先观察空仓或防御股
+      </div>`;
+    bear.classList.remove("hidden");
+  } else if (bear) {
+    bear.classList.add("hidden");
+  }
+
+  dash.querySelectorAll("[data-tier]").forEach((btn) => {
+    btn.addEventListener("click", (e) => applyFilterMode(e.currentTarget.dataset.tier));
+  });
+}
+
+// Filter-mode presets:覆盖阈值以模拟激进/标准/防御 三档
+const FILTER_PRESETS = {
+  aggressive: {
+    market_cap: 500, turnover_3d: 3, pb_lt_10: 10, roe_3y: 8,
+    debt_vs_industry: 10, pe_percentile: 70, dividend_yield: 1,
+    volume_expansion: 20,
+  },
+  standard: {}, // 用每个 meta 的 default(空对象 = 不覆盖)
+  defensive: {
+    market_cap: 300, turnover_3d: 3, pb_lt_10: 3, roe_3y: 15,
+    debt_vs_industry: 30, pe_percentile: 30, dividend_yield: 3,
+    volume_expansion: 20,
+  },
+};
+
+function applyFilterMode(mode) {
+  if (mode === "auto") {
+    const mr = state.data?.market_regime;
+    if (!mr) return;
+    if (mr.position_pct >= 75) mode = "aggressive";
+    else if (mr.position_pct >= 50) mode = "standard";
+    else mode = "defensive";
+  }
+  state.filterMode = mode;
+  if (mode === "standard") {
+    state.thresholds = {}; // clear overrides
+  } else {
+    const preset = FILTER_PRESETS[mode] || {};
+    state.thresholds = { ...preset };
+  }
+  // ensure all criteria enabled for the preset to take effect
+  state.disabled.clear();
+  persist();
+  renderMarketDashboard();
+  renderCriteria();
+  if (!window.location.hash.startsWith("#/stock/")) renderListMain();
+}
+
+// ============== Annual return bar chart (借鉴 QQQ 文章) ==============
+function annualBarChartSVG(annual) {
+  if (!annual || annual.length < 2) return '<div class="empty-chart">无年度收益数据</div>';
+  const rets = annual.filter(a => a.return_pct != null);
+  if (!rets.length) return '<div class="empty-chart">无年度收益数据</div>';
+  const w = 380, h = 180, padL = 50, padR = 10, padT = 16, padB = 28;
+  const maxAbs = Math.max(...rets.map(a => Math.abs(a.return_pct)), 30);
+  const yScale = (h - padT - padB) / 2 / maxAbs;
+  const midY = padT + (h - padT - padB) / 2;
+  const barW = Math.max(8, (w - padL - padR) / rets.length - 4);
+  const stepX = (w - padL - padR) / rets.length;
+  const bars = rets.map((a, i) => {
+    const x = padL + i * stepX + (stepX - barW) / 2;
+    const v = a.return_pct;
+    const barH = Math.abs(v) * yScale;
+    const y = v >= 0 ? midY - barH : midY;
+    const color = v >= 0 ? "var(--green)" : "var(--red)";
+    return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${barH.toFixed(1)}" fill="${color}"/>
+      <text x="${(x + barW/2).toFixed(1)}" y="${(v >= 0 ? y - 3 : y + barH + 10).toFixed(1)}" text-anchor="middle" font-size="9" fill="var(--muted)">${v.toFixed(0)}%</text>
+      <text x="${(x + barW/2).toFixed(1)}" y="${(h - padB + 14).toFixed(1)}" text-anchor="middle" font-size="9" fill="var(--muted)">${a.year}</text>`;
+  }).join("");
+  // baseline
+  const axis = `<line x1="${padL}" y1="${midY}" x2="${w - padR}" y2="${midY}" stroke="var(--border)" stroke-width="0.7"/>
+                <text x="${padL - 6}" y="${midY + 3}" text-anchor="end" font-size="9" fill="var(--muted)">0</text>
+                <text x="${padL - 6}" y="${padT + 10}" text-anchor="end" font-size="9" fill="var(--muted)">+${maxAbs.toFixed(0)}%</text>
+                <text x="${padL - 6}" y="${h - padB - 4}" text-anchor="end" font-size="9" fill="var(--muted)">-${maxAbs.toFixed(0)}%</text>`;
+  return `<svg class="annual-chart" viewBox="0 0 ${w} ${h}" width="100%" height="${h}">${axis}${bars}</svg>`;
+}
+
+function computeCAGRAndDrawdown(annual) {
+  if (!annual || annual.length < 2) return null;
+  // Use closes for CAGR & drawdown (more accurate than chained yearly returns)
+  const closes = annual.map(a => a.close).filter(c => c != null && c > 0);
+  if (closes.length < 2) return null;
+  const start = closes[0], end = closes[closes.length - 1];
+  const years = closes.length - 1;
+  const cagr = (Math.pow(end / start, 1 / years) - 1) * 100;
+  // Max drawdown: scan running peak
+  let peak = closes[0];
+  let maxDD = 0;
+  for (const c of closes) {
+    if (c > peak) peak = c;
+    const dd = (c - peak) / peak * 100;
+    if (dd < maxDD) maxDD = dd;
+  }
+  // Win rate from yearly return
+  const rets = annual.filter(a => a.return_pct != null);
+  const winRate = rets.length ? (rets.filter(r => r.return_pct > 0).length / rets.length * 100) : null;
+  return {
+    cagr: cagr,
+    maxDrawdown: maxDD,
+    years,
+    winRate,
+    bestYear: rets.length ? Math.max(...rets.map(r => r.return_pct)) : null,
+    worstYear: rets.length ? Math.min(...rets.map(r => r.return_pct)) : null,
+  };
 }
 
 // ============== Theme toggle ==============
@@ -809,6 +996,22 @@ function renderDetailMain(code) {
   const klineSparkBig = sparkline(s.kline_close, 320, 60);
   const rarityBadge = `<span class="rarity-badge ${rarity.level === '极罕见' ? 'very-rare' : rarity.level === '罕见' ? 'rare' : ''}" title="共 ${rarity.total} 只主题股,通过 ${rarity.n}/13 的有 ${rarity.same} 只(${rarity.pct}%)">🎯 ${rarity.level}信号 · 同档 ${rarity.same} 只</span>`;
 
+  // Annual returns chart + CAGR stats
+  const annual = s.annual_returns || [];
+  const stats = computeCAGRAndDrawdown(annual);
+  const annualBlock = annual.length >= 2 ? `
+    <div class="annual-card">
+      <h3>📈 历史年度收益(近 ${annual.length} 年)</h3>
+      ${stats ? `
+      <div class="annual-stats">
+        <div class="stat"><label>年化收益(CAGR)</label><b class="${stats.cagr >= 0 ? 'up' : 'down'}">${stats.cagr >= 0 ? '+' : ''}${stats.cagr.toFixed(1)}%</b></div>
+        <div class="stat"><label>最大回撤</label><b class="down">${stats.maxDrawdown.toFixed(1)}%</b></div>
+        <div class="stat"><label>胜率</label><b>${stats.winRate != null ? stats.winRate.toFixed(0) + '%' : '—'}</b></div>
+        <div class="stat"><label>最佳/最差年</label><b>${stats.bestYear != null ? '+' + stats.bestYear.toFixed(0) + '%' : '—'} / ${stats.worstYear != null ? stats.worstYear.toFixed(0) + '%' : '—'}</b></div>
+      </div>` : ""}
+      ${annualBarChartSVG(annual)}
+    </div>` : "";
+
   main.innerHTML = `
     <div class="detail-page" id="detail-root">
       ${navHTML}
@@ -848,6 +1051,7 @@ function renderDetailMain(code) {
         <div class="metric"><label>行业均值负债</label><b>${fmtNum(m.industry_debt_avg)}%</b></div>
       </div>
 
+      ${annualBlock}
       ${adviceHtml}
       ${debateHTML}
 
@@ -983,6 +1187,7 @@ async function init() {
     return;
   }
 
+  renderMarketDashboard();
   renderCriteria();
   route();
 
