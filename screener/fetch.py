@@ -170,42 +170,20 @@ def batch_kline(pro, trading_dates: list[str]) -> dict[str, pd.DataFrame]:
     return result
 
 
-def batch_northbound(pro, trading_dates: list[str]) -> dict[str, float]:
-    """近 5 日北向资金净流入(万元):用 hk_hold 持股 × 收盘价的差额估算。"""
-    if len(trading_dates) < 5:
-        return {}
-    date_today = trading_dates[-1]
-    date_5d_ago = trading_dates[-5]
-    log.info(f"按日期 batch 拉北向持股({date_5d_ago} → {date_today})...")
-
-    today_h = _safe_call("hk_hold_today", pro.hk_hold,
-                         trade_date=date_today, fields="ts_code,vol")
-    prev_h = _safe_call("hk_hold_5d", pro.hk_hold,
-                        trade_date=date_5d_ago, fields="ts_code,vol")
-    if today_h is None or prev_h is None or today_h.empty or prev_h.empty:
-        return {}
-
-    today_map = dict(zip(today_h["ts_code"].astype(str), today_h["vol"].fillna(0)))
-    prev_map = dict(zip(prev_h["ts_code"].astype(str), prev_h["vol"].fillna(0)))
-
-    # close map: take the latest daily price for valuation
-    close_df = _safe_call("daily_today_for_nb", pro.daily,
-                          trade_date=date_today, fields="ts_code,close")
-    if close_df is None or close_df.empty:
-        return {}
-    close_map = dict(zip(close_df["ts_code"].astype(str), close_df["close"]))
-
-    result: dict[str, float] = {}
-    for ts_code, today_vol in today_map.items():
-        prev_vol = prev_map.get(ts_code, 0)
-        delta_shares = today_vol - prev_vol
-        close = close_map.get(ts_code)
-        if close is None or pd.isna(close):
+def batch_hsgt_top10(pro, trading_dates: list[str]) -> dict[str, int]:
+    """近 5 日北向资金 top 10 次数。hsgt_top10 每日返回沪/深各 top 10(共 20 只)。"""
+    use_dates = trading_dates[-5:]
+    log.info(f"按日期 batch 拉北向 top10({len(use_dates)} 天)...")
+    counts: dict[str, int] = {}
+    for d in use_dates:
+        df = _safe_call("hsgt_top10_batch", pro.hsgt_top10,
+                        trade_date=d, fields="ts_code")
+        if df is None or df.empty:
             continue
-        # 净流入(万元)= delta_shares × close ÷ 1e4
-        result[ts_code] = round(delta_shares * close / 1e4, 1)
-    log.info(f"  北向净流入覆盖 {len(result)} 只")
-    return result
+        for ts_code in df["ts_code"].astype(str):
+            counts[ts_code] = counts.get(ts_code, 0) + 1
+    log.info(f"  北向 top 10 覆盖 {len(counts)} 只")
+    return counts
 
 
 def batch_top_list(pro, trading_dates: list[str]) -> dict[str, int]:
@@ -322,7 +300,7 @@ def build_stock(pro, row, industry_avg, concept_map, kline_map, mf_map, nb_map, 
     s.fund_flow_3d = mf_map.get(ts_code)
     s.pe_history_5y = get_pe_history(pro, ts_code)
     s.annual_reports = get_annual_reports(pro, ts_code)
-    s.northbound_5d_inflow = nb_map.get(ts_code)
+    s.nb_top10_5d_count = nb_map.get(ts_code, 0)
     s.top_list_30d_count = top_list_map.get(ts_code, 0)
 
     if s.annual_reports is not None and not s.annual_reports.empty:
@@ -397,7 +375,7 @@ def main():
 
     kline_map = batch_kline(pro, trading_dates)
     mf_map = batch_moneyflow(pro, trading_dates)
-    nb_map = batch_northbound(pro, trading_dates)
+    nb_map = batch_hsgt_top10(pro, trading_dates)
     top_list_map = batch_top_list(pro, trading_dates)
     log.info("拉取近 10 年年度收盘(用于年度收益条形图)...")
     annual_close_map = batch_annual_closes(pro, _safe_call, years=10)

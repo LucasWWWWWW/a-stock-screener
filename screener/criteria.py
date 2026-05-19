@@ -27,8 +27,8 @@ class StockData:
     industry_debt_avg: Optional[float] = None
     industry_pb_avg: Optional[float] = None
 
-    # 北向资金 5 日净流入(万元),正 = 流入
-    northbound_5d_inflow: Optional[float] = None
+    # 近 5 日进入北向 top 10 的次数(0-5)
+    nb_top10_5d_count: int = 0
     # 近 30 日上龙虎榜次数
     top_list_30d_count: int = 0
 
@@ -163,10 +163,8 @@ def c14_volume_expansion(s: StockData):
     return ratio > 1.5, float(ratio)
 
 
-def c15_northbound_inflow(s: StockData):
-    if s.northbound_5d_inflow is None:
-        return False, None
-    return s.northbound_5d_inflow > 0, float(s.northbound_5d_inflow)
+def c15_nb_top10_5d(s: StockData):
+    return s.nb_top10_5d_count > 0, s.nb_top10_5d_count
 
 
 def c16_top_list_1m(s: StockData):
@@ -187,7 +185,7 @@ CRITERIA = [
     ("ma_alignment", "5/10/20日多头排列", c12_ma_alignment),
     ("main_fund_inflow", "近3日主力连续净流入", c13_main_fund_inflow),
     ("volume_expansion", "近3日成交量较前3日放大50%+", c14_volume_expansion),
-    ("northbound_inflow", "近5日北向资金净流入", c15_northbound_inflow),
+    ("nb_top10_5d", "近5日进过北向top10", c15_nb_top10_5d),
     ("on_top_list_1m", "近1月上过龙虎榜", c16_top_list_1m),
 ]
 
@@ -327,16 +325,10 @@ CRITERIA_META = [
         "why": "成交量突然放大,往往预示着拐点或者新趋势的启动。\"量在价先\",资金动作早于价格突破。",
     },
     {
-        "key": "northbound_inflow",
-        "label": "近 5 日北向净流入",
-        "tunable": True,
-        "operator": ">=",
-        "unit": "万元",
-        "scale": 1,
-        "value_key": "northbound_5d_inflow",
-        "default": 0,
-        "presets": [0, 100, 500, 1000, 5000],
-        "why": "北向资金 = 境外资金通过沪深港通买入。连续净流入说明国际\"聪明钱\"在加仓,通常领先内地资金 1-2 周。",
+        "key": "nb_top10_5d",
+        "label": "近 5 日进过北向资金 top 10",
+        "tunable": False,
+        "why": "北向资金 top 10 = 当日通过沪深港通成交额最大的 10 只 A 股。连续上榜的股票通常受国际\"聪明钱\"重点关注,可视为热度信号。",
     },
     {
         "key": "on_top_list_1m",
@@ -378,6 +370,6 @@ def extract_tunable_values(s: StockData, eval_result: dict) -> dict:
         "pe_percentile": vals.get("pe_percentile"),
         "dv_ttm": s.dv_ttm,
         "volume_expansion_pct": vol_pct,
-        "northbound_5d_inflow": s.northbound_5d_inflow,
+        "nb_top10_5d_count": s.nb_top10_5d_count,
         "top_list_30d_count": s.top_list_30d_count,
     }
